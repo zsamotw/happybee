@@ -1,0 +1,216 @@
+{
+  "data": {
+    "locales": "pl-PL",
+    "categories": {
+      "meeting": "Spotkanie",
+      "saw": "Podpatrzone",
+      "read": "Przeczytane"
+    }
+  },
+  "landingPage": {
+    "appTitle": "HappyBee",
+    "tab": {
+      "signIn": "Zaloguj sie",
+      "signUp": "Załóż konto"
+    }
+  },
+  "signInPage": {
+    "inputs": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Wpisz swój email...",
+        "error": {
+          "required": "Email jest wymagany",
+          "invalidPattern": "Email nie jest poprawny"
+        }
+      },
+      "password": {
+        "label": "Hasło",
+        "placeholder": "Wpisz swoje hasło...",
+        "error": {
+          "required": "Hasło jest wymagane",
+          "invalid": "Hasło musi składać się z minimum 6 znaków"
+        }
+      }
+    },
+    "formError": "Zalogowanie nie powiodło się. Proszę sprawdzić poprawność loginu i hasła.",
+    "button": "Zaloguj się",
+    "messageOnLogInError": "Problem z logowaniem"
+  },
+  "signUpPage": {
+    "inputs": {
+      "displayName": {
+        "label": "Imię",
+        "placeholder": "Wpisz swóje imię...",
+        "error": {
+          "required": "Imię jest wymagane"
+        }
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Wpisz swój email...",
+        "error": {
+          "required": "Email jest wymagany",
+          "invalidPattern": "Email nie jest poprawny"
+        }
+      },
+      "passwordOne": {
+        "label": "Hasło",
+        "placeholder": "Wpisz swóje hasło...",
+        "error": {
+          "required": "Hasło jest wymagane",
+          "invalid": "Hasło musi składać się z minimum 6 znaków"
+        }
+      },
+      "passwordTwo": {
+        "label": "Powtórz hasło",
+        "placeholder": "Wpisz ponownie swoje hasło...",
+        "error": {
+          "required": "Hasło jest wymagane",
+          "invalid": "Hasło musi składać się z minimum 6 znaków",
+          "incorrect": "Niepoprawne hasło"
+        }
+      }
+    },
+    "formError": "Utworzenie konta nie udało się",
+    "button": "Załóż konto",
+    "messageOnSignUpError": "Nie udało się założyć konta"
+  },
+  "signOut": {
+    "title": "Wyloguj"
+  },
+  "accountDetailsChange": {
+    "inputs": {
+      "displayName": {
+        "label": "Imię",
+        "placeholder": "Wpisz swoje imię...",
+        "error": {
+          "required": "Imię jest wymagane"
+        }
+      }
+    },
+    "title": "Twój profil",
+    "button": "Zapisz",
+    "messageOnDetailsChangeError": "Nie udało się zmienić detali profilu",
+    "messageOnDetailsChangeSuccess": "Detale profilu zostały zmienione",
+    "formError": "Zmiana detali twojego profilu nie udała się"
+  },
+  "passwordChange": {
+    "inputs": {
+      "error": {
+        "required": "Hasło jest wymagane",
+        "invalid": "Hasło musi składać się z minimum 6 znaków",
+        "incorrect": "Niepoprawne hasło"
+      },
+      "passwordOld": {
+        "label": "Aktualne hasło",
+        "placeholder": "Wpisz swoje aktualne hasło..."
+      },
+      "passwordOne": {
+        "label": "Nowe hasło",
+        "placeholder": "Wpisz swóje nowe hasło..."
+      },
+      "passwordTwo": {
+        "label": "Powtórz hasło",
+        "placeholder": "Potwierdź swóje nowe hasło..."
+      }
+    },
+    "title": "Zmiana hasła",
+    "button": "Zapisz",
+    "messageOnPasswordChangeSuccess": "Hasło zostało zmienione",
+    "messageOnPasswordChangeError": "Hasło nie zostało zmienione",
+    "formError": "Zmiania hasła nie udała się"
+  },
+  "deleteUser": {
+    "inputs": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Wpisz swój email...",
+        "error": {
+          "required": "Email jest wymagany",
+          "invalid": "Niepoprawny email"
+        }
+      }
+    },
+    "title": "Usuń konto",
+    "button": "Usuń",
+    "messageOnUserDeleteSuccess": "Konto użytkownika zostało skasowane",
+    "messageOnUserDeleteError": "Nie udało się skasować konta użytkownika",
+    "formError": "Nie udało się skasować twojego konta. Sprawdź swoje uprawnienia",
+    "submissionError": "Potwierdź decyzję poprawnym emailem"
+  },
+  "createNote": {
+    "title": "Stworz notkę",
+    "description": "Co chcesz opisać ",
+    "inputs": {
+      "name": {
+        "label": "Tytuł",
+        "placeholder": "Wpisz tytuł",
+        "error": {
+          "required": "Tytuł jest wymagana"
+        }
+      },
+      "description": {
+        "label": "Opis",
+        "placeholder": "Podaj  opis",
+        "error": {
+          "required": "Opis jest wymagany"
+        }
+      },
+      "category": {
+        "label": "Kategoria",
+        "error": {
+          "required": "Kategoria jest wymagana"
+        }
+      },
+      "fileUpload": {
+        "error": {
+          "required": "Zdjęcie jest wymagane"
+        }
+      }
+    },
+    "button": "Podziel się",
+    "messageOnCreateNoteSuccess": "Notka została dodana",
+    "messageOnCreateNoteError": "Nie udało się dodać notki",
+    "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem",
+    "formError": "Nie udało się dodać notki"
+  },
+  "menuAppBar": {
+    "appTitle": "HappyBee",
+    "menu": {
+      "createNewNote": "Dodaj notkę",
+      "profile": "Profil",
+      "logout": "Wyloguj"
+    },
+    "messageOnLogOutError": "Nie można się wylogować"
+  },
+  "note": {
+    "dialogs": {
+      "delete": {
+        "title": "Usuń notkę",
+        "description": "Czy na pewno chcesz usunąć notkę?",
+        "cancelButton": "Nie",
+        "deleteButton": "Usuń"
+      },
+      "take": {
+        "title": "Czy chcesz dodać tę notkę?",
+        "cancelButton": "Nie, dziekuję",
+        "takeButton": "Tak. Poproszę",
+        "from": "Autor"
+      }
+    },
+    "messageOnDeleteSuccess": "Notka została usunięta",
+    "messageOnDeleteError": "Nie udało się skasować notki",
+    "messageOnFileDeleteError": "Nie można skasować pliku ze zdjęciem",
+    "messageOnUserNoteAccessError": "Nie masz uprawnień do skasowania tej notki",
+    "messageOnPickSuccess": "Udało się",
+    "messageOnPickError": "Nie udało się dodać tej notki do Twoich zapisow",
+    "messageOnUserPickAccessError": "Nie masz uprawnień do zapisu tej notki"
+  },
+  "searchBar": {
+    "input": {
+      "label": "Czego szukasz?",
+      "placeholder": "Wpisz czego szukasz..."
+    }
+  }
+}
