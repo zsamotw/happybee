@@ -8,10 +8,12 @@ const makeInitialState = Record({
     isFetchingSignOutData: false,
     isFetchingUpdateUserAccountData: false,
     isFetchingChangePasswordData: false,
+    isFetchingNote: false,
     isProcessingNote: false
   },
   searchBarConfig: { isVisible: false, collectionName: '' },
   appMessage: { content: '', type: null },
+  selectedNote: null,
   notes: List([]),
   noteFilters: { query: '' }
 })

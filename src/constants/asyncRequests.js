@@ -4,6 +4,7 @@ const isAsyncRequest = {
   isFetchingSignOutData: 'isFetchingSignOutData',
   isFetchingUpdateUserAccountData: 'isFetchingUpdateUserAccountData',
   isFetchingChangePasswordData: 'isFetchingChangePasswordData',
+  isFetchingNote: 'isFetchingNote',
   isProcessingNote: 'isProcessingNote'
 }
 

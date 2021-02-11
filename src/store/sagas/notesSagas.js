@@ -1,8 +1,13 @@
 import { call, fork, put, takeLatest, take } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
-import { SET_APP_MESSAGE, SYNC_NOTES_CREATION } from '../actions/sync-actions'
+import {
+  SET_APP_MESSAGE,
+  SET_SELECTED_NOTE,
+  SYNC_NOTES_CREATION
+} from '../actions/sync-actions'
 import {
   CREATE_NOTE_REQUEST,
+  GET_NOTE_REQUEST,
   GET_NOTES_REQUEST,
   PICK_NOTE_REQUEST,
   DELETE_NOTE_REQUEST
@@ -101,6 +106,13 @@ function* deleteFirebaseNote(action) {
   }
 }
 
+function* getFirebaseNote(action) {
+  const { id } = action.payload
+  const snapshot = yield call(Firebase.getDocument, `notes/${id}`)
+  const note = snapshot.data()
+  yield put(SET_SELECTED_NOTE({ ...note }))
+}
+
 function* pickNote(action) {
   const {
     note: { id, author: noteAuthor, pickers },
@@ -134,6 +146,14 @@ function* createNoteRequest(action) {
     action,
     createFirebaseNote,
     isAsyncRequest.isProcessingNote
+  )
+}
+
+function* getFirebaseNoteRequest(action) {
+  yield requestWithFetchingData(
+    action,
+    getFirebaseNote,
+    isAsyncRequest.isFetchingNote
   )
 }
 
@@ -176,6 +196,7 @@ function* pickNoteRequest(action) {
 export default function* notesSaga() {
   yield takeLatest(CREATE_NOTE_REQUEST.type, createNoteRequest)
   yield takeLatest(DELETE_NOTE_REQUEST.type, deleteNoteRequest)
+  yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
   yield takeLatest(GET_NOTES_REQUEST.type, getFirebaseSyncNotes)
   yield takeLatest(PICK_NOTE_REQUEST.type, pickNoteRequest)
 }

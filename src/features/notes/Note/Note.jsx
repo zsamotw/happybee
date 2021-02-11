@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { connect } from 'react-redux'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import Dialogs from './Dialogs'
 import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
 import {
@@ -105,7 +106,8 @@ const useStyles = makeStyles(theme => ({
   footer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    padding: '0 1rem'
   },
   pickers: {
     display: 'flex',
@@ -118,12 +120,18 @@ function Note(prop) {
   const classes = useStyles(theme)
 
   const { t } = useTranslation('common')
+  const history = useHistory()
+  const { path } = useRouteMatch()
 
   const { note, deleteNote, pickNote, currentUser } = prop
   const { id, name, description, category, author, pickers, createdAt } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false)
+
+  const handleNavigateNoteDetails = () => {
+    history.push(`${path}/${id}`)
+  }
 
   const handleDeleteNote = () => {
     const messageOnSuccess = t('note.messageOnDeleteSuccess')
@@ -213,7 +221,15 @@ function Note(prop) {
 
   return (
     hasData() && (
-      <Grid className={classes.gridItem} item xs={12} sm={6} lg={4} xl={3}>
+      <Grid
+        className={classes.gridItem}
+        item
+        xs={12}
+        sm={6}
+        lg={4}
+        xl={3}
+        onClick={handleNavigateNoteDetails}
+      >
         <Dialogs
           openDeleteDialog={openDeleteDialog}
           handleCloseDeleteDialog={handleCloseDeleteDialog}

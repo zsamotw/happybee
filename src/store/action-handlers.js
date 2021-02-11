@@ -17,6 +17,11 @@ export const handleSetIsFetchingData = (state, data) => {
   return nextState
 }
 
+export const handleSetSelectedNote = (state, note) => {
+  const nextState = state.set('selectedNote', note)
+  return nextState
+}
+
 export const handleSetNotes = (state, notes) => {
   const nextNotes = List(notes)
     .sortBy(note => new Date(note.createdAt))

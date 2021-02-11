@@ -207,6 +207,9 @@
     "messageOnPickError": "Nie udało się dodać tej notki do Twoich zapisow",
     "messageOnUserPickAccessError": "Nie masz uprawnień do zapisu tej notki"
   },
+  "noteDetails": {
+    "messageOnError": "Nie udało się załadować notatki"
+  },
   "searchBar": {
     "input": {
       "label": "Czego szukasz?",

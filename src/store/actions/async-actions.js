@@ -36,6 +36,11 @@ export const CREATE_NOTE_REQUEST = createAction(
   })
 )
 
+export const GET_NOTE_REQUEST = createAction(
+  'GET SELECTED NOTE REQUEST',
+  noteData => ({ payload: { ...noteData } })
+)
+
 export const DELETE_NOTE_REQUEST = createAction(
   'DELETE NOTE REQUEST',
   deleteNoteData => ({ payload: { ...deleteNoteData } })

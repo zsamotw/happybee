@@ -3,6 +3,7 @@ import {
   handleSetAuthUser,
   handleSetAppMessage,
   handleSetIsFetchingData,
+  handleSetSelectedNote,
   handleSetNotes,
   handleSetNotesQueryFilter,
   handleSetSearchBarConfig
@@ -12,6 +13,7 @@ import {
   SET_AUTH_USER,
   SET_APP_MESSAGE,
   SET_IS_FETCHING_DATA,
+  SET_SELECTED_NOTE,
   SET_NOTES,
   SYNC_NOTES,
   SET_NOTE_QUERY_FILTER,
@@ -29,6 +31,9 @@ const appReducers = createReducer(initialState, {
   },
   [SET_IS_FETCHING_DATA.type]: (state, action) => {
     return handleSetIsFetchingData(state, action.payload)
+  },
+  [SET_SELECTED_NOTE.type]: (state, action) => {
+    return handleSetSelectedNote(state, action.payload)
   },
   [SET_NOTES.type]: (state, action) => {
     return handleSetNotes(state, action.payload)

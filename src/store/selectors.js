@@ -33,6 +33,11 @@ export const getIsAsyncRequest = state => {
   return isAsyncRequest
 }
 
+export const getSelectedNote = state => {
+  const notes = state.get('selectedNote')
+  return notes
+}
+
 export const getNotes = state => {
   const notes = state.get('notes')
   return getFilteredNotes(notes, state, 'notes')
