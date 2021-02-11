@@ -122,13 +122,13 @@ function* pickNote(action) {
   const picker = Firebase.transformDbUserToSafeUser(currentUser)
   const pickAt = new Date().toString()
   const pickerWithTimeStamp = { ...picker, pickAt }
-  const newPickers = [...pickers, pickerWithTimeStamp]
+  const updatedPickers = [...pickers, pickerWithTimeStamp]
 
   if (picker.uid !== noteAuthor.uid) {
     yield call(
       Firebase.setDocument,
       `notes/${id}`,
-      { pickers: newPickers },
+      { pickers: updatedPickers },
       { merge: true }
     )
   } else {

@@ -5,11 +5,10 @@ import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { connect } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
-import Dialogs from './Dialogs'
+import Dialogs from '../Dialogs'
 import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
 import {
   DELETE_NOTE_REQUEST,
@@ -39,10 +38,8 @@ const useStyles = makeStyles(theme => ({
       }
     }
   },
-  icon: {
-    position: 'absolute',
-    top: 10,
-    right: 10
+  header: {
+    position: 'relative'
   },
   headLine: {
     fontWeight: '600',
@@ -67,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     margin: '1rem 0',
     overflow: 'hidden',
     border: `5px solid ${theme.palette.secondary.main}`,
-    borderRadius: '15px'
+    borderRadius: '15px',
+    cursor: 'pointer'
   },
   image: {
     height: '100%'
@@ -85,6 +83,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   deleteIcon: {
+    position: 'absolute',
+    right: '0',
+    top: '-10px',
     '& svg': {
       color: theme.palette.error.main
     },
@@ -148,16 +149,27 @@ function Note(prop) {
     setOpenDeleteDialog(false)
   }
 
+  const canPick = () => {
+    return (
+      pickers &&
+      (pickers.every(p => p.uid !== currentUser.uid) || pickers.length === 0)
+    )
+  }
+
   const handlePickNote = () => {
-    const messageOnSuccess = t('note.messageOnPickSuccess')
-    const messageOnError = t('note.messageOnPickError')
-    const messageOnUserPickAccessError = t('note.messageOnUserPickAccessError')
-    pickNote({
-      note,
-      messageOnSuccess,
-      messageOnError,
-      messageOnUserPickAccessError
-    })
+    if (canPick()) {
+      const messageOnSuccess = t('note.messageOnPickSuccess')
+      const messageOnError = t('note.messageOnPickError')
+      const messageOnUserPickAccessError = t(
+        'note.messageOnUserPickAccessError'
+      )
+      pickNote({
+        note,
+        messageOnSuccess,
+        messageOnError,
+        messageOnUserPickAccessError
+      })
+    }
     setOpenConfirmDialog(false)
   }
 
@@ -170,15 +182,13 @@ function Note(prop) {
   }
 
   const handleClickOpenConfirmDialog = () => {
-    setOpenConfirmDialog(true)
+    if (canPick()) {
+      setOpenConfirmDialog(true)
+    }
   }
 
   const handleCloseConfirmDialog = () => {
     setOpenConfirmDialog(false)
-  }
-
-  const hasCurrentUserPicked = () => {
-    return pickers && pickers.some(p => p.uid === currentUser.uid)
   }
 
   const hasData = () =>
@@ -201,18 +211,7 @@ function Note(prop) {
           onClick={handleClickOpenDeleteDialog}
           data-testid="deleteIcon"
         >
-          <DeleteIcon fontSize="large" />
-        </IconButton>
-      )
-    }
-    if (!hasCurrentUserPicked()) {
-      return (
-        <IconButton
-          className={classes.pickIcon}
-          onClick={handleClickOpenConfirmDialog}
-          data-testid="confirmIcon"
-        >
-          <AddCircleIcon color="secondary" fontSize="large" />
+          <DeleteIcon />
         </IconButton>
       )
     }
@@ -221,15 +220,7 @@ function Note(prop) {
 
   return (
     hasData() && (
-      <Grid
-        className={classes.gridItem}
-        item
-        xs={12}
-        sm={6}
-        lg={4}
-        xl={3}
-        onClick={handleNavigateNoteDetails}
-      >
+      <Grid className={classes.gridItem} item xs={12} sm={6} lg={4} xl={3}>
         <Dialogs
           openDeleteDialog={openDeleteDialog}
           handleCloseDeleteDialog={handleCloseDeleteDialog}
@@ -239,12 +230,20 @@ function Note(prop) {
           handlePickNote={handlePickNote}
           note={note}
         />
-        <h3 className={classes.headLine}>{name || ''}</h3>
+        <div className={classes.header}>
+          <h3 className={classes.headLine}>{name}</h3>
+          {getIcon(note, currentUser)}
+        </div>
         <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
-        <div className={classes.imageWrapper}>
+        <div
+          className={classes.imageWrapper}
+          onClick={handleNavigateNoteDetails}
+          onKeyDown={handleNavigateNoteDetails}
+          role="button"
+          tabIndex="0"
+        >
           <img src={note.imgURL} alt="i" className={classes.image} />
-          <div className={classes.icon}>{getIcon(note, currentUser)}</div>
-          <div className={classes.description}>{description || ''}</div>
+          <div className={classes.description}>{description}</div>
         </div>
         <div className={classes.footer}>
           <div className={classes.author}>
@@ -253,12 +252,14 @@ function Note(prop) {
             </Avatar>
             <span>{author.displayName}</span>
           </div>
-          {pickers.length ? (
-            <div className={classes.pickers}>
-              <div style={{ marginRight: '10px' }}>{pickers.length}</div>
-              <AddCircleOutlineIcon color="secondary" />
-            </div>
-          ) : null}
+          <div className={classes.pickers}>
+            <div style={{ marginRight: '10px' }}>{pickers.length}</div>
+            <AddCircleOutlineIcon
+              color="secondary"
+              style={{ cursor: 'pointer' }}
+              onClick={handleClickOpenConfirmDialog}
+            />
+          </div>
         </div>
       </Grid>
     )

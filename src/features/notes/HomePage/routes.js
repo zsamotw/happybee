@@ -2,8 +2,8 @@ import AccountProfile from '../../account/AccountProfile'
 import * as ROUTES from '../../../constants/routes'
 import MainPage from '../MainPage'
 import CreateNote from '../CreateNote'
-import NotesContainer from '../NotesContainer'
 import NoteDetails from '../NoteDetails'
+import NotesList from '../NotesList'
 
 const routes = path => [
   {
@@ -24,7 +24,7 @@ const routes = path => [
   {
     path: `${path}${ROUTES.NOTES}`,
     exact: true,
-    component: NotesContainer
+    component: NotesList
   },
   {
     path: `${path}${ROUTES.NOTES}/:id`,
