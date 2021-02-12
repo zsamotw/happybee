@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     padding: '1rem 1rem 1rem 0',
     '&:hover': {
       '& $imageWrapper': {
-        backgroundImage: 'linear-gradient(to left, #6fa8758a, #6fa8758a )'
+        backgroundImage: 'linear-gradient(to left, #57a0b396, #57a0b396 )'
       },
       '& img': {
         zIndex: '-1'
