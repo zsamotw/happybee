@@ -120,7 +120,8 @@ function* getFirebaseNote(action) {
 function* pickNote(action) {
   const {
     note: { id, pickers },
-    messageOnUserPickAccessError
+    messageOnUserPickAccessError,
+    shouldGetNote
   } = action.payload
   const currentUser = yield call(Firebase.getCurrentUser)
   const picker = Firebase.transformDbUserToSafeUser(currentUser)
@@ -135,7 +136,9 @@ function* pickNote(action) {
       { pickers: updatedPickers },
       { merge: true }
     )
-    yield put(GET_NOTE_REQUEST({ id }))
+    if (shouldGetNote) {
+      yield put(GET_NOTE_REQUEST({ id }))
+    }
   } else {
     yield put(
       SET_APP_MESSAGE({

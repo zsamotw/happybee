@@ -133,13 +133,16 @@ function NoteDetails(props) {
 
   const handlePickNote = () => {
     if (canPick()) {
+      const shouldGetNote = true
       const messageOnSuccess = t('note.messageOnPickSuccess')
       const messageOnError = t('note.messageOnPickError')
       const messageOnUserPickAccessError = t(
         'note.messageOnUserPickAccessError'
       )
+
       pickNote({
         note,
+        shouldGetNote,
         messageOnSuccess,
         messageOnError,
         messageOnUserPickAccessError
@@ -189,12 +192,12 @@ function NoteDetails(props) {
       {note ? (
         <>
           <Dialogs
-            openDeleteDialog={openDeleteDialog}
-            handleCloseDeleteDialog={handleCloseDeleteDialog}
-            openConfirmDialog={openConfirmDialog}
-            handleCloseConfirmDialog={handleCloseConfirmDialog}
-            handleDeleteNote={handleDeleteNote}
-            handlePickNote={handlePickNote}
+            isDeleteDialogOpened={openDeleteDialog}
+            closeDeleteDialog={handleCloseDeleteDialog}
+            isConfirmDialogOpened={openConfirmDialog}
+            closeConfirmDialog={handleCloseConfirmDialog}
+            deleteNote={handleDeleteNote}
+            pickNote={handlePickNote}
             note={note}
           />
           <div className={classes.container}>

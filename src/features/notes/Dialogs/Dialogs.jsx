@@ -42,19 +42,19 @@ export default function Dialogs(props) {
   const { t } = useTranslation('common')
 
   const {
-    openDeleteDialog,
-    handleCloseDeleteDialog,
-    openConfirmDialog,
-    handleCloseConfirmDialog,
-    handleDeleteNote,
-    handlePickNote,
+    isDeleteDialogOpened,
+    closeDeleteDialog,
+    isConfirmDialogOpened,
+    closeConfirmDialog,
+    deleteNote,
+    pickNote,
     note
   } = props
   const { title, description, author, imgURL } = note
 
   return (
     <>
-      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+      <Dialog open={isDeleteDialogOpened} onClose={closeDeleteDialog}>
         <DialogTitle>{t('note.dialogs.delete.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -62,11 +62,11 @@ export default function Dialogs(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDeleteDialog} color="primary">
+          <Button onClick={closeDeleteDialog} color="primary">
             {t('note.dialogs.delete.cancelButton')}
           </Button>
           <Button
-            onClick={handleDeleteNote}
+            onClick={deleteNote}
             color="secondary"
             autoFocus
             data-testid="buttonToDelete"
@@ -77,8 +77,8 @@ export default function Dialogs(props) {
       </Dialog>
       <Dialog
         fullScreen
-        open={openConfirmDialog}
-        onClose={handleCloseConfirmDialog}
+        open={isConfirmDialogOpened}
+        onClose={closeConfirmDialog}
         TransitionComponent={Transition}
       >
         <AppBar className={classes.dialogBar}>
@@ -94,13 +94,13 @@ export default function Dialogs(props) {
           <Button
             variant="outlined"
             size="large"
-            onClick={handlePickNote}
+            onClick={pickNote}
             data-testid="buttonToConfirm"
             autoFocus
           >
             {t('note.dialogs.take.takeButton')}
           </Button>
-          <Button onClick={handleCloseConfirmDialog} color="primary">
+          <Button onClick={closeConfirmDialog} color="primary">
             {t('note.dialogs.take.cancelButton')}
           </Button>
         </DialogActions>

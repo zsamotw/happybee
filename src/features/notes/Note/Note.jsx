@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     padding: '1rem 1rem 1rem 0',
     '&:hover': {
       '& $imageWrapper': {
-        border: `5px solid ${theme.palette.primary.main}`,
         backgroundImage: 'linear-gradient(to left, #6fa8758a, #6fa8758a )'
       },
       '& img': {
@@ -63,7 +62,6 @@ const useStyles = makeStyles(theme => ({
     boxSizing: 'border-box',
     margin: '1rem 0',
     overflow: 'hidden',
-    border: `5px solid ${theme.palette.secondary.main}`,
     borderRadius: '15px',
     cursor: 'pointer'
   },
@@ -222,12 +220,12 @@ function Note(prop) {
     hasData() && (
       <Grid className={classes.gridItem} item xs={12} sm={6} lg={4} xl={3}>
         <Dialogs
-          openDeleteDialog={openDeleteDialog}
-          handleCloseDeleteDialog={handleCloseDeleteDialog}
-          openConfirmDialog={openConfirmDialog}
-          handleCloseConfirmDialog={handleCloseConfirmDialog}
-          handleDeleteNote={handleDeleteNote}
-          handlePickNote={handlePickNote}
+          isDeleteDialogOpened={openDeleteDialog}
+          closeDeleteDialog={handleCloseDeleteDialog}
+          isConfirmDialogOpened={openConfirmDialog}
+          closeConfirmDialog={handleCloseConfirmDialog}
+          deleteNote={handleDeleteNote}
+          pickNote={handlePickNote}
           note={note}
         />
         <div className={classes.header}>
