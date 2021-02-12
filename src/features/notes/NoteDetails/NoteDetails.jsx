@@ -222,12 +222,14 @@ function NoteDetails(props) {
             </div>
             <div style={{ width: '50%', paddingLeft: '2rem' }}>
               <div className={classes.title}>
-                <h1>{title}</h1>
+                <h1 style={{ margin: 0 }}>{title}</h1>
                 {NoteDeleteIcon()}
               </div>
-              <h2>{category.label}</h2>
-              <p style={{ marginTop: '2rem' }}>{description}</p>
-              <p>{formattedDateTime(createdAt)}</p>
+              <h2 style={{ marginTop: 0 }}>{category.label}</h2>
+              <p>{description}</p>
+              <div style={{ fontSize: '.7em' }}>
+                {formattedDateTime(createdAt)}
+              </div>
             </div>
           </div>
         </>
