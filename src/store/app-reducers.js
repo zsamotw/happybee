@@ -4,6 +4,7 @@ import {
   handleSetAppMessage,
   handleSetIsFetchingData,
   handleSetSelectedNote,
+  handleUnsetSelectedNote,
   handleSetNotes,
   handleSetNotesQueryFilter,
   handleSetSearchBarConfig
@@ -14,6 +15,7 @@ import {
   SET_APP_MESSAGE,
   SET_IS_FETCHING_DATA,
   SET_SELECTED_NOTE,
+  UNSET_SELECTED_NOTE,
   SET_NOTES,
   SYNC_NOTES,
   SET_NOTE_QUERY_FILTER,
@@ -34,6 +36,9 @@ const appReducers = createReducer(initialState, {
   },
   [SET_SELECTED_NOTE.type]: (state, action) => {
     return handleSetSelectedNote(state, action.payload)
+  },
+  [UNSET_SELECTED_NOTE.type]: state => {
+    return handleUnsetSelectedNote(state)
   },
   [SET_NOTES.type]: (state, action) => {
     return handleSetNotes(state, action.payload)

@@ -47,7 +47,12 @@ const CreateNoteForm = props => {
   const [file, setFile] = useState({})
 
   const { register, handleSubmit, errors, control } = useForm({
-    defaultValues: { name: '', description: '', category: '', FileUpload: null }
+    defaultValues: {
+      title: '',
+      description: '',
+      category: '',
+      FileUpload: null
+    }
   })
 
   const history = useHistory()
@@ -60,18 +65,18 @@ const CreateNoteForm = props => {
     setIsLoading(isProcessingNote)
   }, [isProcessingNote])
 
-  const nameInputProps = {
-    id: 'noteName-input',
-    label: t('createNote.inputs.name.label'),
+  const titleInputProps = {
+    id: 'titleName-input',
+    label: t('createNote.inputs.title.label'),
     variant: 'outlined',
-    name: 'name',
+    name: 'title',
     type: 'text',
     fullWidth: true,
-    placeholder: t('createNote.inputs.name.placeholder'),
+    placeholder: t('createNote.inputs.title.placeholder'),
     register: register({
-      required: t('createNote.inputs.name.error.required')
+      required: t('createNote.inputs.title.error.required')
     }),
-    error: errors.name
+    error: errors.title
   }
 
   const descriptionInputProps = {
@@ -93,14 +98,14 @@ const CreateNoteForm = props => {
     setFile(files[0])
   }
 
-  const onSubmit = ({ name, description, categoryId }) => {
+  const onSubmit = ({ title, description, categoryId }) => {
     const category = categories.find(c => c.id === categoryId)
     const messageOnSuccess = t('createNote.messageOnCreateNoteSuccess')
     const messageOnError = t('createNote.messageOnCreateNoteError')
     const messageOnFileUploadError = t('createNote.messageOnFileUploadError')
     const pickers = []
     createNote({
-      name,
+      title,
       description,
       category,
       pickers,
@@ -119,7 +124,7 @@ const CreateNoteForm = props => {
         <h3>{t('createNote.title')}</h3>
         <h5>{t('createNote.description')}</h5>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {AppInput(nameInputProps)}
+          {AppInput(titleInputProps)}
           {AppInput(descriptionInputProps)}
           <div style={{ width: '33%', marginBottom: '2rem' }}>
             <AppSelect

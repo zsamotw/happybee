@@ -22,6 +22,11 @@ export const handleSetSelectedNote = (state, note) => {
   return nextState
 }
 
+export const handleUnsetSelectedNote = state => {
+  const nextState = state.set('selectedNote', null)
+  return nextState
+}
+
 export const handleSetNotes = (state, notes) => {
   const nextNotes = List(notes)
     .sortBy(note => new Date(note.createdAt))

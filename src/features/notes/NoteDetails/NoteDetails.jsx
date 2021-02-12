@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import Backdrop from '@material-ui/core/Backdrop'
@@ -7,17 +7,21 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 import Dialogs from '../Dialogs'
 import {
   GET_NOTE_REQUEST,
   DELETE_NOTE_REQUEST,
   PICK_NOTE_REQUEST
 } from '../../../store/actions/async-actions'
+import { UNSET_SELECTED_NOTE } from '../../../store/actions/sync-actions'
 import {
   getSelectedNote,
   getIsAsyncRequest,
   getCurrentUser
 } from '../../../store/selectors'
+import { formattedDateTime } from '../../../services/date-service'
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -46,6 +50,25 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
     marginRight: theme.spacing(1)
   },
+  title: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  deleteIcon: {
+    position: 'absolute',
+    right: '0',
+    top: '6px',
+    '& svg': {
+      color: theme.palette.error.main
+    },
+    '&:hover': {
+      '& svg': {
+        color: theme.palette.grey['50'],
+        cursor: 'pointer'
+      }
+    }
+  },
   pickers: {
     display: 'flex',
     alignItems: 'center'
@@ -62,22 +85,28 @@ function NoteDetails(props) {
     isFetchingNote,
     pickNote,
     deleteNote,
+    unsetSelectedNote,
     currentUser
   } = props
 
-  const { name, description, imgURL, category, author, pickers, createdAt } =
+  const { title, description, imgURL, category, author, pickers, createdAt } =
     note || {}
 
   const { t } = useTranslation('common')
   const theme = useTheme()
   const classes = useStyles(theme)
   const { id } = useParams()
+  const history = useHistory()
 
   useEffect(() => {
     const messageOnError = t('noteDetails.messageOnError')
     const noteData = { id, messageOnError }
     getNote(noteData)
-  }, [id, getNote, t])
+
+    return () => {
+      unsetSelectedNote()
+    }
+  }, [id, getNote, t, unsetSelectedNote])
 
   const handleDeleteNote = () => {
     const messageOnSuccess = t('note.messageOnDeleteSuccess')
@@ -86,6 +115,7 @@ function NoteDetails(props) {
     const messageOnUserAccessError = t('note.messageOnUserNoteAccessError')
     deleteNote({
       note,
+      history,
       messageOnSuccess,
       messageOnError,
       messageOnFileDeleteError,
@@ -136,6 +166,21 @@ function NoteDetails(props) {
     setOpenConfirmDialog(false)
   }
 
+  const NoteDeleteIcon = () => {
+    if (note.author.uid === currentUser.uid) {
+      return (
+        <IconButton
+          className={classes.deleteIcon}
+          onClick={handleClickOpenDeleteDialog}
+          data-testid="deleteIcon"
+        >
+          <DeleteIcon />
+        </IconButton>
+      )
+    }
+    return <></>
+  }
+
   return (
     <>
       <Backdrop className={classes.backdrop} open={isFetchingNote}>
@@ -173,9 +218,13 @@ function NoteDetails(props) {
               </div>
             </div>
             <div style={{ width: '50%', paddingLeft: '2rem' }}>
-              <h1>{name}</h1>
+              <div className={classes.title}>
+                <h1>{title}</h1>
+                {NoteDeleteIcon()}
+              </div>
               <h2>{category.label}</h2>
               <p style={{ marginTop: '2rem' }}>{description}</p>
+              <p>{formattedDateTime(createdAt)}</p>
             </div>
           </div>
         </>
@@ -194,6 +243,7 @@ function mapStateToProps(state) {
 function mapDispatchToState(dispatch) {
   return {
     getNote: noteData => dispatch(GET_NOTE_REQUEST(noteData)),
+    unsetSelectedNote: () => dispatch(UNSET_SELECTED_NOTE()),
     deleteNote: deleteNoteData => dispatch(DELETE_NOTE_REQUEST(deleteNoteData)),
     pickNote: noteData => dispatch(PICK_NOTE_REQUEST(noteData))
   }

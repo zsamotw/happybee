@@ -125,7 +125,7 @@ function Note(prop) {
   const { path } = useRouteMatch()
 
   const { note, deleteNote, pickNote, currentUser } = prop
-  const { id, name, description, category, author, pickers, createdAt } = note
+  const { id, title, description, category, author, pickers, createdAt } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false)
@@ -194,7 +194,7 @@ function Note(prop) {
   const hasData = () =>
     note &&
     id &&
-    name &&
+    title &&
     description &&
     category &&
     category.label &&
@@ -231,7 +231,7 @@ function Note(prop) {
           note={note}
         />
         <div className={classes.header}>
-          <h3 className={classes.headLine}>{name}</h3>
+          <h3 className={classes.headLine}>{title}</h3>
           {getIcon(note, currentUser)}
         </div>
         <div style={{ marginBottom: '.07rem' }}>{category.label}</div>

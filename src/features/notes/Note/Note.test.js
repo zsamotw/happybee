@@ -5,7 +5,7 @@ import Note from './index'
 
 const donorItem = {
   id: 'KlYH2A8gw3SFcjpqOxcY',
-  name: 'rower',
+  title: 'rower',
   imgStoragePath: '',
   donor: currentUser,
   description: 'fajny',
@@ -20,7 +20,7 @@ const donorItem = {
 
 const itemToTake = {
   id: 'KlYH2A8gw3SFcjpqOxcY',
-  name: 'rower',
+  title: 'rower',
   imgStoragePath: '',
   description: 'fajny',
   donor: { displayName: 'donor', email: 'donor@donor.com' },
@@ -37,12 +37,12 @@ describe('Item component tests', () => {
   afterEach(cleanup)
   it('Should render Item component with proper item data', () => {
     const { getByText } = render(<Note note={donorItem} />)
-    const name = new RegExp(donorItem.name)
+    const title = new RegExp(donorItem.name)
     const description = new RegExp(donorItem.description)
     const category = new RegExp(donorItem.category.label)
     const donorDisplayName = new RegExp(donorItem.donor.displayName)
 
-    expect(getByText(name)).toBeInTheDocument()
+    expect(getByText(title)).toBeInTheDocument()
     expect(getByText(description)).toBeInTheDocument()
     expect(getByText(category)).toBeInTheDocument()
     expect(getByText(donorDisplayName)).toBeInTheDocument()
@@ -63,7 +63,7 @@ describe('Item component tests', () => {
   it('Should not render Item component with not proper item data: id as null', () => {
     const itemWithNullName = {
       id: null,
-      name: 'name',
+      title: 'name',
       imgStoragePath: '',
       donor: {},
       description: 'description',
@@ -80,7 +80,7 @@ describe('Item component tests', () => {
       </div>
     )
     const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByText(itemWithNullName.name)).toBeNull()
+    expect(wrapper.queryByText(itemWithNullName.title)).toBeNull()
   })
 
   it('Should not render Item component with not proper item data: donor as undefined', () => {

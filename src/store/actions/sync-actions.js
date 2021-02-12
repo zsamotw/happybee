@@ -14,9 +14,11 @@ export const SET_IS_FETCHING_DATA = createAction('IS FETCHING DATA', data => ({
   payload: { ...data }
 }))
 
-export const SET_SELECTED_NOTE = createAction('SET SELECTED NOTES', note => ({
+export const SET_SELECTED_NOTE = createAction('SET SELECTED NOTE', note => ({
   payload: { ...note }
 }))
+
+export const UNSET_SELECTED_NOTE = createAction('UNSET SELECTED NOTE')
 
 export const SET_NOTES = createAction('SET NOTES', notes => ({
   payload: { ...notes }

@@ -1,4 +1,4 @@
-export default function formattedDateTime(date, locales) {
+export default function formattedDateTime(date) {
   const dateOptions = {
     weekday: 'short',
     year: 'numeric',
@@ -10,12 +10,11 @@ export default function formattedDateTime(date, locales) {
     timeZone: 'Europe/Berlin',
     hour12: false,
     hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
+    minute: '2-digit'
   }
 
-  const formattedDate = date.toLocaleDateString(locales, dateOptions)
-  const formattedTime = date.toLocaleTimeString(locales, timeOptions)
+  const formattedDate = new Date(date).toLocaleDateString('pl-PL', dateOptions)
+  const formattedTime = new Date(date).toLocaleTimeString('pl-PL', timeOptions)
 
   return `${formattedDate} ${formattedTime}`
 }

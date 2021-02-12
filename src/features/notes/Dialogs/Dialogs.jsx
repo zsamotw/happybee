@@ -50,7 +50,7 @@ export default function Dialogs(props) {
     handlePickNote,
     note
   } = props
-  const { name, description, author, imgURL } = note
+  const { title, description, author, imgURL } = note
 
   return (
     <>
@@ -106,7 +106,7 @@ export default function Dialogs(props) {
         </DialogActions>
         <DialogContent className={classes.dialogContent}>
           <img src={imgURL} alt="note" height="400px" />
-          <h1>{name}</h1>
+          <h1>{title}</h1>
           <div>{description}</div>
           <Divider className={classes.dialogDivider} />
           <div style={{ textTransform: 'uppercase' }}>

@@ -143,7 +143,7 @@
     "title": "Stworz notkę",
     "description": "Co chcesz opisać ",
     "inputs": {
-      "name": {
+      "title": {
         "label": "Tytuł",
         "placeholder": "Wpisz tytuł",
         "error": {
@@ -205,7 +205,7 @@
     "messageOnUserNoteAccessError": "Nie masz uprawnień do skasowania tej notki",
     "messageOnPickSuccess": "Udało się",
     "messageOnPickError": "Nie udało się dodać tej notki do Twoich zapisow",
-    "messageOnUserPickAccessError": "Nie masz uprawnień do zapisu tej notki"
+    "messageOnUserPickAccessError": "Tę notek masz juz zapisaną"
   },
   "noteDetails": {
     "messageOnError": "Nie udało się załadować notatki"

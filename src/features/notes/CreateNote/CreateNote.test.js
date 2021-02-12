@@ -10,14 +10,16 @@ describe('Test Create Note component', () => {
     const { getByPlaceholderText, getByLabelText, getByTestId } = render(
       <CreateNote />
     )
-    const nameInput = getByPlaceholderText('createNote.inputs.name.placeholder')
+    const titleInput = getByPlaceholderText(
+      'createNote.inputs.title.placeholder'
+    )
     const descriptionInput = getByPlaceholderText(
       'createNote.inputs.description.placeholder'
     )
     const categorySelect = getByLabelText('createNote.inputs.category.label')
     const fileUploadIcon = getByTestId('file-upload-button')
 
-    expect(nameInput).toBeInTheDocument()
+    expect(titleInput).toBeInTheDocument()
     expect(descriptionInput).toBeInTheDocument()
     expect(categorySelect).toBeInTheDocument()
     expect(fileUploadIcon).toBeInTheDocument()

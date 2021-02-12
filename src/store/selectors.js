@@ -7,7 +7,7 @@ function getFilteredNotes(notes, state, collectionName) {
 
   return notes.filter(note =>
     lowerCaseQuery && collectionNameToSearch === collectionName
-      ? (note.name && note.name.toLowerCase().includes(lowerCaseQuery)) ||
+      ? (note.title && note.title.toLowerCase().includes(lowerCaseQuery)) ||
         (note.author &&
           note.author.displayName &&
           note.author.displayName.toLowerCase().includes(lowerCaseQuery)) ||

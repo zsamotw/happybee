@@ -5,7 +5,7 @@ import Dialogs from './Dialogs'
 
 const donorItem = {
   id: 'KlYH2A8gw3SFcjpqOxcY',
-  name: 'rower',
+  title: 'rower',
   imgStoragePath: '',
   donor: currentUser,
   description: 'fajny',

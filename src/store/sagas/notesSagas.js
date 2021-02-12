@@ -52,7 +52,7 @@ function* deleteFile(filePath, messageOnFileDeleteError) {
 
 function* createFirebaseNote(action) {
   const {
-    name,
+    title,
     description,
     category,
     pickers,
@@ -72,7 +72,7 @@ function* createFirebaseNote(action) {
   const imgURL = yield call(Firebase.getDownloadURL, fileRef)
 
   yield call(Firebase.addDocument, 'notes', {
-    name,
+    title,
     description,
     category,
     author,
@@ -87,6 +87,7 @@ function* createFirebaseNote(action) {
 function* deleteFirebaseNote(action) {
   const {
     note,
+    history,
     messageOnFileDeleteError,
     messageOnUserAccessError
   } = action.payload
@@ -96,6 +97,9 @@ function* deleteFirebaseNote(action) {
   if (author.uid === noteAuthor.uid) {
     yield call(deleteFile, note.imgStoragePath, messageOnFileDeleteError)
     yield call(Firebase.deleteDocument, `notes/${id}`)
+    if (history) {
+      history.push(ROUTES.HOME)
+    }
   } else {
     yield put(
       SET_APP_MESSAGE({
@@ -109,13 +113,13 @@ function* deleteFirebaseNote(action) {
 function* getFirebaseNote(action) {
   const { id } = action.payload
   const snapshot = yield call(Firebase.getDocument, `notes/${id}`)
-  const note = snapshot.data()
+  const note = { id: snapshot.id, ...snapshot.data() }
   yield put(SET_SELECTED_NOTE({ ...note }))
 }
 
 function* pickNote(action) {
   const {
-    note: { id, author: noteAuthor, pickers },
+    note: { id, pickers },
     messageOnUserPickAccessError
   } = action.payload
   const currentUser = yield call(Firebase.getCurrentUser)
@@ -124,13 +128,14 @@ function* pickNote(action) {
   const pickerWithTimeStamp = { ...picker, pickAt }
   const updatedPickers = [...pickers, pickerWithTimeStamp]
 
-  if (picker.uid !== noteAuthor.uid) {
+  if (pickers.every(p => p.uid !== picker.uid) || pickers.length === 0) {
     yield call(
       Firebase.setDocument,
       `notes/${id}`,
       { pickers: updatedPickers },
       { merge: true }
     )
+    yield put(GET_NOTE_REQUEST({ id }))
   } else {
     yield put(
       SET_APP_MESSAGE({
