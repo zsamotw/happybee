@@ -211,9 +211,9 @@ export const theme = createMuiTheme({
       active: 'rgba(0, 0, 0, 0.54)'
     },
     primary: {
-      main: '#4caf50',
-      light: '#80e27e',
-      dark: '#087f23',
+      main: '#3e96a5',
+      light: '#69c1d0',
+      dark: '#086170;',
       contrastText: '#fff'
     }
   },
