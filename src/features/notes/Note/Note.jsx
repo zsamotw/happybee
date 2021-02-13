@@ -253,8 +253,12 @@ function Note(prop) {
           <div className={classes.pickers}>
             <div style={{ marginRight: '10px' }}>{pickers.length}</div>
             <AddCircleOutlineIcon
-              color="secondary"
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                color: canPick()
+                  ? theme.palette.secondary.main
+                  : theme.palette.text.secondary
+              }}
               onClick={handleClickOpenConfirmDialog}
             />
           </div>
