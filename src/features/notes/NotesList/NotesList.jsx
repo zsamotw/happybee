@@ -26,12 +26,15 @@ function NotesList(props) {
   useEffect(() => {
     const messageOnError = t('notesList.messageOnNoteLoadError')
     getNotesList(messageOnError)
+  }, [getNotesList, t])
+
+  useEffect(() => {
     setSearchConfig({ isVisible: true, collectionName: 'notes' })
 
     return () => {
       setSearchConfig({ isVisible: false, collection: '' })
     }
-  }, [getNotesList, setSearchConfig, t])
+  }, [setSearchConfig])
 
   return (
     <Grid container>
