@@ -29,5 +29,5 @@ export default function DeleteNoteIcon(props) {
       </IconButton>
     )
   }
-  return <>Foo</>
+  return <></>
 }
