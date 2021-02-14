@@ -21,6 +21,7 @@ import {
 } from '../../../store/selectors'
 import { formattedDateTime } from '../../../services/date-service'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
+import * as ROUTES from '../../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -103,9 +104,10 @@ function NoteDetails(props) {
     const messageOnError = t('note.messageOnDeleteError')
     const messageOnFileDeleteError = t('note.messageOnFileDeleteError')
     const messageOnUserAccessError = t('note.messageOnUserNoteAccessError')
+    const navigateHome = () => history.push(ROUTES.HOME)
     deleteNote({
       note,
-      history,
+      navigateHome,
       messageOnSuccess,
       messageOnError,
       messageOnFileDeleteError,
@@ -158,13 +160,24 @@ function NoteDetails(props) {
   const handleCloseConfirmDialog = () => {
     setOpenConfirmDialog(false)
   }
+  const hasData = () =>
+    note &&
+    id &&
+    title &&
+    description &&
+    category &&
+    category.label &&
+    author &&
+    author.email &&
+    author.displayName &&
+    createdAt
 
   return (
     <>
       <Backdrop className={classes.backdrop} open={isFetchingNote}>
         <CircularProgress color="secondary" />
       </Backdrop>
-      {note ? (
+      {hasData() ? (
         <>
           <Dialogs
             isDeleteDialogOpened={openDeleteDialog}

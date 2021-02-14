@@ -16,7 +16,6 @@ import {
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
 import isAsyncRequest from '../../constants/asyncRequests'
-import * as ROUTES from '../../constants/routes'
 
 function* uploadFile(file, folder, messageOnFileUploadError) {
   try {
@@ -58,7 +57,7 @@ function* createFirebaseNote(action) {
     category,
     pickers,
     file,
-    history,
+    navigateHome,
     messageOnFileUploadError
   } = action.payload
   const currentUser = yield call(Firebase.getCurrentUser)
@@ -82,13 +81,13 @@ function* createFirebaseNote(action) {
     imgURL,
     createdAt: createdAt.toString()
   })
-  history.push(ROUTES.HOME)
+  navigateHome()
 }
 
 function* deleteFirebaseNote(action) {
   const {
     note,
-    history,
+    navigateHome,
     messageOnFileDeleteError,
     messageOnUserAccessError
   } = action.payload
@@ -98,8 +97,8 @@ function* deleteFirebaseNote(action) {
   if (author.uid === noteAuthor.uid) {
     yield call(deleteFile, note.imgStoragePath, messageOnFileDeleteError)
     yield call(Firebase.deleteDocument, `notes/${id}`)
-    if (history) {
-      history.push(ROUTES.HOME)
+    if (navigateHome) {
+      navigateHome()
     }
   } else {
     yield put(

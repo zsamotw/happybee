@@ -12,6 +12,7 @@ import { CREATE_NOTE_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest } from '../../../store/selectors'
 import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
+import * as ROUTES from '../../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -104,13 +105,14 @@ const CreateNoteForm = props => {
     const messageOnError = t('createNote.messageOnCreateNoteError')
     const messageOnFileUploadError = t('createNote.messageOnFileUploadError')
     const pickers = []
+    const navigateHome = () => history.push(ROUTES.HOME)
     createNote({
       title,
       description,
       category,
       pickers,
       file,
-      history,
+      navigateHome,
       setError,
       messageOnSuccess,
       messageOnError,
