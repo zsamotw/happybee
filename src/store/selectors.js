@@ -1,22 +1,4 @@
-function getFilteredNotes(notes, state, collectionName) {
-  const { query } = state.get('noteFilters')
-  const { collectionName: collectionNameToSearch } = state.get(
-    'searchBarConfig'
-  )
-  const lowerCaseQuery = query.toLowerCase()
-
-  return notes.filter(note =>
-    lowerCaseQuery && collectionNameToSearch === collectionName
-      ? (note.title && note.title.toLowerCase().includes(lowerCaseQuery)) ||
-        (note.author &&
-          note.author.displayName &&
-          note.author.displayName.toLowerCase().includes(lowerCaseQuery)) ||
-        (note.category &&
-          note.category.label &&
-          note.category.label.toLowerCase().includes(lowerCaseQuery))
-      : true
-  )
-}
+import { createSelector } from '@reduxjs/toolkit'
 
 export const getCurrentUser = state => {
   const currentUser = state.get('currentUser')
@@ -38,10 +20,26 @@ export const getSelectedNote = state => {
   return notes
 }
 
-export const getNotes = state => {
-  const notes = state.get('notes')
-  return getFilteredNotes(notes, state, 'notes')
-}
+export const getNotes = createSelector(
+  state => state.notes,
+  state => state.noteFilters,
+  (notes, noteFilters) => {
+    const { query } = noteFilters
+    const lowerCaseQuery = query.toLowerCase()
+
+    return notes.filter(item =>
+      lowerCaseQuery
+        ? (item.title && item.title.toLowerCase().includes(lowerCaseQuery)) ||
+          (item.author &&
+            item.author.displayName &&
+            item.author.displayName.toLowerCase().includes(lowerCaseQuery)) ||
+          (item.category &&
+            item.category.label &&
+            item.category.label.toLowerCase().includes(lowerCaseQuery))
+        : true
+    )
+  }
+)
 
 export const getNoteFilters = state => {
   const filters = state.get('noteFilters')
