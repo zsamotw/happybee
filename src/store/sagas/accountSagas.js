@@ -54,9 +54,9 @@ function* updateFirebaseUserAccount(action) {
   if (loggedUser) {
     yield call(loggedUser.updateProfile.bind(loggedUser), { displayName })
     yield call(
-      Firebase.updateNotesUsersDisplayNameOnUpdateProfile,
+      Firebase.updateNotesOnUpdateUserProfile,
       'notes',
-      loggedUser.uid,
+      loggedUser,
       displayName
     )
     const currentUser = Firebase.transformDbUserToSafeUser(loggedUser)
@@ -86,6 +86,7 @@ function* deleteFirebaseUser() {
   const loggedUser = yield call(Firebase.getCurrentUser)
   if (loggedUser) {
     yield call(loggedUser.delete.bind(loggedUser))
+    yield call(Firebase.deleteNotesForUser, loggedUser, 'notes')
     yield put(SET_AUTH_USER(null))
   }
 }

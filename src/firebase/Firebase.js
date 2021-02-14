@@ -90,39 +90,75 @@ class Firebase {
   updateDocument = (docRef, prop, value) =>
     this.db.updateDocument(docRef, prop, value)
 
-  updateNotesUsersDisplayNameOnUpdateProfile = (
-    collectionName,
-    userId,
-    displayName
-  ) => {
+  makeBatchTransaction = (collectionName, func, ...args) => {
+    const collection = firebase.firestore().collection(collectionName)
+    collection.get().then(response => {
+      const batch = firebase.firestore().batch()
+      response.docs.forEach(doc => {
+        func(doc, batch, args)
+      })
+
+      batch.commit().then(() => {
+        console.log(`Success batch transaction`)
+      })
+    })
+  }
+
+  updateNotesOnUpdateUserProfile = (collectionName, user, displayName) => {
     const collection = firebase.firestore().collection(collectionName)
 
     collection.get().then(response => {
       const batch = firebase.firestore().batch()
       response.docs.forEach(doc => {
         const note = { id: doc.id, ...doc.data() }
-        if (note.author.uid === userId) {
-          const author = { ...note.author, displayName }
+        const shouldUpdateAuthor = note.author.uid === user.uid
+        const shouldUpdatePickers = note.pickers.some(
+          picker => picker.uid === user.uid
+        )
+
+        if (shouldUpdateAuthor || shouldUpdatePickers) {
+          const author = shouldUpdateAuthor
+            ? { ...note.author, displayName }
+            : note.author
+          const pickers = shouldUpdatePickers
+            ? note.pickers.map(picker =>
+                picker.uid === user.uid ? { ...picker, displayName } : picker
+              )
+            : note.pickers
+
           const docRef = firebase
             .firestore()
             .collection(collectionName)
             .doc(doc.id)
-          batch.update(docRef, { ...note, author })
-        }
-        if (note.pickers && note.pickers.length > 0) {
-          const pickers = note.pickers.map(picker =>
-            picker.uid === userId ? { ...picker, displayName } : picker
-          )
-          const docRef = firebase
-            .firestore()
-            .collection(collectionName)
-            .doc(doc.id)
-          batch.update(docRef, { ...note, pickers })
+          batch.update(docRef, { ...note, author, pickers })
         }
       })
 
       batch.commit().then(() => {
-        console.log(`updated all documents inside ${collectionName}`)
+        console.log(
+          `updated documents inside ${collectionName} for user: ${displayName}`
+        )
+      })
+    })
+  }
+
+  deleteNotesForUser = (user, collectionName) => {
+    const collection = firebase.firestore().collection(collectionName)
+
+    collection.get().then(response => {
+      const batch = firebase.firestore().batch()
+      response.docs.forEach(doc => {
+        const note = { id: doc.id, ...doc.data() }
+        if (note.author.uid === user.uid) {
+          const docRef = collection.doc(doc.id)
+          batch.delete(docRef)
+        }
+      })
+
+      batch.commit().then(() => {
+        console.log(
+          `deleted ${user.displayName} documents inside ${collectionName}`
+        )
       })
     })
   }
