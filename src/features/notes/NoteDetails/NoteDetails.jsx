@@ -7,8 +7,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
 import Dialogs from '../Dialogs'
 import {
   SYNC_NOTE_REQUEST,
@@ -22,6 +20,7 @@ import {
   getCurrentUser
 } from '../../../store/selectors'
 import { formattedDateTime } from '../../../services/date-service'
+import AppDeleteIcon from '../../../components/AppDeleteIcon'
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -58,16 +57,7 @@ const useStyles = makeStyles(theme => ({
   deleteIcon: {
     position: 'absolute',
     right: '0',
-    top: '6px',
-    '& svg': {
-      color: theme.palette.error.main
-    },
-    '&:hover': {
-      '& svg': {
-        color: theme.palette.grey['50'],
-        cursor: 'pointer'
-      }
-    }
+    top: '6px'
   },
   pickers: {
     display: 'flex',
@@ -169,21 +159,6 @@ function NoteDetails(props) {
     setOpenConfirmDialog(false)
   }
 
-  const NoteDeleteIcon = () => {
-    if (note.author.uid === currentUser.uid) {
-      return (
-        <IconButton
-          className={classes.deleteIcon}
-          onClick={handleClickOpenDeleteDialog}
-          data-testid="deleteIcon"
-        >
-          <DeleteIcon />
-        </IconButton>
-      )
-    }
-    return <></>
-  }
-
   return (
     <>
       <Backdrop className={classes.backdrop} open={isFetchingNote}>
@@ -227,7 +202,13 @@ function NoteDetails(props) {
             <div style={{ width: '50%', paddingLeft: '2rem' }}>
               <div className={classes.title}>
                 <h1 style={{ margin: 0 }}>{title}</h1>
-                {NoteDeleteIcon()}
+                <div className={classes.deleteIcon}>
+                  <AppDeleteIcon
+                    note={note}
+                    currentUser={currentUser}
+                    onClick={handleClickOpenDeleteDialog}
+                  />
+                </div>
               </div>
               <h2 style={{ marginTop: 0 }}>{category.label}</h2>
               <p>{description}</p>

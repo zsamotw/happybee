@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { connect } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
@@ -14,6 +12,7 @@ import {
   DELETE_NOTE_REQUEST,
   PICK_NOTE_REQUEST
 } from '../../../store/actions/async-actions'
+import AppDeleteIcon from '../../../components/AppDeleteIcon'
 
 const paperTextStyles = {
   color: 'white',
@@ -83,16 +82,7 @@ const useStyles = makeStyles(theme => ({
   deleteIcon: {
     position: 'absolute',
     right: '0',
-    top: '-10px',
-    '& svg': {
-      color: theme.palette.error.main
-    },
-    '&:hover': {
-      '& svg': {
-        color: theme.palette.grey['50'],
-        cursor: 'pointer'
-      }
-    }
+    top: '-10px'
   },
   pickIcon: {
     '&:hover': {
@@ -114,7 +104,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Note(prop) {
+function Note(props) {
   const theme = useTheme()
   const classes = useStyles(theme)
 
@@ -122,7 +112,7 @@ function Note(prop) {
   const history = useHistory()
   const { path } = useRouteMatch()
 
-  const { note, deleteNote, pickNote, currentUser } = prop
+  const { note, deleteNote, pickNote, currentUser } = props
   const { id, title, description, category, author, pickers, createdAt } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
@@ -201,21 +191,6 @@ function Note(prop) {
     author.displayName &&
     createdAt
 
-  const getIcon = () => {
-    if (note.author.uid === currentUser.uid) {
-      return (
-        <IconButton
-          className={classes.deleteIcon}
-          onClick={handleClickOpenDeleteDialog}
-          data-testid="deleteIcon"
-        >
-          <DeleteIcon />
-        </IconButton>
-      )
-    }
-    return <></>
-  }
-
   return (
     hasData() && (
       <Grid className={classes.gridItem} item xs={12} sm={6} lg={4} xl={3}>
@@ -230,7 +205,13 @@ function Note(prop) {
         />
         <div className={classes.header}>
           <h3 className={classes.headLine}>{title}</h3>
-          {getIcon(note, currentUser)}
+          <div className={classes.deleteIcon}>
+            <AppDeleteIcon
+              note={note}
+              currentUser={currentUser}
+              onClick={handleClickOpenDeleteDialog}
+            />
+          </div>
         </div>
         <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
         <div
