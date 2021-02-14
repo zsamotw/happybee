@@ -8,7 +8,8 @@ import {
 import {
   CREATE_NOTE_REQUEST,
   GET_NOTE_REQUEST,
-  GET_NOTES_REQUEST,
+  SYNC_NOTE_REQUEST,
+  SYNC_NOTES_REQUEST,
   PICK_NOTE_REQUEST,
   DELETE_NOTE_REQUEST
 } from '../actions/async-actions'
@@ -173,7 +174,23 @@ function* deleteNoteRequest(action) {
   )
 }
 
-function* getFirebaseSyncNotes(action) {
+function* syncFirebaseNoteRequest(action) {
+  const noteTransformer = snapshot => {
+    return { id: snapshot.id, ...snapshot.data() }
+  }
+  const { id, messageOnError } = action.payload
+
+  try {
+    yield fork(Firebase.syncDocument, `notes/${id}`, {
+      successActionCreator: SET_SELECTED_NOTE,
+      transform: noteTransformer
+    })
+  } catch {
+    yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+  }
+}
+
+function* syncFirebaseNotes(action) {
   const { messageOnError } = action.payload
   const notesTransformer = snapshot => {
     const notes = []
@@ -205,6 +222,7 @@ export default function* notesSaga() {
   yield takeLatest(CREATE_NOTE_REQUEST.type, createNoteRequest)
   yield takeLatest(DELETE_NOTE_REQUEST.type, deleteNoteRequest)
   yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
-  yield takeLatest(GET_NOTES_REQUEST.type, getFirebaseSyncNotes)
+  yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
+  yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotes)
   yield takeLatest(PICK_NOTE_REQUEST.type, pickNoteRequest)
 }

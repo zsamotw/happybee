@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Dialogs from '../Dialogs'
 import {
-  GET_NOTE_REQUEST,
+  SYNC_NOTE_REQUEST,
   DELETE_NOTE_REQUEST,
   PICK_NOTE_REQUEST
 } from '../../../store/actions/async-actions'
@@ -251,7 +251,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    getNote: noteData => dispatch(GET_NOTE_REQUEST(noteData)),
+    getNote: noteData => dispatch(SYNC_NOTE_REQUEST(noteData)),
     unsetSelectedNote: () => dispatch(UNSET_SELECTED_NOTE()),
     deleteNote: deleteNoteData => dispatch(DELETE_NOTE_REQUEST(deleteNoteData)),
     pickNote: noteData => dispatch(PICK_NOTE_REQUEST(noteData))

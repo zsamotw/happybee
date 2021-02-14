@@ -41,14 +41,19 @@ export const GET_NOTE_REQUEST = createAction(
   noteData => ({ payload: { ...noteData } })
 )
 
+export const SYNC_NOTE_REQUEST = createAction(
+  'SYNC NOTE REQUEST',
+  noteData => ({ payload: { ...noteData } })
+)
+
+export const SYNC_NOTES_REQUEST = createAction(
+  'SYNC NOTES REQUEST',
+  messageOnError => ({ payload: { messageOnError } })
+)
+
 export const DELETE_NOTE_REQUEST = createAction(
   'DELETE NOTE REQUEST',
   deleteNoteData => ({ payload: { ...deleteNoteData } })
-)
-
-export const GET_NOTES_REQUEST = createAction(
-  'GET NOTES REQUEST',
-  messageOnError => ({ payload: { messageOnError } })
 )
 
 export const PICK_NOTE_REQUEST = createAction(

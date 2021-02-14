@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { GET_NOTES_REQUEST } from '../../../store/actions/async-actions'
+import { SYNC_NOTES_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest, getNotes } from '../../../store/selectors'
 import Note from '../Note'
 import { SET_SEARCHBAR_CONFIG } from '../../../store/actions/sync-actions'
@@ -54,7 +54,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    getNotesList: messageOnError => dispatch(GET_NOTES_REQUEST(messageOnError)),
+    getNotesList: messageOnError =>
+      dispatch(SYNC_NOTES_REQUEST(messageOnError)),
     setSearchConfig: config => dispatch(SET_SEARCHBAR_CONFIG(config))
   }
 }

@@ -67,6 +67,8 @@ class Firebase {
 
   getDocument = docRef => this.db.getDocument(docRef)
 
+  syncDocument = (docRef, options) => this.db.syncDocument(docRef, options)
+
   deleteDocument = docRef => this.db.deleteDocument(docRef)
 
   getCollection = collectionName => this.db.getCollection(collectionName)
