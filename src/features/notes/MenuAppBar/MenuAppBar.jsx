@@ -64,7 +64,12 @@ function MenuAppBar(props) {
   }
 
   const handleNavigateCreateNote = () => {
-    history.push(`${path}${ROUTES.NOTES}${ROUTES.CREATE_NOTE}`)
+    history.push(`${path}${ROUTES.CREATE_NOTE}`)
+    setAnchorEl(null)
+  }
+
+  const handleNavigatePickedNotes = () => {
+    history.push(`${path}${ROUTES.PICKED_NOTES}`)
     setAnchorEl(null)
   }
 
@@ -117,6 +122,9 @@ function MenuAppBar(props) {
             >
               <MenuItem onClick={handleNavigateCreateNote}>
                 {t('menuAppBar.menu.createNewNote')}
+              </MenuItem>
+              <MenuItem onClick={handleNavigatePickedNotes}>
+                {t('menuAppBar.menu.pickedNotes')}
               </MenuItem>
               <MenuItem onClick={handleNavigateAccount}>
                 {t('menuAppBar.menu.profile')}

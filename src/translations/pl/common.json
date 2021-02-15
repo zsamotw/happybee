@@ -179,6 +179,7 @@
     "appTitle": "HappyBee",
     "menu": {
       "createNewNote": "Dodaj notkę",
+      "pickedNotes": "Zapisane notatki",
       "profile": "Profil",
       "logout": "Wyloguj"
     },
@@ -191,24 +192,25 @@
         "description": "Czy na pewno chcesz usunąć notkę?",
         "cancelButton": "Nie",
         "deleteButton": "Usuń"
-      },
-      "take": {
-        "title": "Czy chcesz dodać tę notkę?",
-        "cancelButton": "Nie, dziekuję",
-        "takeButton": "Tak. Poproszę",
-        "from": "Autor"
       }
     },
     "messageOnDeleteSuccess": "Notka została usunięta",
     "messageOnDeleteError": "Nie udało się skasować notki",
     "messageOnFileDeleteError": "Nie można skasować pliku ze zdjęciem",
     "messageOnUserNoteAccessError": "Nie masz uprawnień do skasowania tej notki",
-    "messageOnPickSuccess": "Udało się",
-    "messageOnPickError": "Nie udało się dodać tej notki do Twoich zapisow",
+    "messageOnPickSuccess": "Udało się dodać do zapisanych",
+    "messageOnPickError": "Nie udało się dodać tej notki do Twoich zapisów",
     "messageOnUserPickAccessError": "Tę notek masz juz zapisaną"
   },
   "noteDetails": {
     "messageOnError": "Nie udało się załadować notatki"
+  },
+  "notes": {
+    "messageOnError": "Nie udało sie pobrać notatek"
+  },
+  "pickedNotes": {
+    "title": "Wybrane przez Ciebie",
+    "messageOnError": "Nie udalo sie pobrać notatek"
   },
   "searchBar": {
     "input": {

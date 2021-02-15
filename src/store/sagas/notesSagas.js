@@ -1,9 +1,10 @@
 import { call, fork, put, takeLatest, take } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import {
+  SET_NOTES,
   SET_APP_MESSAGE,
   SET_SELECTED_NOTE,
-  SYNC_NOTES_CREATION
+  SET_PICKED_NOTES
 } from '../actions/sync-actions'
 import {
   CREATE_NOTE_REQUEST,
@@ -11,6 +12,7 @@ import {
   SYNC_NOTE_REQUEST,
   SYNC_NOTES_REQUEST,
   PICK_NOTE_REQUEST,
+  GET_PICKED_NOTES_REQUEST,
   DELETE_NOTE_REQUEST
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
@@ -201,7 +203,30 @@ function* syncFirebaseNotes(action) {
 
   try {
     yield fork(Firebase.syncCollectionRef(), 'notes', {
-      successActionCreator: SYNC_NOTES_CREATION,
+      successActionCreator: SET_NOTES,
+      transform: notesTransformer
+    })
+  } catch {
+    yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+  }
+}
+
+function* syncPickedNotesRequest(action) {
+  const { messageOnError, userUid } = action.payload
+  const notesTransformer = snapshot => {
+    const pickedNotes = []
+    snapshot.forEach(doc => {
+      const isPicked = doc.data().pickers.some(picker => picker.uid === userUid)
+      if (isPicked) {
+        pickedNotes.push({ id: doc.id, ...doc.data() })
+      }
+    })
+    return pickedNotes
+  }
+
+  try {
+    yield fork(Firebase.syncCollectionRef(), 'notes', {
+      successActionCreator: SET_PICKED_NOTES,
       transform: notesTransformer
     })
   } catch {
@@ -224,4 +249,5 @@ export default function* notesSaga() {
   yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotes)
   yield takeLatest(PICK_NOTE_REQUEST.type, pickNoteRequest)
+  yield takeLatest(GET_PICKED_NOTES_REQUEST.type, syncPickedNotesRequest)
 }

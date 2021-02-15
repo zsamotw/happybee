@@ -60,3 +60,8 @@ export const PICK_NOTE_REQUEST = createAction(
   'PICK NOTE REQUEST',
   noteData => ({ payload: { ...noteData } })
 )
+
+export const GET_PICKED_NOTES_REQUEST = createAction(
+  'GET PICKED NOTES REQUEST',
+  notesData => ({ payload: { ...notesData } })
+)

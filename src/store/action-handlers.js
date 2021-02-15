@@ -35,6 +35,14 @@ export const handleSetNotes = (state, notes) => {
   return nextState
 }
 
+export const handleSetPickedNotes = (state, notes) => {
+  const nextNotes = List(notes)
+    .sortBy(note => new Date(note.createdAt))
+    .reverse()
+  const nextState = state.set('pickedNotes', nextNotes)
+  return nextState
+}
+
 export const handleSetNotesQueryFilter = (state, query) => {
   const nextFilters = { ...state.get('noteFilters'), query }
   const nextState = state.set('noteFilters', nextFilters)

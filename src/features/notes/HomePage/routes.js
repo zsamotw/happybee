@@ -3,7 +3,8 @@ import * as ROUTES from '../../../constants/routes'
 import MainPage from '../MainPage'
 import CreateNote from '../CreateNote'
 import NoteDetails from '../NoteDetails'
-import NotesList from '../NotesList'
+import Notes from '../Notes'
+import PickedNotes from '../PickedNotes'
 
 const routes = path => [
   {
@@ -17,14 +18,19 @@ const routes = path => [
     component: AccountProfile
   },
   {
-    path: `${path}${ROUTES.NOTES}${ROUTES.CREATE_NOTE}`,
+    path: `${path}${ROUTES.CREATE_NOTE}`,
     exact: false,
     component: CreateNote
   },
   {
     path: `${path}${ROUTES.NOTES}`,
     exact: true,
-    component: NotesList
+    component: Notes
+  },
+  {
+    path: `${path}${ROUTES.PICKED_NOTES}`,
+    exact: true,
+    component: PickedNotes
   },
   {
     path: `${path}${ROUTES.NOTES}/:id`,

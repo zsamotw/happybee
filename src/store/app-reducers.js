@@ -6,6 +6,7 @@ import {
   handleSetSelectedNote,
   handleUnsetSelectedNote,
   handleSetNotes,
+  handleSetPickedNotes,
   handleSetNotesQueryFilter,
   handleSetSearchBarConfig
 } from './action-handlers'
@@ -17,7 +18,7 @@ import {
   SET_SELECTED_NOTE,
   UNSET_SELECTED_NOTE,
   SET_NOTES,
-  SYNC_NOTES,
+  SET_PICKED_NOTES,
   SET_NOTE_QUERY_FILTER,
   SET_SEARCHBAR_CONFIG
 } from './actions/sync-actions'
@@ -43,8 +44,8 @@ const appReducers = createReducer(initialState, {
   [SET_NOTES.type]: (state, action) => {
     return handleSetNotes(state, action.payload)
   },
-  [SYNC_NOTES.type]: (state, action) => {
-    return handleSetNotes(state, action.payload)
+  [SET_PICKED_NOTES.type]: (state, action) => {
+    return handleSetPickedNotes(state, action.payload)
   },
   [SET_SEARCHBAR_CONFIG.type]: (state, action) => {
     return handleSetSearchBarConfig(state, action.payload)

@@ -21,12 +21,12 @@ export const SET_SELECTED_NOTE = createAction('SET SELECTED NOTE', note => ({
 export const UNSET_SELECTED_NOTE = createAction('UNSET SELECTED NOTE')
 
 export const SET_NOTES = createAction('SET NOTES', notes => ({
-  payload: { ...notes }
+  payload: notes
 }))
 
-export const SYNC_NOTES = createAction('SYNC NOTES')
-
-export const SYNC_NOTES_CREATION = notes => SYNC_NOTES(notes)
+export const SET_PICKED_NOTES = createAction('SET_PICKED_NOTES', notes => ({
+  payload: notes
+}))
 
 export const SET_NOTE_QUERY_FILTER = createAction(
   'SET NOTE QUERY FILTER',
