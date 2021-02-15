@@ -33,6 +33,11 @@ const routes = path => [
     component: PickedNotes
   },
   {
+    path: `${path}${ROUTES.PICKED_NOTES}/:id`,
+    exact: true,
+    component: NoteDetails
+  },
+  {
     path: `${path}${ROUTES.NOTES}/:id`,
     exact: false,
     component: NoteDetails
