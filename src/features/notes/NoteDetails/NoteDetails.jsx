@@ -123,8 +123,6 @@ function NoteDetails(props) {
             isDeleteDialogOpened={openDeleteDialog}
             closeDeleteDialog={handleCloseDeleteDialog}
             deleteNote={handleDeleteNote}
-            pickNote={handlePickNote}
-            note={note}
           />
           <div className={classes.container}>
             <div style={{ width: '50%' }}>

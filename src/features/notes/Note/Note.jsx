@@ -146,8 +146,6 @@ function Note(props) {
           isDeleteDialogOpened={openDeleteDialog}
           closeDeleteDialog={handleCloseDeleteDialog}
           deleteNote={handleDeleteNote}
-          pickNote={handlePickNote}
-          note={note}
         />
         <div className={classes.header}>
           <h3 className={classes.headLine}>{title}</h3>
