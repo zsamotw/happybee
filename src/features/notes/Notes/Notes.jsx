@@ -8,16 +8,16 @@ import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
 import { useSearch } from '../../../hooks'
 
-function NotesList(props) {
-  const { getNotesList, notes, isProcessingNote } = props
+function Notes(props) {
+  const { syncNotes, notes, isProcessingNote } = props
   const { t } = useTranslation('common')
 
   useSearch()
 
   useEffect(() => {
-    const messageOnError = t('notesList.messageOnNoteLoadError')
-    getNotesList(messageOnError)
-  }, [getNotesList, t])
+    const messageOnError = t('notes.messageOnError')
+    syncNotes(messageOnError)
+  }, [syncNotes, t])
 
   return (
     <Grid container>
@@ -35,8 +35,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    getNotesList: messageOnError => dispatch(SYNC_NOTES_REQUEST(messageOnError))
+    syncNotes: messageOnError => dispatch(SYNC_NOTES_REQUEST(messageOnError))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToState)(NotesList)
+export default connect(mapStateToProps, mapDispatchToState)(Notes)
