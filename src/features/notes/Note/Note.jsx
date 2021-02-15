@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
@@ -8,11 +7,8 @@ import { connect } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import Dialogs from '../Dialogs'
 import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
-import {
-  DELETE_NOTE_REQUEST,
-  PICK_NOTE_REQUEST
-} from '../../../store/actions/async-actions'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
+import { useDeleteNote, usePickNote } from '../../../hooks'
 
 const paperTextStyles = {
   color: 'white',
@@ -108,58 +104,20 @@ function Note(props) {
   const theme = useTheme()
   const classes = useStyles(theme)
 
-  const { t } = useTranslation('common')
   const history = useHistory()
   const { path } = useRouteMatch()
 
-  const { note, deleteNote, pickNote, currentUser } = props
+  const { note, currentUser } = props
   const { id, title, description, category, author, pickers, createdAt } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
-  const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false)
 
   const handleNavigateNoteDetails = () => {
     history.push(`${path}/${id}`)
   }
 
-  const handleDeleteNote = () => {
-    const messageOnSuccess = t('note.messageOnDeleteSuccess')
-    const messageOnError = t('note.messageOnDeleteError')
-    const messageOnFileDeleteError = t('note.messageOnFileDeleteError')
-    const messageOnUserAccessError = t('note.messageOnUserNoteAccessError')
-    deleteNote({
-      note,
-      messageOnSuccess,
-      messageOnError,
-      messageOnFileDeleteError,
-      messageOnUserAccessError
-    })
-    setOpenDeleteDialog(false)
-  }
-
-  const canPick = () => {
-    return (
-      pickers &&
-      (pickers.every(p => p.uid !== currentUser.uid) || pickers.length === 0)
-    )
-  }
-
-  const handlePickNote = () => {
-    if (canPick()) {
-      const messageOnSuccess = t('note.messageOnPickSuccess')
-      const messageOnError = t('note.messageOnPickError')
-      const messageOnUserPickAccessError = t(
-        'note.messageOnUserPickAccessError'
-      )
-      pickNote({
-        note,
-        messageOnSuccess,
-        messageOnError,
-        messageOnUserPickAccessError
-      })
-    }
-    setOpenConfirmDialog(false)
-  }
+  const handleDeleteNote = useDeleteNote(note, setOpenDeleteDialog)
+  const [handlePickNote, canPick] = usePickNote(note)
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -167,16 +125,6 @@ function Note(props) {
 
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false)
-  }
-
-  const handleClickOpenConfirmDialog = () => {
-    if (canPick()) {
-      setOpenConfirmDialog(true)
-    }
-  }
-
-  const handleCloseConfirmDialog = () => {
-    setOpenConfirmDialog(false)
   }
 
   const hasData = () =>
@@ -197,8 +145,6 @@ function Note(props) {
         <Dialogs
           isDeleteDialogOpened={openDeleteDialog}
           closeDeleteDialog={handleCloseDeleteDialog}
-          isConfirmDialogOpened={openConfirmDialog}
-          closeConfirmDialog={handleCloseConfirmDialog}
           deleteNote={handleDeleteNote}
           pickNote={handlePickNote}
           note={note}
@@ -236,11 +182,11 @@ function Note(props) {
             <AddCircleOutlineIcon
               style={{
                 cursor: 'pointer',
-                color: canPick()
+                color: canPick(note)
                   ? theme.palette.secondary.main
                   : theme.palette.text.secondary
               }}
-              onClick={handleClickOpenConfirmDialog}
+              onClick={handlePickNote}
             />
           </div>
         </div>
@@ -255,11 +201,4 @@ function mapStateToProps(state) {
   return { isProcessingNote, currentUser }
 }
 
-function mapDispatchToState(dispatch) {
-  return {
-    deleteNote: deleteNoteData => dispatch(DELETE_NOTE_REQUEST(deleteNoteData)),
-    pickNote: noteData => dispatch(PICK_NOTE_REQUEST(noteData))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToState)(Note)
+export default connect(mapStateToProps, null)(Note)

@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import Dialogs from '../Dialogs'
-import {
-  SYNC_NOTE_REQUEST,
-  DELETE_NOTE_REQUEST,
-  PICK_NOTE_REQUEST
-} from '../../../store/actions/async-actions'
+import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
 import { UNSET_SELECTED_NOTE } from '../../../store/actions/sync-actions'
 import {
   getSelectedNote,
@@ -20,7 +16,7 @@ import {
 import { formattedDateTime } from '../../../services/date-service'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import AppPreloader from '../../../components/AppPreloader'
-import * as ROUTES from '../../../constants/routes'
+import { useDeleteNote, usePickNote } from '../../../hooks'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -63,14 +59,11 @@ const useStyles = makeStyles(theme => ({
 
 function NoteDetails(props) {
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
-  const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false)
 
   const {
     getNote,
     note,
     isFetchingNote,
-    pickNote,
-    deleteNote,
     unsetSelectedNote,
     currentUser
   } = props
@@ -82,7 +75,6 @@ function NoteDetails(props) {
   const theme = useTheme()
   const classes = useStyles(theme)
   const { id } = useParams()
-  const history = useHistory()
 
   useEffect(() => {
     const messageOnError = t('noteDetails.messageOnError')
@@ -94,49 +86,13 @@ function NoteDetails(props) {
     }
   }, [id, getNote, t, unsetSelectedNote])
 
-  const handleDeleteNote = () => {
-    const messageOnSuccess = t('note.messageOnDeleteSuccess')
-    const messageOnError = t('note.messageOnDeleteError')
-    const messageOnFileDeleteError = t('note.messageOnFileDeleteError')
-    const messageOnUserAccessError = t('note.messageOnUserNoteAccessError')
-    const navigateHome = () => history.push(ROUTES.HOME)
-    deleteNote({
-      note,
-      navigateHome,
-      messageOnSuccess,
-      messageOnError,
-      messageOnFileDeleteError,
-      messageOnUserAccessError
-    })
-    setOpenDeleteDialog(false)
-  }
-
-  const canPick = () => {
-    return (
-      pickers &&
-      (pickers.every(p => p.uid !== currentUser.uid) || pickers.length === 0)
-    )
-  }
-
-  const handlePickNote = () => {
-    if (canPick()) {
-      const shouldGetNote = true
-      const messageOnSuccess = t('note.messageOnPickSuccess')
-      const messageOnError = t('note.messageOnPickError')
-      const messageOnUserPickAccessError = t(
-        'note.messageOnUserPickAccessError'
-      )
-
-      pickNote({
-        note,
-        shouldGetNote,
-        messageOnSuccess,
-        messageOnError,
-        messageOnUserPickAccessError
-      })
-    }
-    setOpenConfirmDialog(false)
-  }
+  const shouldNavigateHome = true
+  const handleDeleteNote = useDeleteNote(
+    note,
+    setOpenDeleteDialog,
+    shouldNavigateHome
+  )
+  const [handlePickNote, canPick] = usePickNote(note)
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -146,15 +102,6 @@ function NoteDetails(props) {
     setOpenDeleteDialog(false)
   }
 
-  const handleClickOpenConfirmDialog = () => {
-    if (canPick()) {
-      setOpenConfirmDialog(true)
-    }
-  }
-
-  const handleCloseConfirmDialog = () => {
-    setOpenConfirmDialog(false)
-  }
   const hasData = () =>
     note &&
     id &&
@@ -175,8 +122,6 @@ function NoteDetails(props) {
           <Dialogs
             isDeleteDialogOpened={openDeleteDialog}
             closeDeleteDialog={handleCloseDeleteDialog}
-            isConfirmDialogOpened={openConfirmDialog}
-            closeConfirmDialog={handleCloseConfirmDialog}
             deleteNote={handleDeleteNote}
             pickNote={handlePickNote}
             note={note}
@@ -196,11 +141,11 @@ function NoteDetails(props) {
                   <AddCircleOutlineIcon
                     style={{
                       cursor: 'pointer',
-                      color: canPick()
+                      color: canPick(note)
                         ? theme.palette.secondary.main
                         : theme.palette.text.secondary
                     }}
-                    onClick={handleClickOpenConfirmDialog}
+                    onClick={handlePickNote}
                   />
                 </div>
               </div>
@@ -239,9 +184,7 @@ function mapStateToProps(state) {
 function mapDispatchToState(dispatch) {
   return {
     getNote: noteData => dispatch(SYNC_NOTE_REQUEST(noteData)),
-    unsetSelectedNote: () => dispatch(UNSET_SELECTED_NOTE()),
-    deleteNote: deleteNoteData => dispatch(DELETE_NOTE_REQUEST(deleteNoteData)),
-    pickNote: noteData => dispatch(PICK_NOTE_REQUEST(noteData))
+    unsetSelectedNote: () => dispatch(UNSET_SELECTED_NOTE())
   }
 }
 
