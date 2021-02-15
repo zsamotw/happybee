@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { SYNC_NOTES_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest, getNotes } from '../../../store/selectors'
 import Note from '../Note'
-import { SET_SEARCHBAR_CONFIG } from '../../../store/actions/sync-actions'
+import { useSearch } from '../../../hooks'
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -18,23 +18,17 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NotesList(props) {
-  const { getNotesList, setSearchConfig, notes, isProcessingNote } = props
+  const { getNotesList, notes, isProcessingNote } = props
   const theme = useTheme()
   const classes = useStyles(theme)
   const { t } = useTranslation('common')
+
+  useSearch()
 
   useEffect(() => {
     const messageOnError = t('notesList.messageOnNoteLoadError')
     getNotesList(messageOnError)
   }, [getNotesList, t])
-
-  useEffect(() => {
-    setSearchConfig({ isVisible: true, collectionName: 'notes' })
-
-    return () => {
-      setSearchConfig({ isVisible: false, collection: '' })
-    }
-  }, [setSearchConfig])
 
   return (
     <Grid container>
@@ -54,9 +48,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    getNotesList: messageOnError =>
-      dispatch(SYNC_NOTES_REQUEST(messageOnError)),
-    setSearchConfig: config => dispatch(SET_SEARCHBAR_CONFIG(config))
+    getNotesList: messageOnError => dispatch(SYNC_NOTES_REQUEST(messageOnError))
   }
 }
 
