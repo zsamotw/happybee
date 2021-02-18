@@ -119,7 +119,7 @@ function* updateUserAccountDetailsRequest(action) {
   yield requestWithFetchingData(
     action,
     updateFirebaseUserAccount,
-    isAsyncRequest.isFetchingUpdateUserAccountData
+    isAsyncRequest.isUpdatingProfile
   )
 }
 
@@ -127,7 +127,7 @@ function* changePasswordRequest(action) {
   yield requestWithFetchingData(
     action,
     changeFirebasePassword,
-    isAsyncRequest.isFetchingChangePasswordData
+    isAsyncRequest.isUpdatingPassword
   )
 }
 

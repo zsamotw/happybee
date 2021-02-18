@@ -6,10 +6,12 @@ const makeInitialState = Record({
     isFetchingLoginData: false,
     isFetchingSignUpdData: false,
     isFetchingSignOutData: false,
-    isFetchingUpdateUserAccountData: false,
-    isFetchingChangePasswordData: false,
-    isFetchingNote: false,
-    isProcessingNote: false
+    isUpdatingProfile: false,
+    isUpdatingPassword: false,
+    isSendingData: false,
+    isFetchingData: false,
+    isUpdatingData: false,
+    isDeletingData: false
   },
   searchBarConfig: { isVisible: false, collectionName: '' },
   appMessage: { content: '', type: null },

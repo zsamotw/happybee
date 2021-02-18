@@ -2,10 +2,12 @@ const isAsyncRequest = {
   isFetchingLoginData: 'isFetchingLoginData',
   isFetchingSignUpdData: 'isFetchingSignUpdData',
   isFetchingSignOutData: 'isFetchingSignOutData',
-  isFetchingUpdateUserAccountData: 'isFetchingUpdateUserAccountData',
-  isFetchingChangePasswordData: 'isFetchingChangePasswordData',
-  isFetchingNote: 'isFetchingNote',
-  isProcessingNote: 'isProcessingNote'
+  isUpdatingPassword: 'isUpdatingPassword',
+  isUpdatingProfile: 'isUpdatingProfile',
+  isSendingData: 'isSendingData',
+  isFetchingData: 'isFetchingData',
+  isUpdatingData: 'isUpdatingData',
+  isDeletingData: 'isDeletingData'
 }
 
 export default isAsyncRequest

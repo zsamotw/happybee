@@ -194,9 +194,8 @@ function Note(props) {
 }
 
 function mapStateToProps(state) {
-  const { isProcessingNote } = getIsAsyncRequest(state)
   const currentUser = getCurrentUser(state)
-  return { isProcessingNote, currentUser }
+  return { currentUser }
 }
 
 export default connect(mapStateToProps, null)(Note)

@@ -63,7 +63,9 @@ function NoteDetails(props) {
   const {
     getNote,
     note,
-    isFetchingNote,
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData,
     unsetSelectedNote,
     currentUser
   } = props
@@ -116,7 +118,9 @@ function NoteDetails(props) {
 
   return (
     <>
-      <AppPreloader isVisible={isFetchingNote} />
+      <AppPreloader
+        isVisible={isFetchingData || isUpdatingData || isDeletingData}
+      />
       {hasData() ? (
         <>
           <Dialogs
@@ -173,10 +177,12 @@ function NoteDetails(props) {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingNote } = getIsAsyncRequest(state)
+  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
+    state
+  )
   const currentUser = getCurrentUser(state)
   const note = getSelectedNote(state)
-  return { currentUser, note, isFetchingNote }
+  return { currentUser, note, isFetchingData, isUpdatingData, isDeletingData }
 }
 
 function mapDispatchToState(dispatch) {

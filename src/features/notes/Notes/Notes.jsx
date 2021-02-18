@@ -9,7 +9,13 @@ import AppPreloader from '../../../components/AppPreloader'
 import { useSearch } from '../../../hooks'
 
 function Notes(props) {
-  const { syncNotes, notes, isProcessingNote } = props
+  const {
+    syncNotes,
+    notes,
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData
+  } = props
   const { t } = useTranslation('common')
 
   useSearch()
@@ -21,16 +27,20 @@ function Notes(props) {
 
   return (
     <Grid container>
-      <AppPreloader isVisible={isProcessingNote} />
+      <AppPreloader
+        isVisible={isFetchingData || isUpdatingData || isDeletingData}
+      />
       {notes ? notes.map(note => <Note note={note} key={note.id} />) : null}
     </Grid>
   )
 }
 
 function mapStateToProps(state) {
-  const { isProcessingNote } = getIsAsyncRequest(state)
+  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
+    state
+  )
   const notes = getNotes(state)
-  return { isProcessingNote, notes }
+  return { isFetchingData, isUpdatingData, isDeletingData, notes }
 }
 
 function mapDispatchToState(dispatch) {

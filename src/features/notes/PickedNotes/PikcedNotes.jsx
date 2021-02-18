@@ -13,7 +13,14 @@ import AppPreloader from '../../../components/AppPreloader'
 import { useSearch } from '../../../hooks'
 
 function PickedNotes(props) {
-  const { syncPickedNotes, pickedNotes, isProcessingNote, currentUser } = props
+  const {
+    syncPickedNotes,
+    pickedNotes,
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData,
+    currentUser
+  } = props
   const { t } = useTranslation('common')
 
   useSearch()
@@ -25,7 +32,9 @@ function PickedNotes(props) {
 
   return (
     <Grid container>
-      <AppPreloader isVisible={isProcessingNote} />
+      <AppPreloader
+        isVisible={(isFetchingData, isUpdatingData || isDeletingData)}
+      />
       {pickedNotes
         ? pickedNotes.map(note => <Note note={note} key={note.id} />)
         : null}
@@ -34,10 +43,18 @@ function PickedNotes(props) {
 }
 
 function mapStateToProps(state) {
-  const { isProcessingNote } = getIsAsyncRequest(state)
+  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
+    state
+  )
   const pickedNotes = getPickedNotes(state)
   const currentUser = getCurrentUser(state)
-  return { isProcessingNote, pickedNotes, currentUser }
+  return {
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData,
+    pickedNotes,
+    currentUser
+  }
 }
 
 function mapDispatchToState(dispatch) {

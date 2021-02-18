@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CreateNoteForm = props => {
-  const { createNote, isProcessingNote } = props
+  const { createNote, isSendingData } = props
 
   const classes = useStyles()
 
@@ -63,8 +63,8 @@ const CreateNoteForm = props => {
   })
 
   useEffect(() => {
-    setIsLoading(isProcessingNote)
-  }, [isProcessingNote])
+    setIsLoading(isSendingData)
+  }, [isSendingData])
 
   const titleInputProps = {
     id: 'titleName-input',
@@ -174,8 +174,8 @@ const CreateNoteForm = props => {
 }
 
 function mapStateToProps(state) {
-  const { isProcessingNote } = getIsAsyncRequest(state)
-  return { isProcessingNote }
+  const { isSendingData } = getIsAsyncRequest(state)
+  return { isSendingData }
 }
 
 function mapDispatchToState(dispatch) {

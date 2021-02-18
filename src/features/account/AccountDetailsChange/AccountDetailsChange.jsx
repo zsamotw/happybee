@@ -15,11 +15,7 @@ const useStyles = makeStyles({
 })
 
 function AccountDetailsChange(props) {
-  const {
-    currentUser,
-    isFetchingUpdateUserAccountData,
-    updateUserProfile
-  } = props
+  const { currentUser, isUpdatingProfile, updateUserProfile } = props
 
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -31,8 +27,8 @@ function AccountDetailsChange(props) {
   const classes = useStyles()
 
   useEffect(() => {
-    setIsLoading(isFetchingUpdateUserAccountData)
-  }, [isFetchingUpdateUserAccountData])
+    setIsLoading(isUpdatingProfile)
+  }, [isUpdatingProfile])
 
   const onSubmit = data => {
     const { displayName } = data
@@ -90,8 +86,8 @@ function AccountDetailsChange(props) {
 
 function mapStateToProps(state) {
   const currentUser = getCurrentUser(state)
-  const { isFetchingUpdateUserAccountData } = getIsAsyncRequest(state)
-  return { currentUser, isFetchingUpdateUserAccountData }
+  const { isUpdatingProfile } = getIsAsyncRequest(state)
+  return { currentUser, isUpdatingProfile }
 }
 
 function mapDispatchToState(dispatch) {

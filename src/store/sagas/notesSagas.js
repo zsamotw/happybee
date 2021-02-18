@@ -155,7 +155,7 @@ function* createNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     createFirebaseNote,
-    isAsyncRequest.isProcessingNote
+    isAsyncRequest.isSendingData
   )
 }
 
@@ -163,7 +163,7 @@ function* getFirebaseNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     getFirebaseNote,
-    isAsyncRequest.isFetchingNote
+    isAsyncRequest.isFetchingData
   )
 }
 
@@ -171,7 +171,7 @@ function* deleteNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     deleteFirebaseNote,
-    isAsyncRequest.isProcessingNote
+    isAsyncRequest.isDeletingData
   )
 }
 
@@ -235,11 +235,7 @@ function* syncPickedNotesRequest(action) {
 }
 
 function* pickNoteRequest(action) {
-  yield requestWithFetchingData(
-    action,
-    pickNote,
-    isAsyncRequest.isProcessingNote
-  )
+  yield requestWithFetchingData(action, pickNote, isAsyncRequest.isUpdatingData)
 }
 
 export default function* notesSaga() {

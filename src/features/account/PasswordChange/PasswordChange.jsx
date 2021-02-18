@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 })
 
 const PasswordChangeForm = props => {
-  const { changePassword, isFetchingChangePasswordData, email } = props
+  const { changePassword, isUpdatingPassword, email } = props
 
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -33,8 +33,8 @@ const PasswordChangeForm = props => {
   const classes = useStyles()
 
   useEffect(() => {
-    setIsLoading(isFetchingChangePasswordData)
-  }, [isFetchingChangePasswordData])
+    setIsLoading(isUpdatingPassword)
+  }, [isUpdatingPassword])
 
   const passwordOldInputProps = {
     id: 'passwordOld-input',
@@ -129,9 +129,9 @@ const PasswordChangeForm = props => {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingChangePasswordData } = getIsAsyncRequest(state)
+  const { isUpdatingPassword } = getIsAsyncRequest(state)
   const { email } = getCurrentUser(state)
-  return { isFetchingChangePasswordData, email }
+  return { isUpdatingPassword, email }
 }
 
 function mapDispatchToState(dispatch) {
