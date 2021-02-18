@@ -4,7 +4,8 @@ import {
   SET_NOTES,
   SET_APP_MESSAGE,
   SET_SELECTED_NOTE,
-  SET_PICKED_NOTES
+  SET_PICKED_NOTES,
+  SET_IS_FETCHING_DATA
 } from '../actions/sync-actions'
 import {
   CREATE_NOTE_REQUEST,
@@ -175,7 +176,14 @@ function* deleteNoteRequest(action) {
   )
 }
 
+function* pickNoteRequest(action) {
+  yield requestWithFetchingData(action, pickNote, isAsyncRequest.isUpdatingData)
+}
+
 function* syncFirebaseNoteRequest(action) {
+  yield put(
+    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+  )
   const noteTransformer = snapshot => {
     return { id: snapshot.id, ...snapshot.data() }
   }
@@ -188,10 +196,20 @@ function* syncFirebaseNoteRequest(action) {
     })
   } catch {
     yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+  } finally {
+    yield put(
+      SET_IS_FETCHING_DATA({
+        type: isAsyncRequest.isFetchingData,
+        value: false
+      })
+    )
   }
 }
 
-function* syncFirebaseNotes(action) {
+function* syncFirebaseNotesRequest(action) {
+  yield put(
+    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+  )
   const { messageOnError } = action.payload
   const notesTransformer = snapshot => {
     const notes = []
@@ -208,10 +226,20 @@ function* syncFirebaseNotes(action) {
     })
   } catch {
     yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+  } finally {
+    yield put(
+      SET_IS_FETCHING_DATA({
+        type: isAsyncRequest.isFetchingData,
+        value: false
+      })
+    )
   }
 }
 
 function* syncPickedNotesRequest(action) {
+  yield put(
+    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+  )
   const { messageOnError, userUid } = action.payload
   const notesTransformer = snapshot => {
     const pickedNotes = []
@@ -231,11 +259,14 @@ function* syncPickedNotesRequest(action) {
     })
   } catch {
     yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+  } finally {
+    yield put(
+      SET_IS_FETCHING_DATA({
+        type: isAsyncRequest.isFetchingData,
+        value: false
+      })
+    )
   }
-}
-
-function* pickNoteRequest(action) {
-  yield requestWithFetchingData(action, pickNote, isAsyncRequest.isUpdatingData)
 }
 
 export default function* notesSaga() {
@@ -243,7 +274,7 @@ export default function* notesSaga() {
   yield takeLatest(DELETE_NOTE_REQUEST.type, deleteNoteRequest)
   yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
-  yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotes)
+  yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
   yield takeLatest(PICK_NOTE_REQUEST.type, pickNoteRequest)
   yield takeLatest(GET_PICKED_NOTES_REQUEST.type, syncPickedNotesRequest)
 }
