@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { connect } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import Dialogs from '../Dialogs'
-import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
+import { getCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import { useDeleteNote, usePickNote } from '../../../hooks'
 
