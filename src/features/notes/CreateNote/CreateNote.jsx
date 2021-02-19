@@ -59,7 +59,7 @@ const CreateNoteForm = props => {
 
   const history = useHistory()
 
-  useCurrentViewTitle(t('createNote.pageTitle'))
+  useCurrentViewTitle(t('notes.createNote.pageTitle'))
 
   const categories = categories_.map(c => {
     return { ...c, label: t(`data.categories.${c.slug}`) }
@@ -71,29 +71,29 @@ const CreateNoteForm = props => {
 
   const titleInputProps = {
     id: 'titleName-input',
-    label: t('createNote.inputs.title.label'),
+    label: t('notes.createNote.inputs.title.label'),
     variant: 'outlined',
     name: 'title',
     type: 'text',
     fullWidth: true,
-    placeholder: t('createNote.inputs.title.placeholder'),
+    placeholder: t('notes.createNote.inputs.title.placeholder'),
     register: register({
-      required: t('createNote.inputs.title.error.required')
+      required: t('notes.createNote.inputs.title.error.required')
     }),
     error: errors.title
   }
 
   const descriptionInputProps = {
     id: 'noteDescription-input',
-    label: t('createNote.inputs.description.label'),
+    label: t('notes.createNote.inputs.description.label'),
     variant: 'outlined',
     name: 'description',
     type: 'text',
     fullWidth: true,
     isMultiline: true,
-    placeholder: t('createNote.inputs.description.placeholder'),
+    placeholder: t('notes.createNote.inputs.description.placeholder'),
     register: register({
-      required: t('createNote.inputs.description.label')
+      required: t('notes.createNote.inputs.description.label')
     }),
     error: errors.description
   }
@@ -104,9 +104,11 @@ const CreateNoteForm = props => {
 
   const onSubmit = ({ title, description, categoryId }) => {
     const category = categories.find(c => c.id === categoryId)
-    const messageOnSuccess = t('createNote.messageOnCreateNoteSuccess')
-    const messageOnError = t('createNote.messageOnCreateNoteError')
-    const messageOnFileUploadError = t('createNote.messageOnFileUploadError')
+    const messageOnSuccess = t('notes.createNote.messageOnCreateNoteSuccess')
+    const messageOnError = t('notes.createNote.messageOnCreateNoteError')
+    const messageOnFileUploadError = t(
+      'notes.createNote.messageOnFileUploadError'
+    )
     const pickers = []
     const navigateHome = () => history.push(ROUTES.HOME)
     createNote({
@@ -126,8 +128,8 @@ const CreateNoteForm = props => {
   return (
     <Grid container>
       <Grid item className={classes.wrapper} xs={10} md={8} lg={4}>
-        <h3>{t('createNote.title')}</h3>
-        <h5>{t('createNote.description')}</h5>
+        <h3>{t('notes.createNote.title')}</h3>
+        <h5>{t('notes.createNote.description')}</h5>
         <form onSubmit={handleSubmit(onSubmit)}>
           {AppInput(titleInputProps)}
           {AppInput(descriptionInputProps)}
@@ -138,9 +140,9 @@ const CreateNoteForm = props => {
               name="categoryId"
               menuItems={categories}
               control={control}
-              inputLabel={t('createNote.inputs.category.label')}
+              inputLabel={t('notes.createNote.inputs.category.label')}
               rules={{
-                required: t('createNote.inputs.category.error.required')
+                required: t('notes.createNote.inputs.category.error.required')
               }}
               error={errors.categoryId}
             />
@@ -154,7 +156,7 @@ const CreateNoteForm = props => {
               accept="image/*"
               multiple={false}
               register={register({
-                required: t('createNote.inputs.fileUpload.error.required')
+                required: t('notes.createNote.inputs.fileUpload.error.required')
               })}
               error={errors.imageUpload}
             />
@@ -164,11 +166,11 @@ const CreateNoteForm = props => {
             color="primary"
             size="large"
             type="submit"
-            text={t('createNote.button')}
+            text={t('notes.createNote.button')}
             isLoading={isLoading}
           />
           <div className={classes.errorBar}>
-            {error && <p>{t('createNote.formError')}</p>}
+            {error && <p>{t('notes.createNote.formError')}</p>}
           </div>
         </form>
       </Grid>

@@ -8,7 +8,7 @@ import { useCurrentViewTitle } from '../../../hooks'
 
 export default function AccountProfile() {
   const { t } = useTranslation('common')
-  useCurrentViewTitle(t('accountProfile.pageTitle'))
+  useCurrentViewTitle(t('account.accountProfile.pageTitle'))
 
   return (
     <>

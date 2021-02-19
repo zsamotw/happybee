@@ -65,8 +65,8 @@ function SearchBar(props) {
           </div>
           <InputBase
             id="note-search"
-            label={t('searchBar.input.label')}
-            placeholder={t('searchBar.input.placeholder')}
+            label={t('notes.searchBar.input.label')}
+            placeholder={t('notes.searchBar.input.placeholder')}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput

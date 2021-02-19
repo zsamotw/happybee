@@ -14,10 +14,12 @@ export default function useDeleteNote(
   const history = useHistory()
 
   const deleteNote = () => {
-    const messageOnSuccess = t('note.messageOnDeleteSuccess')
-    const messageOnError = t('note.messageOnDeleteError')
-    const messageOnFileDeleteError = t('note.messageOnFileDeleteError')
-    const messageOnUserAccessError = t('note.messageOnUserNoteAccessError')
+    const messageOnSuccess = t('notes.note.messageOnDeleteSuccess')
+    const messageOnError = t('notes.note.messageOnDeleteError')
+    const messageOnFileDeleteError = t('notes.note.messageOnFileDeleteError')
+    const messageOnUserAccessError = t(
+      'notes.note.messageOnUserNoteAccessError'
+    )
     const navigateHome = shouldNavigateHome
       ? () => history.push(ROUTES.HOME)
       : null

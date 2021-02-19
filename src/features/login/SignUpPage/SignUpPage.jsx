@@ -39,19 +39,19 @@ const SignUpFormBase = props => {
 
   const onSubmit = data => {
     const { displayName, email, passwordOne: password } = data
-    const messageOnError = t('signUpPage.messageOnSignUpError')
+    const messageOnError = t('login.signUpPage.messageOnSignUpError')
     signUp({ displayName, email, password, setError, messageOnError })
   }
 
   const displayNameInputProps = {
     id: 'displayName-input',
-    label: t('signUpPage.inputs.displayName.label'),
+    label: t('login.signUpPage.inputs.displayName.label'),
     variant: 'outlined',
     name: 'displayName',
     type: 'text',
-    placeholder: t('signUpPage.inputs.displayName.placeholder'),
+    placeholder: t('login.signUpPage.inputs.displayName.placeholder'),
     register: register({
-      required: t('signUpPage.inputs.displayName.error.required')
+      required: t('login.signUpPage.inputs.displayName.error.required')
     }),
     error: errors.displayName,
     fullWidth: true
@@ -59,16 +59,16 @@ const SignUpFormBase = props => {
 
   const emailInputProps = {
     id: 'email-input',
-    label: t('signUpPage.inputs.email.label'),
+    label: t('login.signUpPage.inputs.email.label'),
     variant: 'outlined',
     name: 'email',
     type: 'text',
-    placeholder: t('signUpPage.inputs.email.placeholder'),
+    placeholder: t('login.signUpPage.inputs.email.placeholder'),
     register: register({
-      required: t('signUpPage.inputs.email.error.required'),
+      required: t('login.signUpPage.inputs.email.error.required'),
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        message: t('signUpPage.inputs.email.error.invalidPattern')
+        message: t('login.signUpPage.inputs.email.error.invalidPattern')
       }
     }),
     error: errors.email,
@@ -76,16 +76,16 @@ const SignUpFormBase = props => {
   }
   const passwordOneInputProps = {
     id: 'passwordOne-input',
-    label: t('signUpPage.inputs.passwordOne.label'),
+    label: t('login.signUpPage.inputs.passwordOne.label'),
     variant: 'outlined',
     name: 'passwordOne',
     type: 'password',
-    placeholder: t('signUpPage.inputs.passwordOne.placeholder'),
+    placeholder: t('login.signUpPage.inputs.passwordOne.placeholder'),
     register: register({
-      required: t('signUpPage.inputs.passwordOne.error.required'),
+      required: t('login.signUpPage.inputs.passwordOne.error.required'),
       minLength: {
         value: 6,
-        message: t('signUpPage.inputs.passwordOne.error.invalid')
+        message: t('login.signUpPage.inputs.passwordOne.error.invalid')
       }
     }),
     error: errors.passwordOne,
@@ -94,20 +94,20 @@ const SignUpFormBase = props => {
 
   const passwordTwoInputProps = {
     id: 'passwordTwo-input',
-    label: t('signUpPage.inputs.passwordTwo.label'),
+    label: t('login.signUpPage.inputs.passwordTwo.label'),
     variant: 'outlined',
     name: 'passwordTwo',
     type: 'password',
-    placeholder: t('signUpPage.inputs.passwordTwo.placeholder'),
+    placeholder: t('login.signUpPage.inputs.passwordTwo.placeholder'),
     register: register({
-      required: t('signUpPage.inputs.passwordTwo.error.required'),
+      required: t('login.signUpPage.inputs.passwordTwo.error.required'),
       minLength: {
         value: 6,
-        message: t('signUpPage.inputs.passwordTwo.error.invalid')
+        message: t('login.signUpPage.inputs.passwordTwo.error.invalid')
       },
       validate: value =>
         value === getValues('passwordOne') ||
-        t('signUpPage.inputs.passwordTwo.error.incorrect')
+        t('login.signUpPage.inputs.passwordTwo.error.incorrect')
     }),
     error: errors.passwordTwo,
     fullWidth: true
@@ -125,10 +125,10 @@ const SignUpFormBase = props => {
         type="submit"
         size="large"
         isLoading={isLoading}
-        text={t('signUpPage.button')}
+        text={t('login.signUpPage.button')}
       />
       <div className={classes.errorBar}>
-        {error && <p>{t('signUpPage.formError')}</p>}
+        {error && <p>{t('login.signUpPage.formError')}</p>}
       </div>
     </form>
   )

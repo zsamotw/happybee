@@ -19,10 +19,10 @@ function Notes(props) {
   const { t } = useTranslation('common')
 
   useSearch()
-  useCurrentViewTitle(t('notes.pageTitle'))
+  useCurrentViewTitle(t('notes.notes.pageTitle'))
 
   useEffect(() => {
-    const messageOnError = t('notes.messageOnError')
+    const messageOnError = t('notes.notes.messageOnError')
     syncNotes(messageOnError)
   }, [syncNotes, t])
 

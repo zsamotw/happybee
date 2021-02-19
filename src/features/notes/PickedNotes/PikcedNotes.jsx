@@ -23,12 +23,12 @@ function PickedNotes(props) {
   } = props
   const { t } = useTranslation('common')
 
-  useCurrentViewTitle(t('pickedNotes.pageTitle'))
+  useCurrentViewTitle(t('notes.pickedNotes.pageTitle'))
 
   useSearch()
 
   useEffect(() => {
-    const messageOnError = t('pickedNotes.messageOnError')
+    const messageOnError = t('notes.pickedNotes.messageOnError')
     syncPickedNotes({ userUid: currentUser.uid, messageOnError })
   }, [syncPickedNotes, t, currentUser])
 

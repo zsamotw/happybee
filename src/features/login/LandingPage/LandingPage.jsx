@@ -34,7 +34,7 @@ const LandingPage = () => {
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <h1 style={{ paddingLeft: '2rem', textTransform: 'uppercase' }}>
-            {t('landingPage.appTitle')}
+            {t('login.landingPage.appTitle')}
           </h1>
         </Grid>
         <Grid item xs={2} md={4} lg={7} />
@@ -44,8 +44,8 @@ const LandingPage = () => {
             onChange={handleChange}
             style={{ marginBottom: '2rem' }}
           >
-            <Tab label={t('landingPage.tab.signIn')} />
-            <Tab label={t('landingPage.tab.signUp')} />
+            <Tab label={t('login.landingPage.tab.signIn')} />
+            <Tab label={t('login.landingPage.tab.signUp')} />
           </Tabs>
           <TabPanel value={value} index={0}>
             <SignInForm />

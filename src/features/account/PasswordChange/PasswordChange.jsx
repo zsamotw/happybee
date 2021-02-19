@@ -38,16 +38,16 @@ const PasswordChangeForm = props => {
 
   const passwordOldInputProps = {
     id: 'passwordOld-input',
-    label: t('passwordChange.inputs.passwordOld.label'),
+    label: t('account.passwordChange.inputs.passwordOld.label'),
     variant: 'outlined',
     name: 'passwordOld',
     type: 'password',
-    placeholder: t('passwordChange.inputs.passwordOld.placeholder'),
+    placeholder: t('account.passwordChange.inputs.passwordOld.placeholder'),
     register: register({
-      required: t('passwordChange.inputs.error.required'),
+      required: t('account.passwordChange.inputs.error.required'),
       minLength: {
         value: 6,
-        message: t('passwordChange.inputs.error.invalid')
+        message: t('account.passwordChange.inputs.error.invalid')
       }
     }),
     error: errors.passwordOld,
@@ -56,14 +56,17 @@ const PasswordChangeForm = props => {
 
   const passwordOneInputProps = {
     id: 'passwordOne-input',
-    label: t('passwordChange.inputs.passwordOne.label'),
+    label: t('account.passwordChange.inputs.passwordOne.label'),
     variant: 'outlined',
     name: 'passwordOne',
     type: 'password',
-    placeholder: t('passwordChange.inputs.passwordOne.placeholder'),
+    placeholder: t('account.passwordChange.inputs.passwordOne.placeholder'),
     register: register({
-      required: t('passwordChange.inputs.error.required'),
-      minLength: { value: 6, message: t('passwordChange.inputs.error.invalid') }
+      required: t('account.passwordChange.inputs.error.required'),
+      minLength: {
+        value: 6,
+        message: t('account.passwordChange.inputs.error.invalid')
+      }
     }),
     error: errors.passwordOne,
     fullWidth: true
@@ -71,20 +74,20 @@ const PasswordChangeForm = props => {
 
   const passwordTwoInputProps = {
     id: 'passwordTwo-input',
-    label: t('passwordChange.inputs.passwordTwo.label'),
+    label: t('account.passwordChange.inputs.passwordTwo.label'),
     variant: 'outlined',
     name: 'passwordTwo',
     type: 'password',
-    placeholder: t('passwordChange.inputs.passwordTwo.placeholder'),
+    placeholder: t('account.passwordChange.inputs.passwordTwo.placeholder'),
     register: register({
-      required: t('passwordChange.inputs.error.required'),
+      required: t('account.passwordChange.inputs.error.required'),
       minLength: {
         value: 6,
-        message: t('passwordChange.inputs.error.invalid')
+        message: t('account.passwordChange.inputs.error.invalid')
       },
       validate: value =>
         value === getValues('passwordOne') ||
-        t('passwordChange.inputs.error.incorrect')
+        t('account.passwordChange.inputs.error.incorrect')
     }),
     error: errors.passwordTwo,
     fullWidth: true
@@ -92,8 +95,12 @@ const PasswordChangeForm = props => {
 
   const onSubmit = data => {
     const { passwordOld, passwordOne } = data
-    const messageOnSuccess = t('passwordChange.messageOnPasswordChangeSuccess')
-    const messageOnError = t('passwordChange.messageOnPasswordChangeError')
+    const messageOnSuccess = t(
+      'account.passwordChange.messageOnPasswordChangeSuccess'
+    )
+    const messageOnError = t(
+      'account.passwordChange.messageOnPasswordChangeError'
+    )
     changePassword({
       email,
       passwordOld,
@@ -106,7 +113,7 @@ const PasswordChangeForm = props => {
 
   return (
     <>
-      <h3>{t('passwordChange.title')}</h3>
+      <h3>{t('account.passwordChange.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(passwordOldInputProps)}
         {AppInput(passwordOneInputProps)}
@@ -116,12 +123,12 @@ const PasswordChangeForm = props => {
           color="primary"
           size="large"
           type="submit"
-          text={t('passwordChange.button')}
+          text={t('account.passwordChange.button')}
           isLoading={isLoading}
         />
 
         <div className={classes.errorBar}>
-          {error && <p>{t('passwordChange.formError')}</p>}
+          {error && <p>{t('account.passwordChange.formError')}</p>}
         </div>
       </form>
     </>

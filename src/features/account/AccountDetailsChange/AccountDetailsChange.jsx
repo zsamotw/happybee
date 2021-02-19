@@ -32,9 +32,11 @@ function AccountDetailsChange(props) {
 
   const onSubmit = data => {
     const { displayName } = data
-    const messageOnError = t('accountDetailsChange.messageOnDetailsChangeError')
+    const messageOnError = t(
+      'account.accountDetailsChange.messageOnDetailsChangeError'
+    )
     const messageOnSuccess = t(
-      'accountDetailsChange.messageOnDetailsChangeSuccess'
+      'account.accountDetailsChange.messageOnDetailsChangeSuccess'
     )
     updateUserProfile({
       displayName,
@@ -46,13 +48,17 @@ function AccountDetailsChange(props) {
 
   const displayNameInputProps = {
     id: 'displayName-input',
-    label: t('accountDetailsChange.inputs.displayName.label'),
+    label: t('account.accountDetailsChange.inputs.displayName.label'),
     variant: 'outlined',
     name: 'displayName',
     type: 'text',
-    placeholder: t('accountDetailsChange.inputs.displayName.placeholder'),
+    placeholder: t(
+      'account.accountDetailsChange.inputs.displayName.placeholder'
+    ),
     register: register({
-      required: t('accountDetailsChange.inputs.displayName.error.required')
+      required: t(
+        'account.accountDetailsChange.inputs.displayName.error.required'
+      )
     }),
     error: errors.displayName,
     fullWidth: true
@@ -64,7 +70,7 @@ function AccountDetailsChange(props) {
 
   return (
     <>
-      <h3>{t('accountDetailsChange.title')}</h3>
+      <h3>{t('account.accountDetailsChange.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(displayNameInputProps)}
         <ButtonWithProgress
@@ -72,12 +78,12 @@ function AccountDetailsChange(props) {
           color="primary"
           type="submit"
           size="large"
-          text={t('accountDetailsChange.button')}
+          text={t('account.accountDetailsChange.button')}
           isLoading={isLoading}
         />
 
         <div className={classes.errorBar}>
-          {error && <p>{t('accountDetailsChange.formError')}</p>}
+          {error && <p>{t('account.accountDetailsChange.formError')}</p>}
         </div>
       </form>
     </>

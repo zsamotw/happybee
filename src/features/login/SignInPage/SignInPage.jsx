@@ -34,22 +34,22 @@ const SignInFormBase = props => {
 
   const onSubmit = data => {
     const { email, password } = data
-    const messageOnError = t('signInPage.messageOnLogInError')
+    const messageOnError = t('login.signInPage.messageOnLogInError')
     login({ email, password, setError, messageOnError })
   }
 
   const emailInputProps = {
     id: 'email-input',
-    label: t('signInPage.inputs.email.label'),
+    label: t('login.signInPage.inputs.email.label'),
     variant: 'outlined',
     name: 'email',
     type: 'text',
-    placeholder: t('signInPage.inputs.email.placeholder'),
+    placeholder: t('login.signInPage.inputs.email.placeholder'),
     register: register({
-      required: t('signInPage.inputs.email.error.required'),
+      required: t('login.signInPage.inputs.email.error.required'),
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        message: t('signInPage.inputs.email.error.invalidPattern')
+        message: t('login.signInPage.inputs.email.error.invalidPattern')
       }
     }),
     error: errors.email,
@@ -58,16 +58,16 @@ const SignInFormBase = props => {
 
   const passwordInputProps = {
     id: 'password-input',
-    label: t('signInPage.inputs.password.label'),
+    label: t('login.signInPage.inputs.password.label'),
     variant: 'outlined',
     name: 'password',
     type: 'password',
-    placeholder: t('signInPage.inputs.password.placeholder'),
+    placeholder: t('login.isignInPage.inputs.password.placeholder'),
     register: register({
-      required: t('signInPage.inputs.password.error.required'),
+      required: t('login.signInPage.inputs.password.error.required'),
       minLength: {
         value: 6,
-        message: t('signInPage.inputs.password.error.invalid')
+        message: t('login.signInPage.inputs.password.error.invalid')
       }
     }),
     error: errors.password,
@@ -84,10 +84,10 @@ const SignInFormBase = props => {
         type="submit"
         size="large"
         isLoading={isLoading}
-        text={t('signInPage.button')}
+        text={t('login.signInPage.button')}
       />
       <div className={classes.errorBar}>
-        {error && <p>{t('signInPage.formError')}</p>}
+        {error && <p>{t('login.signInPage.formError')}</p>}
       </div>
     </form>
   )

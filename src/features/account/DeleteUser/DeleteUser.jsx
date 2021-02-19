@@ -35,26 +35,28 @@ const DeleteUserFormBase = props => {
   const onSubmit = data => {
     const { email } = data
     if (email === currentUser.email) {
-      const messageOnSuccess = t('deleteUser.messageOnUserDeleteSuccess')
-      const messageOnError = t('deleteUser.messageOnUserDeleteError')
+      const messageOnSuccess = t(
+        'account.deleteUser.messageOnUserDeleteSuccess'
+      )
+      const messageOnError = t('account.deleteUser.messageOnUserDeleteError')
       deleteUser({ setError, messageOnSuccess, messageOnError })
     } else {
-      setError({ message: t('deleteUser.submissionError') })
+      setError({ message: t('account.deleteUser.submissionError') })
     }
   }
 
   const emailInputProps = {
     id: 'email-input',
-    label: t('deleteUser.inputs.email.label'),
+    label: t('account.deleteUser.inputs.email.label'),
     variant: 'outlined',
     name: 'email',
     type: 'text',
-    placeholder: t('deleteUser.inputs.email.placeholder'),
+    placeholder: t('account.deleteUser.inputs.email.placeholder'),
     register: register({
-      required: t('deleteUser.inputs.email.error.required'),
+      required: t('account.deleteUser.inputs.email.error.required'),
       pattern: {
         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        message: t('deleteUser.inputs.email.error.invalid')
+        message: t('account.deleteUser.inputs.email.error.invalid')
       }
     }),
     error: errors.email,
@@ -63,7 +65,7 @@ const DeleteUserFormBase = props => {
 
   return (
     <>
-      <h3>{t('deleteUser.title')}</h3>
+      <h3>{t('account.deleteUser.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(emailInputProps)}
         <ButtonWithProgress
@@ -72,10 +74,10 @@ const DeleteUserFormBase = props => {
           type="submit"
           size="large"
           isLoading={isLoading}
-          text={t('deleteUser.button')}
+          text={t('account.deleteUser.button')}
         />
         <div className={classes.errorBar}>
-          {error && <p>{t('deleteUser.formError')}</p>}
+          {error && <p>{t('account.deleteUser.formError')}</p>}
         </div>
       </form>
     </>

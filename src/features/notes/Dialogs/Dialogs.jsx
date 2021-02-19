@@ -15,15 +15,15 @@ export default function Dialogs(props) {
   return (
     <>
       <Dialog open={isDeleteDialogOpened} onClose={closeDeleteDialog}>
-        <DialogTitle>{t('note.dialogs.delete.title')}</DialogTitle>
+        <DialogTitle>{t('notes.dialogs.delete.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('note.dialogs.delete.description')}
+            {t('notes.dialogs.delete.description')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDeleteDialog} color="primary">
-            {t('note.dialogs.delete.cancelButton')}
+            {t('notes.dialogs.delete.cancelButton')}
           </Button>
           <Button
             onClick={deleteNote}
@@ -31,7 +31,7 @@ export default function Dialogs(props) {
             autoFocus
             data-testid="buttonToDelete"
           >
-            {t('note.dialogs.delete.deleteButton')}
+            {t('notes.dialogs.delete.deleteButton')}
           </Button>
         </DialogActions>
       </Dialog>

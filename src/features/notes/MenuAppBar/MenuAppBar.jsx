@@ -85,7 +85,7 @@ function MenuAppBar(props) {
   }
 
   const handleLogout = () => {
-    const messageOnError = t('menuAppBar.messageOnLogOutError')
+    const messageOnError = t('notes.menuAppBar.messageOnLogOutError')
     logout({ messageOnError })
   }
 
@@ -103,7 +103,7 @@ function MenuAppBar(props) {
                 textTransform: 'uppercase'
               }}
             >
-              {t('menuAppBar.appTitle')}
+              {t('notes.menuAppBar.appTitle')}
             </Link>
           </Typography>
           <SearchBar isVisible={isSearchBarVisible} />
@@ -129,16 +129,16 @@ function MenuAppBar(props) {
               onClose={handleClose}
             >
               <MenuItem onClick={handleNavigateCreateNote}>
-                {t('menuAppBar.menu.createNewNote')}
+                {t('notes.menuAppBar.menu.createNewNote')}
               </MenuItem>
               <MenuItem onClick={handleNavigatePickedNotes}>
-                {t('menuAppBar.menu.pickedNotes')}
+                {t('notes.menuAppBar.menu.pickedNotes')}
               </MenuItem>
               <MenuItem onClick={handleNavigateAccount}>
-                {t('menuAppBar.menu.profile')}
+                {t('notes.menuAppBar.menu.profile')}
               </MenuItem>
               <MenuItem onClick={handleLogout}>
-                {t('menuAppBar.menu.logout')}
+                {t('notes.menuAppBar.menu.logout')}
               </MenuItem>
             </Menu>
           </div>
