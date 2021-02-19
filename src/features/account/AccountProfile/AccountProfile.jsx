@@ -13,8 +13,8 @@ export default function AccountProfile() {
   return (
     <>
       <Grid container spacing={0}>
-        <Grid item xs={1} md={5} />
-        <Grid item xs={10} md={3}>
+        <Grid item xs={1} md={2} lg={3} />
+        <Grid item xs={10} md={8} lg={6}>
           <AccountDetailsChange />
           <PasswordChange />
           <DeleteUserPage />
