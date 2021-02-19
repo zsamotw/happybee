@@ -56,8 +56,8 @@ export const DELETE_NOTE_REQUEST = createAction(
   deleteNoteData => ({ payload: { ...deleteNoteData } })
 )
 
-export const PICK_NOTE_REQUEST = createAction(
-  'PICK NOTE REQUEST',
+export const TOGGLE_PICK_NOTE_REQUEST = createAction(
+  'TOGGLE PICK NOTE REQUEST',
   noteData => ({ payload: { ...noteData } })
 )
 

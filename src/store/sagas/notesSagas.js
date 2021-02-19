@@ -12,7 +12,7 @@ import {
   GET_NOTE_REQUEST,
   SYNC_NOTE_REQUEST,
   SYNC_NOTES_REQUEST,
-  PICK_NOTE_REQUEST,
+  TOGGLE_PICK_NOTE_REQUEST,
   GET_PICKED_NOTES_REQUEST,
   DELETE_NOTE_REQUEST
 } from '../actions/async-actions'
@@ -120,7 +120,7 @@ function* getFirebaseNote(action) {
   yield put(SET_SELECTED_NOTE({ ...note }))
 }
 
-function* pickNote(action) {
+function* togglePickNote(action) {
   const {
     note: { id, pickers },
     shouldGetNote
@@ -179,8 +179,12 @@ function* deleteNoteRequest(action) {
   )
 }
 
-function* pickNoteRequest(action) {
-  yield requestWithFetchingData(action, pickNote, isAsyncRequest.isUpdatingData)
+function* togglePickNoteRequest(action) {
+  yield requestWithFetchingData(
+    action,
+    togglePickNote,
+    isAsyncRequest.isUpdatingData
+  )
 }
 
 function* syncFirebaseNoteRequest(action) {
@@ -278,6 +282,6 @@ export default function* notesSaga() {
   yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
-  yield takeLatest(PICK_NOTE_REQUEST.type, pickNoteRequest)
+  yield takeLatest(TOGGLE_PICK_NOTE_REQUEST.type, togglePickNoteRequest)
   yield takeLatest(GET_PICKED_NOTES_REQUEST.type, syncPickedNotesRequest)
 }
