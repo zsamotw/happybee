@@ -1,15 +1,10 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import Grid from '@material-ui/core/Grid'
 import AccountDetailsChange from '../AccountDetailsChange'
 import PasswordChange from '../PasswordChange'
 import DeleteUserPage from '../DeleteUser'
-import { useCurrentViewTitle } from '../../../hooks'
 
 export default function AccountProfile() {
-  const { t } = useTranslation('common')
-  useCurrentViewTitle(t('account.accountProfile.pageTitle'))
-
   return (
     <>
       <Grid container spacing={0}>

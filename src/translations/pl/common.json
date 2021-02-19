@@ -83,7 +83,6 @@
   },
   "account": {
     "accountProfile": {
-      "pageTitle": "Profil"
     },
     "accountDetailsChange": {
       "inputs": {
@@ -148,7 +147,7 @@
   },
   "notes": {
     "createNote": {
-      "pageTitle": "Nowa notatkę",
+      "pageTitle": "Napisz za co jesteś wdzieczna/y",
       "title": "Stworz notkę",
       "description": "Co chcesz opisać ",
       "inputs": {
@@ -188,7 +187,7 @@
       "appTitle": "HappyBee",
       "menu": {
         "createNewNote": "Dodaj notkę",
-        "pickedNotes": "Ulubione",
+        "pickedNotes": "Mapy szczęcia",
         "profile": "Profil",
         "logout": "Wyloguj"
       },
@@ -213,15 +212,14 @@
       }
     },
     "noteDetails": {
-      "pageTitle": "Detale",
       "messageOnError": "Nie udało się załadować notatki"
     },
     "notes": {
-      "pageTitle": "Notatki",
+      "pageTitle": "Zapisuj, szukaj, twórz mapy szczęcia",
       "messageOnError": "Nie udało sie pobrać notatek"
     },
     "pickedNotes": {
-      "pageTitle": "Ulubione",
+      "pageTitle": "Twoje mapy szczęścia",
       "title": "Wybrane przez Ciebie",
       "messageOnError": "Nie udalo sie pobrać notatek"
     },

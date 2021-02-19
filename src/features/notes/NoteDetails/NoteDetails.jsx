@@ -17,7 +17,7 @@ import {
 import { formattedDateTime } from '../../../services/date-service'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import AppPreloader from '../../../components/AppPreloader'
-import { useDeleteNote, usePickNote, useCurrentViewTitle } from '../../../hooks'
+import { useDeleteNote, usePickNote } from '../../../hooks'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -78,8 +78,6 @@ function NoteDetails(props) {
   const theme = useTheme()
   const classes = useStyles(theme)
   const { id } = useParams()
-
-  useCurrentViewTitle(t('notes.noteDetails.pageTitle'))
 
   useEffect(() => {
     const messageOnError = t('notes.noteDetails.messageOnError')
