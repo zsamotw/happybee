@@ -6,6 +6,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Tooltip from '@material-ui/core/Tooltip'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
 import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
 import { UNSET_SELECTED_NOTE } from '../../../store/actions/sync-actions'
@@ -21,14 +22,16 @@ import { useDeleteNote, usePickNote } from '../../../hooks'
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex'
+    display: 'flex',
+    position: 'relative',
+    padding: '2rem 2rem 0.5rem'
   },
   footer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 1rem',
-    marginTop: '2rem'
+    marginTop: '1rem'
   },
   author: {
     display: 'flex',
@@ -43,7 +46,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   title: {
-    position: 'relative',
     display: 'flex',
     justifyContent: 'space-between'
   },
@@ -135,50 +137,54 @@ function NoteDetails(props) {
             closeDeleteDialog={handleCloseDeleteDialog}
             deleteNote={handleDeleteNote}
           />
-          <div className={classes.container}>
-            <div style={{ width: '50%' }}>
-              <img src={imgURL} alt="i" style={{ width: '100%' }} />
-              <div className={classes.footer}>
-                <div className={classes.author}>
-                  <Avatar className={classes.avatar}>
-                    {author.displayName.charAt(0)}
-                  </Avatar>
-                  <span>{author.displayName}</span>
+          <Paper elevation={3}>
+            <div className={classes.container}>
+              <div style={{ width: '50%' }}>
+                <img src={imgURL} alt="i" style={{ width: '100%' }} />
+                <div className={classes.footer}>
+                  <div className={classes.author}>
+                    <Avatar className={classes.avatar}>
+                      {author.displayName.charAt(0)}
+                    </Avatar>
+                    <span>{author.displayName}</span>
+                  </div>
+                  <Tooltip title={pickersString} arrow>
+                    <div className={classes.pickers}>
+                      <div style={{ marginRight: '10px' }}>
+                        {pickers.length}
+                      </div>
+                      <AddCircleOutlineIcon
+                        style={{
+                          cursor: 'pointer',
+                          color: isPicked(note)
+                            ? theme.palette.text.secondary
+                            : theme.palette.secondary.main
+                        }}
+                        onClick={handlePickNote}
+                      />
+                    </div>
+                  </Tooltip>
                 </div>
-                <Tooltip title={pickersString} arrow>
-                  <div className={classes.pickers}>
-                    <div style={{ marginRight: '10px' }}>{pickers.length}</div>
-                    <AddCircleOutlineIcon
-                      style={{
-                        cursor: 'pointer',
-                        color: isPicked(note)
-                          ? theme.palette.text.secondary
-                          : theme.palette.secondary.main
-                      }}
-                      onClick={handlePickNote}
+              </div>
+              <div style={{ width: '50%', paddingLeft: '2rem' }}>
+                <div className={classes.title}>
+                  <h1 style={{ margin: 0 }}>{title}</h1>
+                  <div className={classes.deleteIcon}>
+                    <AppDeleteIcon
+                      note={note}
+                      currentUser={currentUser}
+                      onClick={handleClickOpenDeleteDialog}
                     />
                   </div>
-                </Tooltip>
-              </div>
-            </div>
-            <div style={{ width: '50%', paddingLeft: '2rem' }}>
-              <div className={classes.title}>
-                <h1 style={{ margin: 0 }}>{title}</h1>
-                <div className={classes.deleteIcon}>
-                  <AppDeleteIcon
-                    note={note}
-                    currentUser={currentUser}
-                    onClick={handleClickOpenDeleteDialog}
-                  />
+                </div>
+                <h2 style={{ marginTop: 0 }}>{category.label}</h2>
+                <p>{description}</p>
+                <div style={{ fontSize: '.7em' }}>
+                  {formattedDateTime(createdAt)}
                 </div>
               </div>
-              <h2 style={{ marginTop: 0 }}>{category.label}</h2>
-              <p>{description}</p>
-              <div style={{ fontSize: '.7em' }}>
-                {formattedDateTime(createdAt)}
-              </div>
             </div>
-          </div>
+          </Paper>
         </>
       ) : null}
     </>
