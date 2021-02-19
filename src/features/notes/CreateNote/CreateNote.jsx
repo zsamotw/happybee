@@ -13,6 +13,7 @@ import { getIsAsyncRequest } from '../../../store/selectors'
 import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
 import * as ROUTES from '../../../constants/routes'
+import { useCurrentViewTitle } from '../../../hooks'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -57,6 +58,8 @@ const CreateNoteForm = props => {
   })
 
   const history = useHistory()
+
+  useCurrentViewTitle(t('createNote.pageTitle'))
 
   const categories = categories_.map(c => {
     return { ...c, label: t(`data.categories.${c.slug}`) }

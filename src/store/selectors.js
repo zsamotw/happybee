@@ -71,3 +71,8 @@ export const getSearchBarConfig = state => {
   const searchBarConfig = state.get('searchBarConfig')
   return searchBarConfig
 }
+
+export const getCurrentViewTitle = state => {
+  const title = state.get('currentViewTitle')
+  return title
+}

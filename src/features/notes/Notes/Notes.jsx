@@ -6,7 +6,7 @@ import { SYNC_NOTES_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest, getNotes } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
-import { useSearch } from '../../../hooks'
+import { useSearch, useCurrentViewTitle } from '../../../hooks'
 
 function Notes(props) {
   const {
@@ -19,6 +19,7 @@ function Notes(props) {
   const { t } = useTranslation('common')
 
   useSearch()
+  useCurrentViewTitle(t('notes.pageTitle'))
 
   useEffect(() => {
     const messageOnError = t('notes.messageOnError')

@@ -10,7 +10,7 @@ import {
 } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
-import { useSearch } from '../../../hooks'
+import { useSearch, useCurrentViewTitle } from '../../../hooks'
 
 function PickedNotes(props) {
   const {
@@ -22,6 +22,8 @@ function PickedNotes(props) {
     currentUser
   } = props
   const { t } = useTranslation('common')
+
+  useCurrentViewTitle(t('pickedNotes.pageTitle'))
 
   useSearch()
 

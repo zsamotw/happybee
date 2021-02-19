@@ -79,6 +79,9 @@
   "signOut": {
     "title": "Wyloguj"
   },
+  "accountProfile": {
+    "pageTitle": "Profil"
+  },
   "accountDetailsChange": {
     "inputs": {
       "displayName": {
@@ -140,6 +143,7 @@
     "submissionError": "Potwierdź decyzję poprawnym emailem"
   },
   "createNote": {
+    "pageTitle": "Nowa notatkę",
     "title": "Stworz notkę",
     "description": "Co chcesz opisać ",
     "inputs": {
@@ -203,12 +207,15 @@
     "messageOnUserPickAccessError": "Tę notek masz juz zapisaną"
   },
   "noteDetails": {
+    "pageTitle": "Detale",
     "messageOnError": "Nie udało się załadować notatki"
   },
   "notes": {
+    "pageTitle": "Notatki",
     "messageOnError": "Nie udało sie pobrać notatek"
   },
   "pickedNotes": {
+    "pageTitle": "Ulubione",
     "title": "Wybrane przez Ciebie",
     "messageOnError": "Nie udalo sie pobrać notatek"
   },

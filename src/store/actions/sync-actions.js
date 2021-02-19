@@ -37,3 +37,8 @@ export const SET_SEARCHBAR_CONFIG = createAction(
   'SET SEARCH BAR CONFIG',
   config => ({ payload: { ...config } })
 )
+
+export const SET_CURRENT_VIEW_TITLE = createAction(
+  'SET CURRENT VIEW TITLE',
+  title => ({ payload: title })
+)

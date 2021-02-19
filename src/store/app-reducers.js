@@ -8,7 +8,8 @@ import {
   handleSetNotes,
   handleSetPickedNotes,
   handleSetNotesQueryFilter,
-  handleSetSearchBarConfig
+  handleSetSearchBarConfig,
+  handleSetCurrentViewTitle
 } from './action-handlers'
 import {
   RESET_STATE,
@@ -20,7 +21,8 @@ import {
   SET_NOTES,
   SET_PICKED_NOTES,
   SET_NOTE_QUERY_FILTER,
-  SET_SEARCHBAR_CONFIG
+  SET_SEARCHBAR_CONFIG,
+  SET_CURRENT_VIEW_TITLE
 } from './actions/sync-actions'
 import initialState from './initial-state'
 
@@ -52,6 +54,9 @@ const appReducers = createReducer(initialState, {
   },
   [SET_NOTE_QUERY_FILTER.type]: (state, action) => {
     return handleSetNotesQueryFilter(state, action.payload)
+  },
+  [SET_CURRENT_VIEW_TITLE.type]: (state, action) => {
+    return handleSetCurrentViewTitle(state, action.payload)
   }
 })
 

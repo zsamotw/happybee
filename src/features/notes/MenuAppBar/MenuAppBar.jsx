@@ -14,7 +14,10 @@ import SearchBar from '../SearchBar'
 import * as ROUTES from '../../../constants/routes'
 import { SET_AUTH_USER } from '../../../store/actions/sync-actions'
 import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
-import { getSearchBarConfig } from '../../../store/selectors'
+import {
+  getSearchBarConfig,
+  getCurrentViewTitle
+} from '../../../store/selectors'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  pageTitle: {
+    textTransform: 'uppercase',
+    marginLeft: '3rem'
   },
   title: {
     marginRight: theme.spacing(3)
@@ -52,7 +59,7 @@ function MenuAppBar(props) {
 
   const { t } = useTranslation('common')
 
-  const { currentUser, logout, isSearchBarVisible } = props
+  const { currentUser, logout, isSearchBarVisible, title } = props
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget)
@@ -100,6 +107,7 @@ function MenuAppBar(props) {
             </Link>
           </Typography>
           <SearchBar isVisible={isSearchBarVisible} />
+          <div className={classes.pageTitle}>{title}</div>
           <div className={classes.grow} />
           <div>
             <IconButton onClick={handleMenu} color="inherit">
@@ -142,7 +150,8 @@ function MenuAppBar(props) {
 
 const mapStateToProps = state => {
   const { isVisible: isSearchBarVisible } = getSearchBarConfig(state)
-  return { isSearchBarVisible }
+  const title = getCurrentViewTitle(state)
+  return { isSearchBarVisible, title }
 }
 
 const mapDispatchToState = dispatch => {

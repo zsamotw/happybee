@@ -53,3 +53,8 @@ export const handleSetSearchBarConfig = (state, config) => {
   const nextState = state.set('searchBarConfig', config)
   return nextState
 }
+
+export const handleSetCurrentViewTitle = (state, title) => {
+  const nextState = state.set('currentViewTitle', title)
+  return nextState
+}
