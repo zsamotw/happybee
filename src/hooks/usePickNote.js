@@ -7,31 +7,20 @@ export default function usePickNote(note) {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser)
 
-  const canPick = n => {
+  const isPicked = n => {
     const { pickers } = n
-    return (
-      pickers &&
-      (pickers.every(p => p.uid !== currentUser.uid) || pickers.length === 0)
-    )
+    return pickers && pickers.some(p => p.uid === currentUser.uid)
   }
 
   const pickNote = () => {
-    if (canPick(note)) {
-      const messageOnSuccess = t('note.messageOnPickSuccess')
-      const messageOnError = t('note.messageOnPickError')
-      const messageOnUserPickAccessError = t(
-        'note.messageOnUserPickAccessError'
-      )
-      dispatch(
-        PICK_NOTE_REQUEST({
-          note,
-          messageOnSuccess,
-          messageOnError,
-          messageOnUserPickAccessError
-        })
-      )
-    }
+    const messageOnError = t('notes.note.messageOnPickError')
+    dispatch(
+      PICK_NOTE_REQUEST({
+        note,
+        messageOnError
+      })
+    )
   }
 
-  return [pickNote, canPick]
+  return [pickNote, isPicked]
 }

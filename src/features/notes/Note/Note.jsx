@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
+import Tooltip from '@material-ui/core/Tooltip'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import { connect } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
@@ -112,12 +114,14 @@ function Note(props) {
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
 
+  const { t } = useTranslation('common')
+
   const handleNavigateNoteDetails = () => {
     history.push(`${path}/${id}`)
   }
 
   const handleDeleteNote = useDeleteNote(note, setOpenDeleteDialog)
-  const [handlePickNote, canPick] = usePickNote(note)
+  const [handlePickNote, isPicked] = usePickNote(note)
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -126,6 +130,12 @@ function Note(props) {
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false)
   }
+
+  const pickersString = useMemo(() => {
+    return pickers.length > 0
+      ? pickers.map(p => p.displayName).join(', ')
+      : t('notes.note.messageWhenEmptyPickers')
+  }, [pickers, t])
 
   const hasData = () =>
     note &&
@@ -175,18 +185,20 @@ function Note(props) {
             </Avatar>
             <span>{author.displayName}</span>
           </div>
-          <div className={classes.pickers}>
-            <div style={{ marginRight: '10px' }}>{pickers.length}</div>
-            <AddCircleOutlineIcon
-              style={{
-                cursor: 'pointer',
-                color: canPick(note)
-                  ? theme.palette.secondary.main
-                  : theme.palette.text.secondary
-              }}
-              onClick={handlePickNote}
-            />
-          </div>
+          <Tooltip title={pickersString} arrow>
+            <div className={classes.pickers}>
+              <div style={{ marginRight: '10px' }}>{pickers.length}</div>
+              <AddCircleOutlineIcon
+                style={{
+                  cursor: 'pointer',
+                  color: isPicked(note)
+                    ? theme.palette.text.secondary
+                    : theme.palette.secondary.main
+                }}
+                onClick={handlePickNote}
+              />
+            </div>
+          </Tooltip>
         </div>
       </Grid>
     )

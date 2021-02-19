@@ -123,16 +123,13 @@ function* getFirebaseNote(action) {
 function* pickNote(action) {
   const {
     note: { id, pickers },
-    messageOnUserPickAccessError,
     shouldGetNote
   } = action.payload
   const currentUser = yield call(Firebase.getCurrentUser)
   const picker = Firebase.transformDbUserToSafeUser(currentUser)
-  const pickAt = new Date().toString()
-  const pickerWithTimeStamp = { ...picker, pickAt }
-  const updatedPickers = [...pickers, pickerWithTimeStamp]
-
-  if (pickers.every(p => p.uid !== picker.uid) || pickers.length === 0) {
+  const isPicked = pickers.some(p => p.uid === picker.uid)
+  if (isPicked) {
+    const updatedPickers = pickers.filter(p => p.uid !== picker.uid)
     yield call(
       Firebase.setDocument,
       `notes/${id}`,
@@ -143,12 +140,18 @@ function* pickNote(action) {
       yield put(GET_NOTE_REQUEST({ id }))
     }
   } else {
-    yield put(
-      SET_APP_MESSAGE({
-        content: messageOnUserPickAccessError,
-        status: 'warring'
-      })
+    const pickAt = new Date().toString()
+    const pickerWithTimeStamp = { ...picker, pickAt }
+    const updatedPickers = [...pickers, pickerWithTimeStamp]
+    yield call(
+      Firebase.setDocument,
+      `notes/${id}`,
+      { pickers: updatedPickers },
+      { merge: true }
     )
+    if (shouldGetNote) {
+      yield put(GET_NOTE_REQUEST({ id }))
+    }
   }
 }
 
