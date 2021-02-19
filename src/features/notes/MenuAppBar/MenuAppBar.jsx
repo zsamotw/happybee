@@ -28,7 +28,10 @@ const useStyles = makeStyles(theme => ({
   },
   pageTitle: {
     textTransform: 'uppercase',
-    marginLeft: '3rem'
+    marginLeft: '3rem',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   title: {
     marginRight: theme.spacing(3)
