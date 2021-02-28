@@ -169,13 +169,11 @@ function NoteDetails(props) {
               <div style={{ width: '50%', paddingLeft: '2rem' }}>
                 <div className={classes.title}>
                   <h1 style={{ margin: 0 }}>{title}</h1>
-                  <div className={classes.deleteIcon}>
-                    <AppDeleteIcon
-                      note={note}
-                      currentUser={currentUser}
-                      onClick={handleClickOpenDeleteDialog}
-                    />
-                  </div>
+                  {note.author.uid === currentUser.uid ? (
+                    <div className={classes.deleteIcon}>
+                      <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+                    </div>
+                  ) : null}
                 </div>
                 <h2 style={{ marginTop: 0 }}>{category.label}</h2>
                 <p>{description}</p>

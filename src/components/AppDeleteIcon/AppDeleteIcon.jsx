@@ -18,16 +18,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function DeleteNoteIcon(props) {
-  const { note, currentUser, onClick } = props
+  const { onClick } = props
   const theme = useTheme()
   const classes = useStyles(theme)
 
-  if (note && currentUser && note.author.uid === currentUser.uid) {
-    return (
-      <IconButton onClick={onClick} className={classes.root}>
-        <DeleteIcon />
-      </IconButton>
-    )
-  }
-  return <></>
+  return (
+    <IconButton onClick={onClick} className={classes.root}>
+      <DeleteIcon />
+    </IconButton>
+  )
 }

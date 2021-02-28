@@ -159,13 +159,11 @@ function Note(props) {
         />
         <div className={classes.header}>
           <h3 className={classes.headLine}>{title}</h3>
-          <div className={classes.deleteIcon}>
-            <AppDeleteIcon
-              note={note}
-              currentUser={currentUser}
-              onClick={handleClickOpenDeleteDialog}
-            />
-          </div>
+          {note.author.uid === currentUser.uid ? (
+            <div className={classes.deleteIcon} data-testid="delete-icon">
+              <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+            </div>
+          ) : null}
         </div>
         <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
         <div
@@ -187,7 +185,9 @@ function Note(props) {
           </div>
           <Tooltip title={pickersString} arrow>
             <div className={classes.pickers}>
-              <div style={{ marginRight: '10px' }}>{pickers.length}</div>
+              <div style={{ marginRight: '10px' }} data-testid="pickers">
+                {pickers.length}
+              </div>
               <AddCircleOutlineIcon
                 style={{
                   cursor: 'pointer',
