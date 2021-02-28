@@ -3,44 +3,47 @@ import { cleanup } from '@testing-library/react'
 import { render, currentUser } from '../../../services/test-service'
 import Note from './index'
 
-const donorItem = {
-  id: 'KlYH2A8gw3SFcjpqOxcY',
-  title: 'rower',
-  imgStoragePath: '',
-  donor: currentUser,
-  description: 'fajny',
-  category: {
-    id: 2,
-    label: 'Motors'
-  },
-  createdAt:
-    'Tue Dec 01 2020 14:28:20 GMT+0100 (Central European Standard Time)',
-  imgURL: ''
-}
+describe('Note component tests', () => {
+  const note = {
+    id: 'qTcmxVFQT9UvDxFA2SnY',
+    imgStoragePath: 'images/2021-1/1613768382426/20200804_wiech_131.png',
+    author: {
+      displayName: 'anna',
+      uid: 'jdT0qtcMxiOYzFg5cjrGPWKUqUL2',
+      photoURL: null,
+      email: 'a@a.com'
+    },
+    category: {
+      label: 'Przeczytane',
+      slug: 'read',
+      id: 3
+    },
+    imgURL:
+      'https://firebasestorage.googleapis.com/v0/b/happybee-a6205.appspot.com/o/images%2F2021-1%2F1613768382426%2F20200804_wiech_131.png?alt=media&token=e19e214f-63cd-4e9b-9c70-490f3dbcf1d4',
+    createdAt:
+      'Fri Feb 19 2021 21:59:42 GMT+0100 (Central European Standard Time)',
+    description: 'jfksjdl',
+    pickers: [
+      {
+        displayName: 'anna',
+        pickAt:
+          'Sun Feb 28 2021 14:51:52 GMT+0100 (Central European Standard Time)',
+        uid: 'jdT0qtcMxiOYzFg5cjrGPWKUqUL2',
+        photoURL: null,
+        email: 'a@a.com'
+      }
+    ],
+    title: 'hallo'
+  }
 
-const itemToTake = {
-  id: 'KlYH2A8gw3SFcjpqOxcY',
-  title: 'rower',
-  imgStoragePath: '',
-  description: 'fajny',
-  donor: { displayName: 'donor', email: 'donor@donor.com' },
-  category: {
-    id: 2,
-    label: 'Motors'
-  },
-  createdAt:
-    'Tue Dec 01 2020 14:28:20 GMT+0100 (Central European Standard Time)',
-  imgURL: ''
-}
-
-describe('Item component tests', () => {
   afterEach(cleanup)
-  it('Should render Item component with proper item data', () => {
-    const { getByText } = render(<Note note={donorItem} />)
-    const title = new RegExp(donorItem.name)
-    const description = new RegExp(donorItem.description)
-    const category = new RegExp(donorItem.category.label)
-    const donorDisplayName = new RegExp(donorItem.donor.displayName)
+
+  it('Should render Note component with proper item data', () => {
+    const { getByText } = render(<Note note={note} />)
+    const title = new RegExp(note.title)
+    const description = new RegExp(note.description)
+    const category = new RegExp(note.category.label)
+    const donorDisplayName = new RegExp(note.author.displayName)
 
     expect(getByText(title)).toBeInTheDocument()
     expect(getByText(description)).toBeInTheDocument()
@@ -48,126 +51,33 @@ describe('Item component tests', () => {
     expect(getByText(donorDisplayName)).toBeInTheDocument()
   })
 
-  it('should render delete button for donor', () => {
-    const { getByTestId } = render(<Note item={donorItem} />)
-    const button = getByTestId('deleteIcon')
-    expect(button).toBeInTheDocument()
+  it('should render delete icon when author is current user', () => {
+    const currentUserNote = { ...note, author: currentUser }
+    const { getByTestId } = render(<Note note={currentUserNote} />)
+    const icon = getByTestId('delete-icon')
+    expect(icon).toBeInTheDocument()
   })
 
-  it('should render take button for user which is not donor', () => {
-    const { getByTestId } = render(<Note item={itemToTake} />)
-    const button = getByTestId('confirmIcon')
-    expect(button).toBeInTheDocument()
+  it('should not render delete icon when author is not current user', () => {
+    const { queryByTestId } = render(<Note note={note} />)
+    const icon = queryByTestId('delete-icon')
+    expect(icon).toEqual(null)
+  })
+
+  it('should render number of pickers', () => {
+    const { getByTestId } = render(<Note note={note} />)
+    const pickers = getByTestId('pickers')
+    expect(pickers.textContent).toBe('1')
   })
 
   it('Should not render Item component with not proper item data: id as null', () => {
-    const itemWithNullName = {
-      id: null,
-      title: 'name',
-      imgStoragePath: '',
-      donor: {},
-      description: 'description',
-      category: {
-        id: 2,
-        label: 'label'
-      },
-      createdAt: new Date(),
-      imgURL: ''
-    }
+    const noteWithIdNull = { ...note, id: null }
     const Wrapper = () => (
       <div>
-        <Note item={itemWithNullName} />
+        <Note note={noteWithIdNull} />
       </div>
     )
     const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByText(itemWithNullName.title)).toBeNull()
-  })
-
-  it('Should not render Item component with not proper item data: donor as undefined', () => {
-    const itemWithNullName = {
-      id: '1234',
-      name: 'name',
-      imgStoragePath: '',
-      donor: undefined,
-      description: 'description',
-      category: {
-        id: 2,
-        label: 'label'
-      },
-      createdAt: new Date(),
-      imgURL: ''
-    }
-    const Wrapper = () => (
-      <div>
-        <Note item={itemWithNullName} />
-      </div>
-    )
-
-    const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByText(itemWithNullName.name)).toBeNull()
-  })
-
-  it('Should not render Item component with not proper item data: donor email as undefined', () => {
-    const itemWithNullName = {
-      id: '1234',
-      name: 'name',
-      imgStoragePath: '',
-      donor: {},
-      description: 'description',
-      category: {
-        id: 2,
-        label: 'label'
-      },
-      createdAt: new Date(),
-      imgURL: ''
-    }
-    const Wrapper = () => (
-      <div>
-        <Note item={itemWithNullName} data-testid="item" />
-      </div>
-    )
-    const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByTestId('item')).toBeNull()
-  })
-
-  it('Should not render Item component with not proper item data: description as undefined', () => {
-    const itemWithNullName = {
-      id: '1234',
-      name: 'name',
-      imgStoragePath: '',
-      donor: { email: 'email' },
-      category: {
-        id: 2,
-        label: 'label'
-      },
-      createdAt: new Date(),
-      imgURL: ''
-    }
-    const Wrapper = () => (
-      <div>
-        <Note item={itemWithNullName} data-testid="item" />
-      </div>
-    )
-    const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByTestId('item')).toBeNull()
-  })
-
-  it('Should not render Item component with not proper item data: category as null', () => {
-    const itemWithNullName = {
-      id: '1234',
-      name: 'name',
-      imgStoragePath: '',
-      donor: { email: 'email' },
-      description: 'description',
-      createdAt: new Date(),
-      imgURL: ''
-    }
-    const Wrapper = () => (
-      <div>
-        <Note item={itemWithNullName} data-testid="item" />
-      </div>
-    )
-    const wrapper = render(<Wrapper />)
-    expect(wrapper.queryByTestId('item')).toBeNull()
+    expect(wrapper.queryByText(noteWithIdNull.title)).toBeNull()
   })
 })
