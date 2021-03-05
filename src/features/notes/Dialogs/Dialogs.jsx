@@ -13,28 +13,30 @@ export default function Dialogs(props) {
   const { isDeleteDialogOpened, closeDeleteDialog, deleteNote } = props
 
   return (
-    <>
-      <Dialog open={isDeleteDialogOpened} onClose={closeDeleteDialog}>
-        <DialogTitle>{t('notes.dialogs.delete.title')}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t('notes.dialogs.delete.description')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDeleteDialog} color="primary">
-            {t('notes.dialogs.delete.cancelButton')}
-          </Button>
-          <Button
-            onClick={deleteNote}
-            color="secondary"
-            autoFocus
-            data-testid="buttonToDelete"
-          >
-            {t('notes.dialogs.delete.deleteButton')}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog open={isDeleteDialogOpened} onClose={closeDeleteDialog}>
+      <DialogTitle>{t('notes.dialogs.delete.title')}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {t('notes.dialogs.delete.description')}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={closeDeleteDialog}
+          color="primary"
+          data-testid="closeDialogButton"
+        >
+          {t('notes.dialogs.delete.cancelButton')}
+        </Button>
+        <Button
+          onClick={deleteNote}
+          color="secondary"
+          autoFocus
+          data-testid="deleteNoteButton"
+        >
+          {t('notes.dialogs.delete.deleteButton')}
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }
