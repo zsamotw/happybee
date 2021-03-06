@@ -12,25 +12,15 @@ import { getCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import { useDeleteNote, usePickNote } from '../../../hooks'
 
-const paperTextStyles = {
-  color: 'white',
-  padding: '.5rem',
-  borderRadius: '10px',
-  opacity: 0.5
-}
-
 const useStyles = makeStyles(theme => ({
   gridItem: {
     padding: '1rem 1rem 1rem 0',
     '&:hover': {
       '& $imageWrapper': {
-        backgroundImage: 'linear-gradient(to left, #57a0b396, #57a0b396 )'
-      },
-      '& img': {
-        zIndex: '-1'
+        border: `3px solid ${theme.palette.secondary.main}`
       },
       '& $description': {
-        opacity: '1'
+        transform: 'scale(1.1)'
       }
     }
   },
@@ -42,15 +32,18 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '.1rem'
   },
   description: {
-    ...paperTextStyles,
+    color: `${theme.palette.grey[800]}`,
     padding: '1.5rem',
     margin: '1.5rem',
+    borderRadius: '10px',
     position: 'absolute',
-    opacity: 0,
-    backgroundColor: 'black',
-    overflowY: 'auto'
+    opacity: 0.8,
+    backgroundColor: 'white',
+    overflowY: 'auto',
+    transition: 'all 0.3s'
   },
   imageWrapper: {
+    border: `3px solid transparent`,
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
@@ -60,6 +53,8 @@ const useStyles = makeStyles(theme => ({
     margin: '1rem 0',
     overflow: 'hidden',
     borderRadius: '15px',
+    backgroundImage: 'linear-gradient(to left, #57a0b396, #57a0b396 )',
+    backgroundClip: 'content-box',
     cursor: 'pointer'
   },
   image: {
