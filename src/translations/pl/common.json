@@ -160,7 +160,7 @@
         },
         "description": {
           "label": "Opis",
-          "placeholder": "Podaj  opis",
+          "placeholder": "Podaj opis",
           "error": {
             "required": "Opis jest wymagany"
           }
