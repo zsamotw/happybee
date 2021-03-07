@@ -38,7 +38,7 @@ function UserNotes(props) {
   return (
     <Grid container>
       <AppPreloader
-        isVisible={(isFetchingData, isUpdatingData || isDeletingData)}
+        isVisible={isFetchingData || isUpdatingData || isDeletingData}
       />
       {userNotes
         ? userNotes.map(note => <Note note={note} key={note.id} />)

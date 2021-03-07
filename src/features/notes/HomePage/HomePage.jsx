@@ -32,7 +32,7 @@ const HomePage = props => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} />
-      <div className={classes.container}>
+      <section className={classes.container}>
         <Switch>
           {routes(path).map(route => (
             <PrivateRoute
@@ -43,7 +43,7 @@ const HomePage = props => {
             />
           ))}
         </Switch>
-      </div>
+      </section>
     </div>
   )
 }

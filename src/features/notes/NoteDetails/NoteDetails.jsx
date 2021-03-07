@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Tooltip from '@material-ui/core/Tooltip'
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
 import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
@@ -45,14 +47,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
     marginRight: theme.spacing(1)
   },
-  title: {
+  headerIcon: {
     display: 'flex',
     justifyContent: 'space-between'
-  },
-  deleteIcon: {
-    position: 'absolute',
-    right: '0',
-    top: '6px'
   },
   pickers: {
     display: 'flex',
@@ -77,6 +74,7 @@ function NoteDetails(props) {
     note || {}
 
   const { t } = useTranslation('common')
+  const history = useHistory()
   const theme = useTheme()
   const classes = useStyles(theme)
   const { id } = useParams()
@@ -98,6 +96,8 @@ function NoteDetails(props) {
     shouldNavigateHome
   )
   const [handlePickNote, isPicked] = usePickNote(note)
+
+  const handleNavigateBack = () => history.goBack()
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -137,11 +137,19 @@ function NoteDetails(props) {
             closeDeleteDialog={handleCloseDeleteDialog}
             deleteNote={handleDeleteNote}
           />
-          <section>
+          <article>
             <Paper elevation={3}>
+              <div className={classes.headerIcon}>
+                <IconButton onClick={handleNavigateBack}>
+                  <CloseIcon />
+                </IconButton>
+                {note.author.uid === currentUser.uid ? (
+                  <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+                ) : null}
+              </div>
               <div className={classes.container}>
                 <div style={{ width: '50%' }}>
-                  <img src={imgURL} alt="i" style={{ width: '100%' }} />
+                  <img src={imgURL} alt="user img" style={{ width: '100%' }} />
                   <div className={classes.footer}>
                     <div className={classes.author}>
                       <Avatar className={classes.avatar}>
@@ -168,14 +176,7 @@ function NoteDetails(props) {
                   </div>
                 </div>
                 <div style={{ width: '50%', paddingLeft: '2rem' }}>
-                  <div className={classes.title}>
-                    <h1 style={{ margin: 0 }}>{title}</h1>
-                    {note.author.uid === currentUser.uid ? (
-                      <div className={classes.deleteIcon}>
-                        <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
-                      </div>
-                    ) : null}
-                  </div>
+                  <h1 style={{ margin: 0 }}>{title}</h1>
                   <h2 style={{ marginTop: 0 }}>{category.label}</h2>
                   <p>{description}</p>
                   <div style={{ fontSize: '.7em' }}>
@@ -184,7 +185,7 @@ function NoteDetails(props) {
                 </div>
               </div>
             </Paper>
-          </section>
+          </article>
         </>
       ) : null}
     </>
