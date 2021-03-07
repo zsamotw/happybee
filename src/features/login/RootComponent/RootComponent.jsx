@@ -31,7 +31,7 @@ function RootComponent(props) {
   }
 
   return (
-    <div>
+    <main>
       <Router>
         <Switch>
           {routes.map(route =>
@@ -66,7 +66,7 @@ function RootComponent(props) {
           {appMessage.content}
         </Alert>
       </Snackbar>
-    </div>
+    </main>
   )
 }
 
