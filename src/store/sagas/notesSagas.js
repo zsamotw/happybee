@@ -4,7 +4,7 @@ import {
   SET_NOTES,
   SET_APP_MESSAGE,
   SET_SELECTED_NOTE,
-  SET_PICKED_NOTES,
+  SET_USER_NOTES,
   SET_IS_FETCHING_DATA
 } from '../actions/sync-actions'
 import {
@@ -13,7 +13,7 @@ import {
   SYNC_NOTE_REQUEST,
   SYNC_NOTES_REQUEST,
   TOGGLE_PICK_NOTE_REQUEST,
-  GET_PICKED_NOTES_REQUEST,
+  GET_USER_NOTES_REQUEST,
   DELETE_NOTE_REQUEST
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
@@ -243,25 +243,25 @@ function* syncFirebaseNotesRequest(action) {
   }
 }
 
-function* syncPickedNotesRequest(action) {
+function* syncUserNotesRequest(action) {
   yield put(
     SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
   )
   const { messageOnError, userUid } = action.payload
   const notesTransformer = snapshot => {
-    const pickedNotes = []
+    const userNotes = []
     snapshot.forEach(doc => {
-      const isPicked = doc.data().pickers.some(picker => picker.uid === userUid)
-      if (isPicked) {
-        pickedNotes.push({ id: doc.id, ...doc.data() })
+      const isUserNote = doc.data().author.uid === userUid
+      if (isUserNote) {
+        userNotes.push({ id: doc.id, ...doc.data() })
       }
     })
-    return pickedNotes
+    return userNotes
   }
 
   try {
     yield fork(Firebase.syncCollectionRef(), 'notes', {
-      successActionCreator: SET_PICKED_NOTES,
+      successActionCreator: SET_USER_NOTES,
       transform: notesTransformer
     })
   } catch {
@@ -283,5 +283,5 @@ export default function* notesSaga() {
   yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
   yield takeLatest(TOGGLE_PICK_NOTE_REQUEST.type, togglePickNoteRequest)
-  yield takeLatest(GET_PICKED_NOTES_REQUEST.type, syncPickedNotesRequest)
+  yield takeLatest(GET_USER_NOTES_REQUEST.type, syncUserNotesRequest)
 }

@@ -20,14 +20,14 @@ export const getSelectedNote = state => {
   return notes
 }
 
-export const getPickedNotes = createSelector(
-  state => state.pickedNotes,
+export const getUserNotes = createSelector(
+  state => state.userNotes,
   state => state.noteFilters,
-  (pickedNotes, noteFilters) => {
+  (userNotes, noteFilters) => {
     const { query } = noteFilters
     const lowerCaseQuery = query.toLowerCase()
 
-    return pickedNotes.filter(note =>
+    return userNotes.filter(note =>
       lowerCaseQuery
         ? (note.title && note.title.toLowerCase().includes(lowerCaseQuery)) ||
           (note.author &&

@@ -18,7 +18,7 @@ const makeInitialState = Record({
   appMessage: { content: '', type: null },
   selectedNote: null,
   notes: List([]),
-  pickedNotes: List([]),
+  userNotes: List([]),
   noteFilters: { query: '' }
 })
 

@@ -4,7 +4,7 @@ import MainPage from '../MainPage'
 import CreateNote from '../CreateNote'
 import NoteDetails from '../NoteDetails'
 import Notes from '../Notes'
-import PickedNotes from '../PickedNotes'
+import UserNotes from '../UserNotes'
 
 const routes = path => [
   {
@@ -28,14 +28,9 @@ const routes = path => [
     component: Notes
   },
   {
-    path: `${path}${ROUTES.PICKED_NOTES}`,
+    path: `${path}${ROUTES.USER}/:userUid${ROUTES.NOTES}`,
     exact: true,
-    component: PickedNotes
-  },
-  {
-    path: `${path}${ROUTES.PICKED_NOTES}/:id`,
-    exact: true,
-    component: NoteDetails
+    component: UserNotes
   },
   {
     path: `${path}${ROUTES.NOTES}/:id`,

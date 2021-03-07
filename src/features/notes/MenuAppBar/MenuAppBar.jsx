@@ -2,6 +2,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
+import NoteAddIcon from '@material-ui/icons/NoteAdd'
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary'
+import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -23,13 +27,27 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  iconLink: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textDecoration: 'none',
+    color: '#fff',
+    fontSize: '20px',
+    cursor: 'pointer',
+    marginRight: '2rem',
+    '& div': {
+      fontSize: '11px'
+    }
+  },
   grow: {
     flexGrow: 1
   },
   pageTitle: {
+    fontSize: '14px',
     textTransform: 'uppercase',
     marginLeft: '3rem',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none'
     }
   },
@@ -78,8 +96,8 @@ function MenuAppBar(props) {
     setAnchorEl(null)
   }
 
-  const handleNavigatePickedNotes = () => {
-    history.push(`${path}${ROUTES.PICKED_NOTES}`)
+  const handleNavigateUserNotes = () => {
+    history.push(`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`)
     setAnchorEl(null)
   }
 
@@ -110,6 +128,25 @@ function MenuAppBar(props) {
             </Link>
           </Typography>
           <SearchBar isVisible={isSearchBarVisible} />
+          <Link
+            className={classes.iconLink}
+            style={{ marginLeft: '3rem' }}
+            to={`${path}${ROUTES.CREATE_NOTE}`}
+          >
+            <NoteAddIcon />
+            <div>{t('notes.menuAppBar.links.newNote')}</div>
+          </Link>
+          <Link className={classes.iconLink} to={`${ROUTES.HOME}`}>
+            <LocalLibraryIcon />
+            <div>{t('notes.menuAppBar.links.notes')}</div>
+          </Link>
+          <Link
+            className={classes.iconLink}
+            to={`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`}
+          >
+            <LibraryBooksIcon />
+            <div>{t('notes.menuAppBar.links.userNotes')}</div>
+          </Link>
           <div className={classes.pageTitle}>{title}</div>
           <div className={classes.grow} />
           <div>
@@ -134,13 +171,14 @@ function MenuAppBar(props) {
               <MenuItem onClick={handleNavigateCreateNote}>
                 {t('notes.menuAppBar.menu.createNewNote')}
               </MenuItem>
-              <MenuItem onClick={handleNavigatePickedNotes}>
-                {t('notes.menuAppBar.menu.pickedNotes')}
+              <MenuItem onClick={handleNavigateUserNotes}>
+                {t('notes.menuAppBar.menu.userNotes')}
               </MenuItem>
               <MenuItem onClick={handleNavigateAccount}>
                 {t('notes.menuAppBar.menu.profile')}
               </MenuItem>
-              <MenuItem onClick={handleLogout}>
+              <Divider />
+              <MenuItem onClick={handleLogout} style={{ paddingTop: '1rem' }}>
                 {t('notes.menuAppBar.menu.logout')}
               </MenuItem>
             </Menu>

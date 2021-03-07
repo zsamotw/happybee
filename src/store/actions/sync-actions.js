@@ -24,7 +24,7 @@ export const SET_NOTES = createAction('SET NOTES', notes => ({
   payload: notes
 }))
 
-export const SET_PICKED_NOTES = createAction('SET_PICKED_NOTES', notes => ({
+export const SET_USER_NOTES = createAction('SET_USER_NOTES', notes => ({
   payload: notes
 }))
 

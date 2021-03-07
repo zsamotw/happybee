@@ -4,13 +4,15 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Tooltip from '@material-ui/core/Tooltip'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied'
 import { connect } from 'react-redux'
-import { useHistory, useRouteMatch } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Dialogs from '../Dialogs'
 import { getCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import { useDeleteNote, usePickNote } from '../../../hooks'
+import { formattedDateTime } from '../../../services/date-service'
+import * as ROUTES from '../../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
@@ -41,6 +43,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     overflowY: 'auto',
     transition: 'all 0.3s'
+  },
+  date: {
+    fontSize: '14px',
+    color: `${theme.palette.grey[500]}`
   },
   imageWrapper: {
     border: `3px solid transparent`,
@@ -102,7 +108,6 @@ function Note(props) {
   const classes = useStyles(theme)
 
   const history = useHistory()
-  const { path } = useRouteMatch()
 
   const { note, currentUser } = props
   const { id, title, description, category, author, pickers, createdAt } = note
@@ -111,12 +116,12 @@ function Note(props) {
 
   const { t } = useTranslation('common')
 
-  const handleNavigateNoteDetails = () => {
-    history.push(`${path}/${id}`)
-  }
-
   const handleDeleteNote = useDeleteNote(note, setOpenDeleteDialog)
   const [handlePickNote, isPicked] = usePickNote(note)
+
+  const handleNavigateNoteDetails = () => {
+    history.push(`${ROUTES.HOME}${ROUTES.NOTES}/${id}`)
+  }
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -169,7 +174,10 @@ function Note(props) {
           tabIndex="0"
         >
           <img src={note.imgURL} alt="i" className={classes.image} />
-          <div className={classes.description}>{description}</div>
+          <div className={classes.description}>
+            <span>{description}</span>
+            <div className={classes.date}>{formattedDateTime(createdAt)}</div>
+          </div>
         </div>
         <div className={classes.footer}>
           <div className={classes.author}>
@@ -183,7 +191,7 @@ function Note(props) {
               <div style={{ marginRight: '10px' }} data-testid="pickers">
                 {pickers.length}
               </div>
-              <AddCircleOutlineIcon
+              <SentimentVerySatisfiedIcon
                 style={{
                   cursor: 'pointer',
                   color: isPicked(note)

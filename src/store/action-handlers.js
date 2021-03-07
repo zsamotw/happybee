@@ -35,11 +35,11 @@ export const handleSetNotes = (state, notes) => {
   return nextState
 }
 
-export const handleSetPickedNotes = (state, notes) => {
+export const handleSetUserNotes = (state, notes) => {
   const nextNotes = List(notes)
     .sortBy(note => new Date(note.createdAt))
     .reverse()
-  const nextState = state.set('pickedNotes', nextNotes)
+  const nextState = state.set('userNotes', nextNotes)
   return nextState
 }
 

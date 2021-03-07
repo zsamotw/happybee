@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Tooltip from '@material-ui/core/Tooltip'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied'
 import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
 import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
@@ -153,7 +153,7 @@ function NoteDetails(props) {
                       <div style={{ marginRight: '10px' }}>
                         {pickers.length}
                       </div>
-                      <AddCircleOutlineIcon
+                      <SentimentVerySatisfiedIcon
                         style={{
                           cursor: 'pointer',
                           color: isPicked(note)

@@ -147,7 +147,7 @@
   },
   "notes": {
     "createNote": {
-      "pageTitle": "Napisz za co jesteś wdzieczna/y",
+      "pageTitle": "Szczęściem się jest",
       "title": "Stworz notkę",
       "description": "Co chcesz opisać ",
       "inputs": {
@@ -185,10 +185,15 @@
     },
     "menuAppBar": {
       "appTitle": "HappyBee",
+      "links": {
+        "newNote": "Dodaj",
+        "notes": "Wszystkie",
+        "userNotes": "Twoje"
+      },
       "menu": {
-        "createNewNote": "Dodaj notkę",
-        "pickedNotes": "Mapy szczęcia",
-        "profile": "Profil",
+        "createNewNote": "Dodaj wpis",
+        "userNotes": "Twoje wpisy",
+        "profile": "Twój Profil",
         "logout": "Wyloguj"
       },
       "messageOnLogOutError": "Nie można się wylogować"
@@ -215,12 +220,12 @@
       "messageOnError": "Nie udało się załadować notatki"
     },
     "notes": {
-      "pageTitle": "Zapisuj, szukaj, twórz mapy szczęścia",
+      "pageTitle": "O zachodzie słońca ciesz się wschodzącymi gwiazdami",
       "messageOnError": "Nie udało sie pobrać notatek"
     },
-    "pickedNotes": {
-      "pageTitle": "Twoje mapy szczęścia",
-      "title": "Wybrane przez Ciebie",
+    "userNotes": {
+      "pageTitle": "Szczęśliwe życie to nieustanne maleńkie uczty",
+      "title": "Twój atlas",
       "messageOnError": "Nie udalo sie pobrać notatek"
     },
     "searchBar": {

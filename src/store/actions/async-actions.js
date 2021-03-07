@@ -61,7 +61,7 @@ export const TOGGLE_PICK_NOTE_REQUEST = createAction(
   noteData => ({ payload: { ...noteData } })
 )
 
-export const GET_PICKED_NOTES_REQUEST = createAction(
-  'GET PICKED NOTES REQUEST',
+export const GET_USER_NOTES_REQUEST = createAction(
+  'GET USER NOTES REQUEST',
   notesData => ({ payload: { ...notesData } })
 )
