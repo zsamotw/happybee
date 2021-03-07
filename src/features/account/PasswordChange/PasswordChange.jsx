@@ -112,7 +112,7 @@ const PasswordChangeForm = props => {
   }
 
   return (
-    <>
+    <section>
       <h3>{t('account.passwordChange.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(passwordOldInputProps)}
@@ -131,7 +131,7 @@ const PasswordChangeForm = props => {
           {error && <p>{t('account.passwordChange.formError')}</p>}
         </div>
       </form>
-    </>
+    </section>
   )
 }
 

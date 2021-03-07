@@ -64,7 +64,7 @@ const DeleteUserFormBase = props => {
   }
 
   return (
-    <>
+    <section>
       <h3>{t('account.deleteUser.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(emailInputProps)}
@@ -80,7 +80,7 @@ const DeleteUserFormBase = props => {
           {error && <p>{t('account.deleteUser.formError')}</p>}
         </div>
       </form>
-    </>
+    </section>
   )
 }
 

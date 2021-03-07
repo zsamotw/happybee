@@ -75,21 +75,23 @@ const SignInFormBase = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {AppInput(emailInputProps)}
-      {AppInput(passwordInputProps)}
-      <ButtonWithProgress
-        variant="contained"
-        color="primary"
-        type="submit"
-        size="large"
-        isLoading={isLoading}
-        text={t('login.signInPage.button')}
-      />
-      <div className={classes.errorBar}>
-        {error && <p>{t('login.signInPage.formError')}</p>}
-      </div>
-    </form>
+    <section>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {AppInput(emailInputProps)}
+        {AppInput(passwordInputProps)}
+        <ButtonWithProgress
+          variant="contained"
+          color="primary"
+          type="submit"
+          size="large"
+          isLoading={isLoading}
+          text={t('login.signInPage.button')}
+        />
+        <div className={classes.errorBar}>
+          {error && <p>{t('login.signInPage.formError')}</p>}
+        </div>
+      </form>
+    </section>
   )
 }
 

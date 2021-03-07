@@ -30,7 +30,7 @@ const LandingPage = () => {
   }
 
   return (
-    <div>
+    <section>
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <h1 style={{ paddingLeft: '2rem', textTransform: 'uppercase' }}>
@@ -55,7 +55,7 @@ const LandingPage = () => {
           </TabPanel>
         </Grid>
       </Grid>
-    </div>
+    </section>
   )
 }
 

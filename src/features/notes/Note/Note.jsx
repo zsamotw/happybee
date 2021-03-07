@@ -157,52 +157,54 @@ function Note(props) {
           closeDeleteDialog={handleCloseDeleteDialog}
           deleteNote={handleDeleteNote}
         />
-        <div className={classes.header}>
-          <h3 className={classes.headLine}>{title}</h3>
-          {note.author.uid === currentUser.uid ? (
-            <div className={classes.deleteIcon} data-testid="delete-icon">
-              <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
-            </div>
-          ) : null}
-        </div>
-        <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
-        <div
-          className={classes.imageWrapper}
-          onClick={handleNavigateNoteDetails}
-          onKeyDown={handleNavigateNoteDetails}
-          role="button"
-          tabIndex="0"
-        >
-          <img src={note.imgURL} alt="i" className={classes.image} />
-          <div className={classes.description}>
-            <span>{description}</span>
-            <div className={classes.date}>{formattedDateTime(createdAt)}</div>
-          </div>
-        </div>
-        <div className={classes.footer}>
-          <div className={classes.author}>
-            <Avatar className={classes.avatar} data-testid="avatar">
-              {author.displayName.charAt(0)}
-            </Avatar>
-            <span>{author.displayName}</span>
-          </div>
-          <Tooltip title={pickersString} arrow>
-            <div className={classes.pickers}>
-              <div style={{ marginRight: '10px' }} data-testid="pickers">
-                {pickers.length}
+        <section>
+          <div className={classes.header}>
+            <h3 className={classes.headLine}>{title}</h3>
+            {note.author.uid === currentUser.uid ? (
+              <div className={classes.deleteIcon} data-testid="delete-icon">
+                <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
               </div>
-              <SentimentVerySatisfiedIcon
-                style={{
-                  cursor: 'pointer',
-                  color: isPicked(note)
-                    ? theme.palette.text.secondary
-                    : theme.palette.secondary.main
-                }}
-                onClick={handlePickNote}
-              />
+            ) : null}
+          </div>
+          <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
+          <div
+            className={classes.imageWrapper}
+            onClick={handleNavigateNoteDetails}
+            onKeyDown={handleNavigateNoteDetails}
+            role="button"
+            tabIndex="0"
+          >
+            <img src={note.imgURL} alt="i" className={classes.image} />
+            <div className={classes.description}>
+              <span>{description}</span>
+              <div className={classes.date}>{formattedDateTime(createdAt)}</div>
             </div>
-          </Tooltip>
-        </div>
+          </div>
+          <div className={classes.footer}>
+            <div className={classes.author}>
+              <Avatar className={classes.avatar} data-testid="avatar">
+                {author.displayName.charAt(0)}
+              </Avatar>
+              <span>{author.displayName}</span>
+            </div>
+            <Tooltip title={pickersString} arrow>
+              <div className={classes.pickers}>
+                <div style={{ marginRight: '10px' }} data-testid="pickers">
+                  {pickers.length}
+                </div>
+                <SentimentVerySatisfiedIcon
+                  style={{
+                    cursor: 'pointer',
+                    color: isPicked(note)
+                      ? theme.palette.text.secondary
+                      : theme.palette.secondary.main
+                  }}
+                  onClick={handlePickNote}
+                />
+              </div>
+            </Tooltip>
+          </div>
+        </section>
       </Grid>
     )
   )

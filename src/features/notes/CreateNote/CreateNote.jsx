@@ -128,51 +128,55 @@ const CreateNoteForm = props => {
   return (
     <Grid container>
       <Grid item className={classes.wrapper} xs={10} md={8} lg={4}>
-        <h3>{t('notes.createNote.title')}</h3>
-        <h5>{t('notes.createNote.description')}</h5>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {AppInput(titleInputProps)}
-          {AppInput(descriptionInputProps)}
-          <div style={{ width: '33%', marginBottom: '2rem' }}>
-            <AppSelect
-              id="categoryId"
-              labelId="category-select-label"
-              name="categoryId"
-              menuItems={categories}
-              control={control}
-              inputLabel={t('notes.createNote.inputs.category.label')}
-              rules={{
-                required: t('notes.createNote.inputs.category.error.required')
-              }}
-              error={errors.categoryId}
+        <section>
+          <h3>{t('notes.createNote.title')}</h3>
+          <h5>{t('notes.createNote.description')}</h5>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {AppInput(titleInputProps)}
+            {AppInput(descriptionInputProps)}
+            <div style={{ width: '33%', marginBottom: '2rem' }}>
+              <AppSelect
+                id="categoryId"
+                labelId="category-select-label"
+                name="categoryId"
+                menuItems={categories}
+                control={control}
+                inputLabel={t('notes.createNote.inputs.category.label')}
+                rules={{
+                  required: t('notes.createNote.inputs.category.error.required')
+                }}
+                error={errors.categoryId}
+              />
+            </div>
+            <div style={{ marginBottom: '2rem' }}>
+              <AppFileUpload
+                id="image-upload-control"
+                dataTestId="file-upload-button"
+                name="imageUpload"
+                onChange={handleUploadFile}
+                accept="image/*"
+                multiple={false}
+                register={register({
+                  required: t(
+                    'notes.createNote.inputs.fileUpload.error.required'
+                  )
+                })}
+                error={errors.imageUpload}
+              />
+            </div>
+            <ButtonWithProgress
+              variant="contained"
+              color="primary"
+              size="large"
+              type="submit"
+              text={t('notes.createNote.button')}
+              isLoading={isLoading}
             />
-          </div>
-          <div style={{ marginBottom: '2rem' }}>
-            <AppFileUpload
-              id="image-upload-control"
-              dataTestId="file-upload-button"
-              name="imageUpload"
-              onChange={handleUploadFile}
-              accept="image/*"
-              multiple={false}
-              register={register({
-                required: t('notes.createNote.inputs.fileUpload.error.required')
-              })}
-              error={errors.imageUpload}
-            />
-          </div>
-          <ButtonWithProgress
-            variant="contained"
-            color="primary"
-            size="large"
-            type="submit"
-            text={t('notes.createNote.button')}
-            isLoading={isLoading}
-          />
-          <div className={classes.errorBar}>
-            {error && <p>{t('notes.createNote.formError')}</p>}
-          </div>
-        </form>
+            <div className={classes.errorBar}>
+              {error && <p>{t('notes.createNote.formError')}</p>}
+            </div>
+          </form>
+        </section>
       </Grid>
     </Grid>
   )

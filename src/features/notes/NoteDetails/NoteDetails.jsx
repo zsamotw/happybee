@@ -137,52 +137,54 @@ function NoteDetails(props) {
             closeDeleteDialog={handleCloseDeleteDialog}
             deleteNote={handleDeleteNote}
           />
-          <Paper elevation={3}>
-            <div className={classes.container}>
-              <div style={{ width: '50%' }}>
-                <img src={imgURL} alt="i" style={{ width: '100%' }} />
-                <div className={classes.footer}>
-                  <div className={classes.author}>
-                    <Avatar className={classes.avatar}>
-                      {author.displayName.charAt(0)}
-                    </Avatar>
-                    <span>{author.displayName}</span>
-                  </div>
-                  <Tooltip title={pickersString} arrow>
-                    <div className={classes.pickers}>
-                      <div style={{ marginRight: '10px' }}>
-                        {pickers.length}
+          <section>
+            <Paper elevation={3}>
+              <div className={classes.container}>
+                <div style={{ width: '50%' }}>
+                  <img src={imgURL} alt="i" style={{ width: '100%' }} />
+                  <div className={classes.footer}>
+                    <div className={classes.author}>
+                      <Avatar className={classes.avatar}>
+                        {author.displayName.charAt(0)}
+                      </Avatar>
+                      <span>{author.displayName}</span>
+                    </div>
+                    <Tooltip title={pickersString} arrow>
+                      <div className={classes.pickers}>
+                        <div style={{ marginRight: '10px' }}>
+                          {pickers.length}
+                        </div>
+                        <SentimentVerySatisfiedIcon
+                          style={{
+                            cursor: 'pointer',
+                            color: isPicked(note)
+                              ? theme.palette.text.secondary
+                              : theme.palette.secondary.main
+                          }}
+                          onClick={handlePickNote}
+                        />
                       </div>
-                      <SentimentVerySatisfiedIcon
-                        style={{
-                          cursor: 'pointer',
-                          color: isPicked(note)
-                            ? theme.palette.text.secondary
-                            : theme.palette.secondary.main
-                        }}
-                        onClick={handlePickNote}
-                      />
-                    </div>
-                  </Tooltip>
+                    </Tooltip>
+                  </div>
+                </div>
+                <div style={{ width: '50%', paddingLeft: '2rem' }}>
+                  <div className={classes.title}>
+                    <h1 style={{ margin: 0 }}>{title}</h1>
+                    {note.author.uid === currentUser.uid ? (
+                      <div className={classes.deleteIcon}>
+                        <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+                      </div>
+                    ) : null}
+                  </div>
+                  <h2 style={{ marginTop: 0 }}>{category.label}</h2>
+                  <p>{description}</p>
+                  <div style={{ fontSize: '.7em' }}>
+                    {formattedDateTime(createdAt)}
+                  </div>
                 </div>
               </div>
-              <div style={{ width: '50%', paddingLeft: '2rem' }}>
-                <div className={classes.title}>
-                  <h1 style={{ margin: 0 }}>{title}</h1>
-                  {note.author.uid === currentUser.uid ? (
-                    <div className={classes.deleteIcon}>
-                      <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
-                    </div>
-                  ) : null}
-                </div>
-                <h2 style={{ marginTop: 0 }}>{category.label}</h2>
-                <p>{description}</p>
-                <div style={{ fontSize: '.7em' }}>
-                  {formattedDateTime(createdAt)}
-                </div>
-              </div>
-            </div>
-          </Paper>
+            </Paper>
+          </section>
         </>
       ) : null}
     </>

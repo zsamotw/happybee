@@ -114,23 +114,25 @@ const SignUpFormBase = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {AppInput(displayNameInputProps)}
-      {AppInput(emailInputProps)}
-      {AppInput(passwordOneInputProps)}
-      {AppInput(passwordTwoInputProps)}
-      <ButtonWithProgress
-        variant="contained"
-        color="primary"
-        type="submit"
-        size="large"
-        isLoading={isLoading}
-        text={t('login.signUpPage.button')}
-      />
-      <div className={classes.errorBar}>
-        {error && <p>{t('login.signUpPage.formError')}</p>}
-      </div>
-    </form>
+    <section>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {AppInput(displayNameInputProps)}
+        {AppInput(emailInputProps)}
+        {AppInput(passwordOneInputProps)}
+        {AppInput(passwordTwoInputProps)}
+        <ButtonWithProgress
+          variant="contained"
+          color="primary"
+          type="submit"
+          size="large"
+          isLoading={isLoading}
+          text={t('login.signUpPage.button')}
+        />
+        <div className={classes.errorBar}>
+          {error && <p>{t('login.signUpPage.formError')}</p>}
+        </div>
+      </form>
+    </section>
   )
 }
 

@@ -69,7 +69,7 @@ function AccountDetailsChange(props) {
   }, [currentUser, setValue])
 
   return (
-    <>
+    <section>
       <h3>{t('account.accountDetailsChange.title')}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         {AppInput(displayNameInputProps)}
@@ -86,7 +86,7 @@ function AccountDetailsChange(props) {
           {error && <p>{t('account.accountDetailsChange.formError')}</p>}
         </div>
       </form>
-    </>
+    </section>
   )
 }
 
