@@ -6,7 +6,7 @@ import { withTheme } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   control: {
     border: '1px solid rgba(0, 0, 0, 0.23)',
     borderRadius: '5px',
@@ -14,8 +14,12 @@ const useStyles = makeStyles({
   },
   input: {
     display: 'none'
+  },
+  fileList: {
+    marginTop: '1rem',
+    color: `${theme.palette.grey[600]}`
   }
-})
+}))
 const appFileUpload = function AppFileUpload({
   id,
   dataTestId,
@@ -27,7 +31,7 @@ const appFileUpload = function AppFileUpload({
   error,
   theme
 }) {
-  const classes = useStyles()
+  const classes = useStyles(theme)
   const [fileList, setFileList] = useState([])
 
   const handleChange = event => {
@@ -64,7 +68,7 @@ const appFileUpload = function AppFileUpload({
           {error.message}
         </FormHelperText>
       )}
-      <div>
+      <div className={classes.fileList}>
         {fileList &&
           fileList.map(file => <div key={file.size}>{file.name}</div>)}
       </div>

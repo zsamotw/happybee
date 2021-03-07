@@ -16,7 +16,8 @@ import * as ROUTES from '../../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   gridItem: {
-    padding: '1rem 1rem 1rem 0',
+    paddingRight: '1rem',
+    marginBottom: '1rem',
     '&:hover': {
       '& $imageWrapper': {
         border: `3px solid ${theme.palette.secondary.main}`
