@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme => ({
   },
   date: {
     fontSize: '14px',
-    color: `${theme.palette.grey[500]}`
+    color: `${theme.palette.grey[500]}`,
+    marginTop: '0.5rem'
   },
   imageWrapper: {
     border: `3px solid transparent`,
@@ -157,7 +158,7 @@ function Note(props) {
           closeDeleteDialog={handleCloseDeleteDialog}
           deleteNote={handleDeleteNote}
         />
-        <section>
+        <article>
           <div className={classes.header}>
             <h3 className={classes.headLine}>{title}</h3>
             {note.author.uid === currentUser.uid ? (
@@ -204,7 +205,7 @@ function Note(props) {
               </div>
             </Tooltip>
           </div>
-        </section>
+        </article>
       </Grid>
     )
   )
