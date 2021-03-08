@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
@@ -72,7 +72,7 @@ function MenuAppBar(props) {
   const theme = useTheme()
   const classes = useStyles(theme)
 
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
   const history = useHistory()
@@ -109,6 +109,11 @@ function MenuAppBar(props) {
     const messageOnError = t('notes.menuAppBar.messageOnLogOutError')
     logout({ messageOnError })
   }
+
+  const currentUserFirstLetter = useMemo(
+    () => currentUser.displayName.charAt(0),
+    [currentUser]
+  )
 
   return (
     <div className={classes.root}>
@@ -152,9 +157,7 @@ function MenuAppBar(props) {
           <div>
             <IconButton onClick={handleMenu} color="inherit">
               <Avatar className={classes.avatar}>
-                {currentUser.displayName
-                  ? currentUser.displayName.charAt(0)
-                  : ''}
+                {currentUser.displayName && currentUserFirstLetter}
               </Avatar>
             </IconButton>
             <Menu
