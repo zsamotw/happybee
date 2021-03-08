@@ -124,7 +124,6 @@ const SignUpFormBase = props => {
           variant="contained"
           color="primary"
           type="submit"
-          size="large"
           isLoading={isLoading}
           text={t('login.signUpPage.button')}
         />

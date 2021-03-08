@@ -72,7 +72,6 @@ const DeleteUserFormBase = props => {
           variant="contained"
           color="primary"
           type="submit"
-          size="large"
           isLoading={isLoading}
           text={t('account.deleteUser.button')}
         />

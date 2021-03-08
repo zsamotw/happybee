@@ -121,7 +121,6 @@ const PasswordChangeForm = props => {
         <ButtonWithProgress
           variant="contained"
           color="primary"
-          size="large"
           type="submit"
           text={t('account.passwordChange.button')}
           isLoading={isLoading}

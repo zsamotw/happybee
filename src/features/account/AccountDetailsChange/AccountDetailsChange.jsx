@@ -77,7 +77,6 @@ function AccountDetailsChange(props) {
           variant="contained"
           color="primary"
           type="submit"
-          size="large"
           text={t('account.accountDetailsChange.button')}
           isLoading={isLoading}
         />
