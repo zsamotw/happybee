@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { makeStyles } from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
@@ -102,6 +102,8 @@ const CreateNoteForm = props => {
     setFile(files[0])
   }
 
+  const handleNavigateBack = () => history.goBack()
+
   const onSubmit = ({ title, description, categoryId }) => {
     const category = categories.find(c => c.id === categoryId)
     const messageOnSuccess = t('notes.createNote.messageOnCreateNoteSuccess')
@@ -164,14 +166,22 @@ const CreateNoteForm = props => {
                 error={errors.imageUpload}
               />
             </div>
-            <ButtonWithProgress
-              variant="contained"
-              color="primary"
-              size="large"
-              type="submit"
-              text={t('notes.createNote.button')}
-              isLoading={isLoading}
-            />
+            <div>
+              <ButtonWithProgress
+                variant="contained"
+                color="primary"
+                type="submit"
+                text={t('notes.createNote.buttons.submit')}
+                isLoading={isLoading}
+              />
+              <Button
+                variant="contained"
+                style={{ marginLeft: '1rem' }}
+                onClick={handleNavigateBack}
+              >
+                {t('notes.createNote.buttons.back')}
+              </Button>
+            </div>
             <div className={classes.errorBar}>
               {error && <p>{t('notes.createNote.formError')}</p>}
             </div>
