@@ -3,8 +3,10 @@
     "locales": "pl-PL",
     "categories": {
       "meeting": "Spotkanie",
-      "saw": "Podpatrzone",
-      "read": "Przeczytane"
+      "saw": "Zauważone",
+      "read": "Przeczytane",
+      "outside": "Poza domem",
+      "inside": "W domu"
     }
   },
   "login": {
@@ -148,19 +150,19 @@
   "notes": {
     "createNote": {
       "pageTitle": "Szczęściem się jest",
-      "title": "Stworz notkę",
-      "description": "Co chcesz opisać ",
+      "title": "Nowa Notka",
+      "description": "Zapisz to, za co dzisiaj jesteś wdzięczny",
       "inputs": {
         "title": {
           "label": "Tytuł",
-          "placeholder": "Wpisz tytuł",
+          "placeholder": "Wpisz tytuł...",
           "error": {
             "required": "Tytuł jest wymagana"
           }
         },
         "description": {
           "label": "Opis",
-          "placeholder": "Podaj opis",
+          "placeholder": "Podaj w kilku zdaniach co, gdzie, kiedy i jak...",
           "error": {
             "required": "Opis jest wymagany"
           }
@@ -177,7 +179,10 @@
           }
         }
       },
-      "button": "Podziel się",
+      "buttons": {
+        "submit": "Zapisz",
+        "back": "Powrót"
+      },
       "messageOnCreateNoteSuccess": "Notka została dodana",
       "messageOnCreateNoteError": "Nie udało się dodać notki",
       "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem",
