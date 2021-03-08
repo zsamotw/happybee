@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '20px',
     cursor: 'pointer',
     marginRight: '2rem',
+    '&:hover': {
+      color: `${theme.palette.grey[200]}`
+    },
     '& div': {
       fontSize: '11px'
     }
@@ -52,6 +55,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   title: {
+    fontFamily: 'Kalam',
+    fontSize: '24px',
+    fontWeight: '700',
+    textTransform: 'uppercase',
     marginRight: theme.spacing(3)
   },
   avatar: {
@@ -119,19 +126,12 @@ function MenuAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <Link
-              to={ROUTES.HOME}
-              style={{
-                textDecoration: 'none',
-                color: '#fff',
-                fontSize: '20px',
-                textTransform: 'uppercase'
-              }}
-            >
+          <Link to={ROUTES.HOME} className={classes.iconLink}>
+            {' '}
+            <Typography variant="h6" className={classes.title}>
               {t('notes.menuAppBar.appTitle')}
-            </Link>
-          </Typography>
+            </Typography>
+          </Link>
           <SearchBar isVisible={isSearchBarVisible} />
           <Link
             className={classes.iconLink}

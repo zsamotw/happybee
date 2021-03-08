@@ -33,7 +33,15 @@ const LandingPage = () => {
     <section>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <h1 style={{ paddingLeft: '2rem', textTransform: 'uppercase' }}>
+          <h1
+            style={{
+              fontFamily: 'Kalam',
+              fontSize: '24px',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              paddingLeft: '2rem'
+            }}
+          >
             {t('login.landingPage.appTitle')}
           </h1>
         </Grid>
