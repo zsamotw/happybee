@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase'
 import { SET_NOTE_QUERY_FILTER } from '../../../store/actions/sync-actions'
 import { getNoteFilters } from '../../../store/selectors'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme, isVisible) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
+    visibility: `${isVisible ? 'visible' : 'hidden'}`,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
       width: 'auto'
@@ -54,29 +55,30 @@ function SearchBar(props) {
     setQueryFilter(event.target.value)
   }
 
-  const classes = useStyles()
+  const classes = useStyles(isVisible)
 
   return (
     <>
-      {isVisible && (
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            id="note-search"
-            label={t('notes.searchBar.input.label')}
-            placeholder={t('notes.searchBar.input.placeholder')}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput
-            }}
-            onChange={handleQueryChange}
-            value={query}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+      <div
+        className={classes.search}
+        style={isVisible ? { visibility: 'visible' } : { visibility: 'hidden' }}
+      >
+        <div className={classes.searchIcon}>
+          <SearchIcon />
         </div>
-      )}
+        <InputBase
+          id="note-search"
+          label={t('notes.searchBar.input.label')}
+          placeholder={t('notes.searchBar.input.placeholder')}
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput
+          }}
+          onChange={handleQueryChange}
+          value={query}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </div>
     </>
   )
 }
