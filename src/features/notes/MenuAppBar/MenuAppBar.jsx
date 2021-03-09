@@ -13,7 +13,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
-import { Link, useHistory, useRouteMatch } from 'react-router-dom'
+import { Link, NavLink, useHistory, useRouteMatch } from 'react-router-dom'
 import SearchBar from '../SearchBar'
 import * as ROUTES from '../../../constants/routes'
 import { SET_AUTH_USER } from '../../../store/actions/sync-actions'
@@ -72,6 +72,9 @@ const useStyles = makeStyles(theme => ({
     color: '#fff',
     fontSize: '1.5em',
     marginLeft: '1.5rem'
+  },
+  activeLink: {
+    borderBottom: `5px solid ${theme.palette.secondary.main}`
   }
 }))
 
@@ -133,25 +136,30 @@ function MenuAppBar(props) {
             </Typography>
           </Link>
           <SearchBar isVisible={isSearchBarVisible} />
-          <Link
+          <NavLink
+            exact
+            to={`${path}${ROUTES.CREATE_NOTE}`}
             className={classes.iconLink}
             style={{ marginLeft: '3rem' }}
-            to={`${path}${ROUTES.CREATE_NOTE}`}
           >
             <NoteAddIcon />
             <div>{t('notes.menuAppBar.links.newNote')}</div>
-          </Link>
-          <Link className={classes.iconLink} to={`${ROUTES.HOME}`}>
+          </NavLink>
+          <NavLink
+            exact
+            to={`${path}${ROUTES.HOME}`}
+            className={classes.iconLink}
+          >
             <LocalLibraryIcon />
             <div>{t('notes.menuAppBar.links.notes')}</div>
-          </Link>
-          <Link
-            className={classes.iconLink}
+          </NavLink>
+          <NavLink
             to={`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`}
+            className={classes.iconLink}
           >
             <LibraryBooksIcon />
             <div>{t('notes.menuAppBar.links.userNotes')}</div>
-          </Link>
+          </NavLink>
           <div className={classes.pageTitle}>{title}</div>
           <div className={classes.grow} />
           <div>
