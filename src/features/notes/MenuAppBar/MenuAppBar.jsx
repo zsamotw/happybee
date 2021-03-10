@@ -67,11 +67,23 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     backgroundColor: theme.palette.secondary.main
   },
-  link: {
-    textDecoration: 'none',
-    color: '#fff',
-    fontSize: '1.5em',
-    marginLeft: '1.5rem'
+  links: {
+    alignSelf: 'stretch',
+    display: 'flex',
+    listStyleType: 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0,
+    '& li': {
+      height: 'calc(100% - 10px)',
+      width: '80px',
+      '& a': {
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }
   },
   activeLink: {
     borderBottom: `5px solid ${theme.palette.secondary.main}`
@@ -136,30 +148,40 @@ function MenuAppBar(props) {
             </Typography>
           </Link>
           <SearchBar isVisible={isSearchBarVisible} />
-          <NavLink
-            exact
-            to={`${path}${ROUTES.CREATE_NOTE}`}
-            className={classes.iconLink}
-            style={{ marginLeft: '3rem' }}
-          >
-            <NoteAddIcon />
-            <div>{t('notes.menuAppBar.links.newNote')}</div>
-          </NavLink>
-          <NavLink
-            exact
-            to={`${path}${ROUTES.HOME}`}
-            className={classes.iconLink}
-          >
-            <LocalLibraryIcon />
-            <div>{t('notes.menuAppBar.links.notes')}</div>
-          </NavLink>
-          <NavLink
-            to={`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`}
-            className={classes.iconLink}
-          >
-            <LibraryBooksIcon />
-            <div>{t('notes.menuAppBar.links.userNotes')}</div>
-          </NavLink>
+          <ul className={classes.links}>
+            <li>
+              <NavLink
+                exact
+                to={`${path}${ROUTES.CREATE_NOTE}`}
+                className={classes.iconLink}
+                activeClassName={classes.activeLink}
+              >
+                <NoteAddIcon />
+                <div>{t('notes.menuAppBar.links.newNote')}</div>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                to={`${path}${ROUTES.NOTES}`}
+                className={classes.iconLink}
+                activeClassName={classes.activeLink}
+              >
+                <LocalLibraryIcon />
+                <div>{t('notes.menuAppBar.links.notes')}</div>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`}
+                className={classes.iconLink}
+                activeClassName={classes.activeLink}
+              >
+                <LibraryBooksIcon />
+                <div>{t('notes.menuAppBar.links.userNotes')}</div>
+              </NavLink>
+            </li>
+          </ul>
           <div className={classes.pageTitle}>{title}</div>
           <div className={classes.grow} />
           <div>
