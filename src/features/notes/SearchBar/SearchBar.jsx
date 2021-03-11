@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { fade, makeStyles } from '@material-ui/core'
+import { fade, makeStyles, useTheme } from '@material-ui/core'
 import { connect } from 'react-redux'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
@@ -55,7 +55,8 @@ function SearchBar(props) {
     setQueryFilter(event.target.value)
   }
 
-  const classes = useStyles(isVisible)
+  const theme = useTheme()
+  const classes = useStyles(theme, isVisible)
 
   return (
     <>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
-import { withTheme } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import PhotoCamera from '@material-ui/icons/PhotoCamera'
 
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     color: `${theme.palette.grey[600]}`
   }
 }))
-const appFileUpload = function AppFileUpload({
+export default function AppFileUpload({
   id,
   dataTestId,
   name,
@@ -28,9 +27,9 @@ const appFileUpload = function AppFileUpload({
   accept,
   multiple,
   register,
-  error,
-  theme
+  error
 }) {
+  const theme = useTheme()
   const classes = useStyles(theme)
   const [fileList, setFileList] = useState([])
 
@@ -75,5 +74,3 @@ const appFileUpload = function AppFileUpload({
     </FormControl>
   )
 }
-
-export default withTheme(appFileUpload)
