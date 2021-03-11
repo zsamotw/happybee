@@ -10,13 +10,14 @@ export default ({
   id,
   labelId,
   name,
+  variant,
   menuItems,
   control,
   inputLabel,
   rules,
   error
 }) => (
-  <FormControl error={error} style={{ width: '100%' }}>
+  <FormControl error={error} variant={variant} style={{ width: '100%' }}>
     <InputLabel id={labelId}>{inputLabel}</InputLabel>
     <Controller
       as={

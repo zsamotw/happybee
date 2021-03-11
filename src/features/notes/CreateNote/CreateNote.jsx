@@ -136,7 +136,7 @@ const CreateNoteForm = props => {
           <form onSubmit={handleSubmit(onSubmit)}>
             {AppInput(titleInputProps)}
             {AppInput(descriptionInputProps)}
-            <div style={{ width: '33%', marginBottom: '2rem' }}>
+            <div style={{ width: '50%', marginBottom: '2rem' }}>
               <AppSelect
                 id="categoryId"
                 labelId="category-select-label"
