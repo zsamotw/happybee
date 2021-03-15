@@ -67,23 +67,34 @@ function* createFirebaseNote(action) {
   const author = Firebase.transformDbUserToSafeUser(currentUser)
   const createdAt = new Date()
   const folder = `images/${createdAt.getFullYear()}-${createdAt.getMonth()}/${createdAt.getTime()}`
+  if (file) {
+    yield call(uploadFile, file, folder, messageOnFileUploadError)
 
-  yield call(uploadFile, file, folder, messageOnFileUploadError)
+    const imgStoragePath = `${folder}/${file.name}`
+    const fileRef = Firebase.storageRef().child(imgStoragePath)
+    const imgURL = yield call(Firebase.getDownloadURL, fileRef)
 
-  const imgStoragePath = `${folder}/${file.name}`
-  const fileRef = Firebase.storageRef().child(imgStoragePath)
-  const imgURL = yield call(Firebase.getDownloadURL, fileRef)
+    yield call(Firebase.addDocument, 'notes', {
+      title,
+      description,
+      category,
+      author,
+      pickers,
+      imgStoragePath,
+      imgURL,
+      createdAt: createdAt.toString()
+    })
+  } else {
+    yield call(Firebase.addDocument, 'notes', {
+      title,
+      description,
+      category,
+      author,
+      pickers,
+      createdAt: createdAt.toString()
+    })
+  }
 
-  yield call(Firebase.addDocument, 'notes', {
-    title,
-    description,
-    category,
-    author,
-    pickers,
-    imgStoragePath,
-    imgURL,
-    createdAt: createdAt.toString()
-  })
   navigateHome()
 }
 
@@ -94,11 +105,13 @@ function* deleteFirebaseNote(action) {
     messageOnFileDeleteError,
     messageOnUserAccessError
   } = action.payload
-  const { id, author: noteAuthor } = note
+  const { id, author: noteAuthor, imgURL, imgStoragePath } = note
   const currentUser = yield call(Firebase.getCurrentUser)
   const author = currentUser
   if (author.uid === noteAuthor.uid) {
-    yield call(deleteFile, note.imgStoragePath, messageOnFileDeleteError)
+    if (imgURL && imgStoragePath) {
+      yield call(deleteFile, imgStoragePath, messageOnFileDeleteError)
+    }
     yield call(Firebase.deleteDocument, `notes/${id}`)
     if (navigateHome) {
       navigateHome()

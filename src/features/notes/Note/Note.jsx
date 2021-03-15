@@ -14,12 +14,25 @@ import { useDeleteNote, usePickNote } from '../../../hooks'
 import { formattedDateTime } from '../../../services/date-service'
 import * as ROUTES from '../../../constants/routes'
 
+const wrapper = {
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '400px',
+  boxSizing: 'border-box',
+  margin: '1rem 0',
+  overflow: 'hidden',
+  borderRadius: '15px',
+  cursor: 'pointer'
+}
+
 const useStyles = makeStyles(theme => ({
   gridItem: {
     paddingRight: '1rem',
     marginBottom: '1rem',
     '&:hover': {
-      '& $imageWrapper': {
+      '& $imageWrapper, $noImageWrapper': {
         border: `3px solid ${theme.palette.secondary.main}`
       },
       '& $description': {
@@ -37,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   description: {
     color: `${theme.palette.grey[800]}`,
     padding: '1.5rem',
-    margin: '1.5rem',
+    margin: '2.5rem',
     borderRadius: '10px',
     position: 'absolute',
     opacity: 0.8,
@@ -51,19 +64,15 @@ const useStyles = makeStyles(theme => ({
     marginTop: '0.5rem'
   },
   imageWrapper: {
-    border: `3px solid transparent`,
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '400px',
-    boxSizing: 'border-box',
-    margin: '1rem 0',
-    overflow: 'hidden',
-    borderRadius: '15px',
+    ...wrapper,
     backgroundImage: 'linear-gradient(to left, #57a0b396, #57a0b396 )',
     backgroundClip: 'content-box',
-    cursor: 'pointer'
+    border: `3px solid transparent`
+  },
+  noImageWrapper: {
+    ...wrapper,
+    background: theme.palette.grey[100],
+    border: `1px solid ${theme.palette.grey[300]} `
   },
   image: {
     height: '100%'
@@ -133,6 +142,13 @@ function Note(props) {
     setOpenDeleteDialog(false)
   }
 
+  const shortDescription = useMemo(() => {
+    if (description.length > 170) {
+      return `${description.substr(0, 170)}...`
+    }
+    return description
+  }, [description])
+
   const pickersString = useMemo(() => {
     return pickers.length > 0
       ? pickers.map(p => p.displayName).join(', ')
@@ -169,19 +185,38 @@ function Note(props) {
             ) : null}
           </div>
           <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
-          <div
-            className={classes.imageWrapper}
-            onClick={handleNavigateNoteDetails}
-            onKeyDown={handleNavigateNoteDetails}
-            role="button"
-            tabIndex="0"
-          >
-            <img src={note.imgURL} alt="i" className={classes.image} />
-            <div className={classes.description}>
-              <span>{description}</span>
-              <div className={classes.date}>{formattedDateTime(createdAt)}</div>
+          {note.imgURL ? (
+            <div
+              className={classes.imageWrapper}
+              onClick={handleNavigateNoteDetails}
+              onKeyDown={handleNavigateNoteDetails}
+              role="button"
+              tabIndex="0"
+            >
+              <img src={note.imgURL} alt="i" className={classes.image} />
+              <div className={classes.description}>
+                <span>{shortDescription}</span>
+                <div className={classes.date}>
+                  {formattedDateTime(createdAt)}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className={classes.noImageWrapper}
+              onClick={handleNavigateNoteDetails}
+              onKeyDown={handleNavigateNoteDetails}
+              role="button"
+              tabIndex="0"
+            >
+              <div className={classes.description}>
+                <span>{shortDescription}</span>
+                <div className={classes.date}>
+                  {formattedDateTime(createdAt)}
+                </div>
+              </div>
+            </div>
+          )}
           <div className={classes.footer}>
             <div className={classes.author}>
               <Avatar className={classes.avatar} data-testid="avatar">

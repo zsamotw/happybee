@@ -1,15 +1,14 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar'
-import Tooltip from '@material-ui/core/Tooltip'
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
+import NoteMeta from './NoteMeta'
+import NoteContent from './NoteContent'
 import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
 import { UNSET_SELECTED_NOTE } from '../../../store/actions/sync-actions'
 import {
@@ -17,45 +16,27 @@ import {
   getIsAsyncRequest,
   getCurrentUser
 } from '../../../store/selectors'
-import { formattedDateTime } from '../../../services/date-service'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import AppPreloader from '../../../components/AppPreloader'
-import { useDeleteNote, usePickNote } from '../../../hooks'
+import { useDeleteNote } from '../../../hooks'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   container: {
     display: 'flex',
     position: 'relative',
     padding: '2rem 2rem 0.5rem'
   },
-  footer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 1rem',
-    marginTop: '1rem'
+  withImageContainer: {
+    width: '50%'
   },
-  author: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: '0 0 0 0'
+  noImageContainer: {
+    width: '100%'
   },
-  avatar: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-    textTransform: 'uppercase',
-    backgroundColor: theme.palette.secondary.main,
-    marginRight: theme.spacing(1)
-  },
-  headerIcon: {
+  headerIcons: {
     display: 'flex',
     justifyContent: 'space-between'
-  },
-  pickers: {
-    display: 'flex',
-    alignItems: 'center'
   }
-}))
+})
 
 function NoteDetails(props) {
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
@@ -70,8 +51,7 @@ function NoteDetails(props) {
     currentUser
   } = props
 
-  const { title, description, imgURL, category, author, pickers, createdAt } =
-    note || {}
+  const { title, description, imgURL, category, author, createdAt } = note || {}
 
   const { t } = useTranslation('common')
   const history = useHistory()
@@ -95,7 +75,6 @@ function NoteDetails(props) {
     setOpenDeleteDialog,
     shouldNavigateHome
   )
-  const [handlePickNote, isPicked] = usePickNote(note)
 
   const handleNavigateBack = () => history.goBack()
 
@@ -106,12 +85,6 @@ function NoteDetails(props) {
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false)
   }
-
-  const pickersString = useMemo(() => {
-    return pickers && pickers && pickers.length > 0
-      ? pickers.map(p => p.displayName).join(', ')
-      : t('notes.note.messageWhenEmptyPickers')
-  }, [pickers, t])
 
   const hasData = () =>
     note &&
@@ -130,7 +103,7 @@ function NoteDetails(props) {
       <AppPreloader
         isVisible={isFetchingData || isUpdatingData || isDeletingData}
       />
-      {hasData() ? (
+      {hasData() && (
         <>
           <Dialogs
             isDeleteDialogOpened={openDeleteDialog}
@@ -139,55 +112,49 @@ function NoteDetails(props) {
           />
           <article>
             <Paper elevation={3}>
-              <div className={classes.headerIcon}>
+              <div className={classes.headerIcons}>
                 <IconButton onClick={handleNavigateBack}>
                   <CloseIcon />
                 </IconButton>
-                {note.author.uid === currentUser.uid ? (
+                {note.author.uid === currentUser.uid && (
                   <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
-                ) : null}
+                )}
               </div>
               <div className={classes.container}>
-                <div style={{ width: '50%' }}>
-                  <img src={imgURL} alt="user img" style={{ width: '100%' }} />
-                  <div className={classes.footer}>
-                    <div className={classes.author}>
-                      <Avatar className={classes.avatar}>
-                        {author.displayName.charAt(0)}
-                      </Avatar>
-                      <span>{author.displayName}</span>
+                {imgURL ? (
+                  <>
+                    <div className={classes.withImageContainer}>
+                      <img
+                        src={imgURL}
+                        alt="user img"
+                        style={{ width: '100%' }}
+                      />
+                      <NoteMeta note={note} />
                     </div>
-                    <Tooltip title={pickersString} arrow>
-                      <div className={classes.pickers}>
-                        <div style={{ marginRight: '10px' }}>
-                          {pickers.length}
-                        </div>
-                        <SentimentVerySatisfiedIcon
-                          style={{
-                            cursor: 'pointer',
-                            color: isPicked(note)
-                              ? theme.palette.text.secondary
-                              : theme.palette.secondary.main
-                          }}
-                          onClick={handlePickNote}
-                        />
-                      </div>
-                    </Tooltip>
+                    <NoteContent
+                      title={title}
+                      category={category}
+                      description={description}
+                      createdAt={createdAt}
+                      withImage
+                    />
+                  </>
+                ) : (
+                  <div className={classes.noImageContainer}>
+                    <NoteContent
+                      title={title}
+                      category={category}
+                      description={description}
+                      createdAt={createdAt}
+                    />
+                    <NoteMeta note={note} />
                   </div>
-                </div>
-                <div style={{ width: '50%', paddingLeft: '2rem' }}>
-                  <h1 style={{ margin: 0 }}>{title}</h1>
-                  <h2 style={{ marginTop: 0 }}>{category.label}</h2>
-                  <p>{description}</p>
-                  <div style={{ fontSize: '.7em' }}>
-                    {formattedDateTime(createdAt)}
-                  </div>
-                </div>
+                )}
               </div>
             </Paper>
           </article>
         </>
-      ) : null}
+      )}
     </>
   )
 }

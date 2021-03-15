@@ -46,7 +46,7 @@ const CreateNoteForm = props => {
 
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [file, setFile] = useState({})
+  const [file, setFile] = useState(null)
 
   const { register, handleSubmit, errors, control } = useForm({
     defaultValues: {
@@ -78,7 +78,8 @@ const CreateNoteForm = props => {
     fullWidth: true,
     placeholder: t('notes.createNote.inputs.title.placeholder'),
     register: register({
-      required: t('notes.createNote.inputs.title.error.required')
+      required: t('notes.createNote.inputs.title.error.required'),
+      maxLength: 35
     }),
     error: errors.title
   }
@@ -158,11 +159,6 @@ const CreateNoteForm = props => {
                 onChange={handleUploadFile}
                 accept="image/*"
                 multiple={false}
-                register={register({
-                  required: t(
-                    'notes.createNote.inputs.fileUpload.error.required'
-                  )
-                })}
                 error={errors.imageUpload}
               />
             </div>
