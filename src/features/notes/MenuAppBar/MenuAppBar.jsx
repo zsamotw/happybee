@@ -133,7 +133,10 @@ function MenuAppBar(props) {
   }
 
   const currentUserFirstLetter = useMemo(
-    () => currentUser.displayName.charAt(0),
+    () =>
+      currentUser && currentUser.displayName
+        ? currentUser.displayName.charAt(0)
+        : '',
     [currentUser]
   )
 
