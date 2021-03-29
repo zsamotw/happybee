@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   pickers: {
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center'
   }
@@ -55,16 +56,22 @@ export default function NoteMeta(props) {
         <span>{author.displayName}</span>
       </div>
       <Tooltip title={pickersString} arrow>
-        <div className={classes.pickers}>
-          <div style={{ marginRight: '10px' }}>{pickers.length}</div>
+        <div
+          role="button"
+          tabIndex="0"
+          className={classes.pickers}
+          onClick={handlePickNote}
+          onKeyDown={handlePickNote}
+        >
+          <div style={{ marginRight: '10px' }} data-testid="pickers">
+            {pickers.length}
+          </div>
           <SentimentVerySatisfiedIcon
             style={{
-              cursor: 'pointer',
               color: isPicked(note)
                 ? theme.palette.text.secondary
                 : theme.palette.secondary.main
             }}
-            onClick={handlePickNote}
           />
         </div>
       </Tooltip>

@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({
     margin: '2.5rem',
     borderRadius: '10px',
     position: 'absolute',
-    opacity: 0.8,
     backgroundColor: 'white',
     overflowY: 'auto',
     transition: 'all 0.3s'
@@ -109,6 +108,7 @@ const useStyles = makeStyles(theme => ({
     padding: '0 1rem'
   },
   pickers: {
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center'
   }
@@ -225,18 +225,22 @@ function Note(props) {
               <span>{author.displayName}</span>
             </div>
             <Tooltip title={pickersString} arrow>
-              <div className={classes.pickers}>
+              <div
+                role="button"
+                tabIndex="0"
+                className={classes.pickers}
+                onClick={handlePickNote}
+                onKeyDown={handlePickNote}
+              >
                 <div style={{ marginRight: '10px' }} data-testid="pickers">
                   {pickers.length}
                 </div>
                 <SentimentVerySatisfiedIcon
                   style={{
-                    cursor: 'pointer',
                     color: isPicked(note)
                       ? theme.palette.text.secondary
                       : theme.palette.secondary.main
                   }}
-                  onClick={handlePickNote}
                 />
               </div>
             </Tooltip>
