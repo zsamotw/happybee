@@ -16,7 +16,6 @@ import { connect } from 'react-redux'
 import { Link, NavLink, useHistory, useRouteMatch } from 'react-router-dom'
 import SearchBar from '../SearchBar'
 import * as ROUTES from '../../../constants/routes'
-import { SET_AUTH_USER } from '../../../store/actions/sync-actions'
 import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
 import {
   getSearchBarConfig,
@@ -233,7 +232,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToState = dispatch => {
   return {
-    setAuthUser: authUser => dispatch(SET_AUTH_USER(authUser)),
     logout: logOutData => dispatch(LOGOUT_REQUEST(logOutData))
   }
 }
