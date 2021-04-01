@@ -13,9 +13,9 @@ const makeInitialState = Record({
     isUpdatingData: false,
     isDeletingData: false
   },
-  searchBarConfig: { isVisible: false, collectionName: '' },
+  searchBarConfig: { isVisible: false },
   currentViewTitle: '',
-  appMessage: { content: '', type: null },
+  appMessage: { content: '', type: '' },
   selectedNote: null,
   notes: List([]),
   userNotes: List([]),
