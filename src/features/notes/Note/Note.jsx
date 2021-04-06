@@ -44,6 +44,8 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   headLine: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     fontWeight: '600',
     marginBottom: '.1rem'
   },
@@ -90,8 +92,9 @@ const useStyles = makeStyles(theme => ({
   },
   deleteIcon: {
     position: 'absolute',
-    right: '0',
-    top: '-10px'
+    right: '5px',
+    top: '65px',
+    zIndex: 10
   },
   pickIcon: {
     '&:hover': {

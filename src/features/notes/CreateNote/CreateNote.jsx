@@ -79,7 +79,7 @@ const CreateNoteForm = props => {
     placeholder: t('notes.createNote.inputs.title.placeholder'),
     register: register({
       required: t('notes.createNote.inputs.title.error.required'),
-      maxLength: 35
+      maxLength: 40
     }),
     error: errors.title
   }

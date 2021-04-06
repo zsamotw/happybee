@@ -54,17 +54,17 @@ export default function NoteMeta(props) {
         </Avatar>
         <span>{author.displayName}</span>
       </div>
-      <Tooltip title={pickersString} arrow>
-        <div
-          role="button"
-          tabIndex="0"
-          className={classes.pickers}
-          onClick={handlePickNote}
-          onKeyDown={handlePickNote}
-        >
-          <div style={{ marginRight: '10px' }} data-testid="pickers">
-            {pickers.length}
-          </div>
+      <div
+        role="button"
+        tabIndex="0"
+        className={classes.pickers}
+        onClick={handlePickNote}
+        onKeyDown={handlePickNote}
+      >
+        <div style={{ marginRight: '10px' }} data-testid="pickers">
+          {pickers.length}
+        </div>
+        <Tooltip title={pickersString} arrow>
           <SentimentVerySatisfiedIcon
             role="button"
             tabIndex="0"
@@ -77,8 +77,8 @@ export default function NoteMeta(props) {
                 : theme.palette.secondary.main
             }}
           />
-        </div>
-      </Tooltip>
+        </Tooltip>
+      </div>
     </div>
   )
 }
