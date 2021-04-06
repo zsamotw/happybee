@@ -4,5 +4,7 @@
 
 * React
 * Redux
+* Redux Saga
+* React Router
 * Firebase
 * Material UI
