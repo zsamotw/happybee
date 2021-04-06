@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   pickers: {
-    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center'
   }
@@ -67,7 +66,12 @@ export default function NoteMeta(props) {
             {pickers.length}
           </div>
           <SentimentVerySatisfiedIcon
+            role="button"
+            tabIndex="0"
+            onClick={handlePickNote}
+            onKeyDown={handlePickNote}
             style={{
+              cursor: 'pointer',
               color: isPicked(note)
                 ? theme.palette.text.secondary
                 : theme.palette.secondary.main
