@@ -157,7 +157,8 @@
           "label": "Tytuł",
           "placeholder": "Wpisz tytuł...",
           "error": {
-            "required": "Tytuł jest wymagana"
+            "required": "Tytuł jest wymagana",
+            "maxLength": "Zbyt długi tytuł"
           }
         },
         "description": {
