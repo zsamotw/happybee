@@ -47,7 +47,8 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontWeight: '600',
-    marginBottom: '.1rem'
+    marginBottom: '.1rem',
+    paddingRight: '3rem'
   },
   description: {
     color: `${theme.palette.grey[800]}`,
@@ -92,8 +93,8 @@ const useStyles = makeStyles(theme => ({
   },
   deleteIcon: {
     position: 'absolute',
-    right: '5px',
-    top: '65px',
+    right: '0',
+    top: '-10px',
     zIndex: 10
   },
   pickIcon: {
