@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
-import { GET_USER_NOTES_REQUEST } from '../../../store/actions/async-actions'
+import { SYNC_USER_NOTES_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest, getUserNotes } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
@@ -62,7 +62,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    syncUserNotes: notesData => dispatch(GET_USER_NOTES_REQUEST(notesData)),
+    syncUserNotes: notesData => dispatch(SYNC_USER_NOTES_REQUEST(notesData)),
     resetUserNotes: () => dispatch(SET_USER_NOTES([]))
   }
 }

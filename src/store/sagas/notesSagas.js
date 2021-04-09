@@ -13,7 +13,7 @@ import {
   SYNC_NOTE_REQUEST,
   SYNC_NOTES_REQUEST,
   TOGGLE_PICK_NOTE_REQUEST,
-  GET_USER_NOTES_REQUEST,
+  SYNC_USER_NOTES_REQUEST,
   DELETE_NOTE_REQUEST
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
@@ -295,6 +295,6 @@ export default function* notesSaga() {
   yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
   yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
+  yield takeLatest(SYNC_USER_NOTES_REQUEST.type, syncUserNotesRequest)
   yield takeLatest(TOGGLE_PICK_NOTE_REQUEST.type, togglePickNoteRequest)
-  yield takeLatest(GET_USER_NOTES_REQUEST.type, syncUserNotesRequest)
 }
