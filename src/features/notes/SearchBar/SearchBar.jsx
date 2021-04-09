@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme, isVisible) => ({
 }))
 
 function SearchBar(props) {
-  const { setQueryFilter, query, isVisible } = props
+  const { setQueryFilter, query, isVisible, className } = props
   const { t } = useTranslation('common')
 
   const handleQueryChange = event => {
@@ -59,28 +59,26 @@ function SearchBar(props) {
   const classes = useStyles(theme, isVisible)
 
   return (
-    <>
-      <div
-        className={classes.search}
-        style={isVisible ? { visibility: 'visible' } : { visibility: 'hidden' }}
-      >
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
-        <InputBase
-          id="note-search"
-          label={t('notes.searchBar.input.label')}
-          placeholder={t('notes.searchBar.input.placeholder')}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput
-          }}
-          onChange={handleQueryChange}
-          value={query}
-          inputProps={{ 'aria-label': 'search' }}
-        />
+    <div
+      className={`${classes.search} ${className}`}
+      style={isVisible ? { visibility: 'visible' } : { visibility: 'hidden' }}
+    >
+      <div className={classes.searchIcon}>
+        <SearchIcon />
       </div>
-    </>
+      <InputBase
+        id="note-search"
+        label={t('notes.searchBar.input.label')}
+        placeholder={t('notes.searchBar.input.placeholder')}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput
+        }}
+        onChange={handleQueryChange}
+        value={query}
+        inputProps={{ 'aria-label': 'search' }}
+      />
+    </div>
   )
 }
 

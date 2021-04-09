@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
   headLine: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     fontWeight: '600',
     marginBottom: '.1rem',
     paddingRight: '3rem'

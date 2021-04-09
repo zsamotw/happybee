@@ -66,6 +66,11 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     backgroundColor: theme.palette.secondary.main
   },
+  searchBar: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
+  },
   links: {
     alignSelf: 'stretch',
     display: 'flex',
@@ -82,6 +87,9 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center'
       }
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
     }
   },
   activeLink: {
@@ -149,7 +157,10 @@ function MenuAppBar(props) {
               {t('notes.menuAppBar.appTitle')}
             </Typography>
           </Link>
-          <SearchBar isVisible={isSearchBarVisible} />
+          <SearchBar
+            isVisible={isSearchBarVisible}
+            className={classes.searchBar}
+          />
           <ul className={classes.links}>
             <li>
               <NavLink
