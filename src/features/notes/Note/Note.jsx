@@ -74,8 +74,8 @@ const useStyles = makeStyles(theme => ({
   },
   noImageWrapper: {
     ...wrapper,
-    background: theme.palette.grey[100],
-    border: `1px solid ${theme.palette.grey[300]} `
+    background: theme.palette.primary.light,
+    border: `1px solid ${theme.palette.primary.dark} `
   },
   image: {
     height: '100%'
