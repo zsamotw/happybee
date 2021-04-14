@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import { format } from 'date-fns'
 import { Button, makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
@@ -14,6 +15,7 @@ import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
 import * as ROUTES from '../../../constants/routes'
 import { useCurrentViewTitle } from '../../../hooks'
+import AppDatePicker from '../../../components/app-date-picker'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -46,14 +48,13 @@ const CreateNoteForm = props => {
 
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [file, setFile] = useState(null)
 
-  const { register, handleSubmit, errors, control } = useForm({
+  const { register, handleSubmit, errors, control, watch } = useForm({
     defaultValues: {
       title: '',
       description: '',
       category: '',
-      FileUpload: null
+      createdAt: format(new Date(), 'yyyy-MM-dd')
     }
   })
 
@@ -102,14 +103,11 @@ const CreateNoteForm = props => {
     error: errors.description
   }
 
-  const handleUploadFile = files => {
-    setFile(files[0])
-  }
-
   const handleNavigateBack = () => history.goBack()
 
-  const onSubmit = ({ title, description, categoryId }) => {
+  const onSubmit = ({ title, description, categoryId, createdAt, files }) => {
     const category = categories.find(c => c.id === categoryId)
+    const file = files ? files[0] : null
     const messageOnSuccess = t('notes.createNote.messageOnCreateNoteSuccess')
     const messageOnError = t('notes.createNote.messageOnCreateNoteError')
     const messageOnFileUploadError = t(
@@ -121,6 +119,7 @@ const CreateNoteForm = props => {
       title,
       description,
       category,
+      createdAt: new Date(createdAt),
       pickers,
       file,
       navigateHome,
@@ -154,15 +153,25 @@ const CreateNoteForm = props => {
                 error={errors.categoryId}
               />
             </div>
+            <div style={{ width: '50%', marginBottom: '2rem' }}>
+              <AppDatePicker
+                id="create-date-control"
+                name="createdAt"
+                label={t('notes.createNote.inputs.createdAt.label')}
+                register={register}
+                fullWidth
+              />
+            </div>
             <div style={{ marginBottom: '2rem' }}>
               <AppFileUpload
-                id="image-upload-control"
+                id="files-upload-control"
                 dataTestId="file-upload-button"
-                name="imageUpload"
-                onChange={handleUploadFile}
+                name="files"
+                register={register}
+                watch={watch}
                 accept="image/*"
                 multiple={false}
-                error={errors.imageUpload}
+                error={errors.files}
               />
             </div>
             <div>

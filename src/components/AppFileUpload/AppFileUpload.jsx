@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles, useTheme } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -23,21 +23,16 @@ export default function AppFileUpload({
   id,
   dataTestId,
   name,
-  onChange,
   accept,
   multiple,
   register,
-  error
+  error,
+  watch
 }) {
   const theme = useTheme()
   const classes = useStyles(theme)
-  const [fileList, setFileList] = useState([])
 
-  const handleChange = event => {
-    const { files } = event.target
-    setFileList(Object.values(files))
-    onChange(event.target.files)
-  }
+  const fileList = Object.values(watch(name, false))
 
   return (
     <FormControl>
@@ -57,7 +52,6 @@ export default function AppFileUpload({
             ref={register}
             accept={accept}
             multiple={multiple}
-            onChange={handleChange}
             type="file"
           />
         </label>

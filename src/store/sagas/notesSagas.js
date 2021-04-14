@@ -58,6 +58,7 @@ function* createFirebaseNote(action) {
     title,
     description,
     category,
+    createdAt,
     pickers,
     file,
     navigateHome,
@@ -65,7 +66,6 @@ function* createFirebaseNote(action) {
   } = action.payload
   const currentUser = yield call(Firebase.getCurrentUser)
   const author = Firebase.transformDbUserToSafeUser(currentUser)
-  const createdAt = new Date()
   const folder = `images/${createdAt.getFullYear()}-${createdAt.getMonth()}/${createdAt.getTime()}`
   if (file) {
     yield call(uploadFile, file, folder, messageOnFileUploadError)
