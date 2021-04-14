@@ -1,7 +1,7 @@
 import AccountProfile from '../../account/AccountProfile'
 import * as ROUTES from '../../../constants/routes'
 import MainPage from '../MainPage'
-import CreateNote from '../CreateNote'
+import CreateNoteForm from '../CreateNoteForm'
 import NoteDetails from '../NoteDetails'
 import Notes from '../Notes'
 import UserNotes from '../UserNotes'
@@ -20,7 +20,7 @@ const routes = path => [
   {
     path: `${path}${ROUTES.CREATE_NOTE}`,
     exact: false,
-    component: CreateNote
+    component: CreateNoteForm
   },
   {
     path: `${path}${ROUTES.NOTES}`,
