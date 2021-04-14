@@ -229,7 +229,10 @@ function Note(props) {
             </div>
             <div className={classes.pickers}>
               <Tooltip title={pickersString} arrow>
-                <div style={{ marginRight: '10px' }} data-testid="pickers">
+                <div
+                  style={{ marginRight: '10px', userSelect: 'none' }}
+                  data-testid="pickers"
+                >
                   {pickers.length}
                 </div>
               </Tooltip>
