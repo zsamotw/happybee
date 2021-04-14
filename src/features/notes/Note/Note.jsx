@@ -68,14 +68,13 @@ const useStyles = makeStyles(theme => ({
   },
   imageWrapper: {
     ...wrapper,
-    backgroundImage: 'linear-gradient(to left, #57a0b396, #57a0b396 )',
+    backgroundImage: 'linear-gradient(to left, #57a0b324, #57a0b324)',
     backgroundClip: 'content-box',
     border: `3px solid transparent`
   },
   noImageWrapper: {
     ...wrapper,
-    background: theme.palette.primary.light,
-    border: `1px solid ${theme.palette.primary.dark} `
+    background: theme.palette.primary.light
   },
   image: {
     height: '100%'
@@ -229,23 +228,24 @@ function Note(props) {
               <span>{author.displayName}</span>
             </div>
             <div className={classes.pickers}>
-              <div style={{ marginRight: '10px' }} data-testid="pickers">
-                {pickers.length}
-              </div>
               <Tooltip title={pickersString} arrow>
-                <SentimentVerySatisfiedIcon
-                  role="button"
-                  tabIndex="0"
-                  onClick={handlePickNote}
-                  onKeyDown={handlePickNote}
-                  style={{
-                    cursor: 'pointer',
-                    color: isPicked(note)
-                      ? theme.palette.text.secondary
-                      : theme.palette.secondary.main
-                  }}
-                />
+                <div style={{ marginRight: '10px' }} data-testid="pickers">
+                  {pickers.length}
+                </div>
               </Tooltip>
+              <SentimentVerySatisfiedIcon
+                role="button"
+                tabIndex="0"
+                onClick={handlePickNote}
+                onKeyDown={handlePickNote}
+                style={{
+                  outline: 'none',
+                  cursor: 'pointer',
+                  color: isPicked(note)
+                    ? theme.palette.text.secondary
+                    : theme.palette.secondary.main
+                }}
+              />
             </div>
           </div>
         </article>

@@ -61,23 +61,24 @@ export default function NoteMeta(props) {
         onClick={handlePickNote}
         onKeyDown={handlePickNote}
       >
-        <div style={{ marginRight: '10px' }} data-testid="pickers">
-          {pickers.length}
-        </div>
         <Tooltip title={pickersString} arrow>
-          <SentimentVerySatisfiedIcon
-            role="button"
-            tabIndex="0"
-            onClick={handlePickNote}
-            onKeyDown={handlePickNote}
-            style={{
-              cursor: 'pointer',
-              color: isPicked(note)
-                ? theme.palette.text.secondary
-                : theme.palette.secondary.main
-            }}
-          />
+          <div style={{ marginRight: '10px' }} data-testid="pickers">
+            {pickers.length}
+          </div>
         </Tooltip>
+        <SentimentVerySatisfiedIcon
+          role="button"
+          tabIndex="0"
+          onClick={handlePickNote}
+          onKeyDown={handlePickNote}
+          style={{
+            outline: 'none',
+            cursor: 'pointer',
+            color: isPicked(note)
+              ? theme.palette.text.secondary
+              : theme.palette.secondary.main
+          }}
+        />
       </div>
     </div>
   )
