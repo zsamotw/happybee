@@ -21,12 +21,15 @@ import AppPreloader from '../../../components/AppPreloader'
 import { useDeleteNote } from '../../../hooks'
 
 const useStyles = makeStyles({
-  container: {
+  root: {
+    padding: '0 2rem 2rem 2rem'
+  },
+  content: {
     display: 'flex',
     position: 'relative',
     padding: '2rem 2rem 0.5rem'
   },
-  withImageContainer: {
+  imageContainer: {
     width: '50%'
   },
   noImageContainer: {
@@ -34,7 +37,8 @@ const useStyles = makeStyles({
   },
   headerIcons: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    margin: '0 -2rem'
   }
 })
 
@@ -111,7 +115,7 @@ function NoteDetails(props) {
             deleteNote={handleDeleteNote}
           />
           <article>
-            <Paper elevation={3}>
+            <Paper elevation={3} className={classes.root}>
               <div className={classes.headerIcons}>
                 <IconButton onClick={handleNavigateBack}>
                   <CloseIcon />
@@ -120,10 +124,10 @@ function NoteDetails(props) {
                   <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
                 )}
               </div>
-              <div className={classes.container}>
+              <div className={classes.content}>
                 {imgURL ? (
                   <>
-                    <div className={classes.withImageContainer}>
+                    <div className={classes.imageContainer}>
                       <img
                         src={imgURL}
                         alt="user img"
