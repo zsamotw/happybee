@@ -65,3 +65,8 @@ export const SYNC_USER_NOTES_REQUEST = createAction(
   'GET USER NOTES REQUEST',
   notesData => ({ payload: { ...notesData } })
 )
+
+export const SET_NOTE_QUERY_FILTER_REQUEST = createAction(
+  'SET NOTE QUERY FILTER REQUEST',
+  query => ({ payload: query })
+)

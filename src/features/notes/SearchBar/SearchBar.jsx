@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { fade, makeStyles, useTheme } from '@material-ui/core'
 import { connect } from 'react-redux'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import { SET_NOTE_QUERY_FILTER } from '../../../store/actions/sync-actions'
 import { getNoteFilters } from '../../../store/selectors'
+import { SET_NOTE_QUERY_FILTER_REQUEST } from '../../../store/actions/async-actions'
 
 const useStyles = makeStyles((theme, isVisible) => ({
   search: {
@@ -51,8 +51,11 @@ function SearchBar(props) {
   const { setQueryFilter, query, isVisible, className } = props
   const { t } = useTranslation('common')
 
+  const [inputValue, setInputValue] = useState(query)
+
   const handleQueryChange = event => {
     setQueryFilter(event.target.value)
+    setInputValue(event.target.value)
   }
 
   const theme = useTheme()
@@ -75,7 +78,7 @@ function SearchBar(props) {
           input: classes.inputInput
         }}
         onChange={handleQueryChange}
-        value={query}
+        value={inputValue}
         inputProps={{ 'aria-label': 'search' }}
       />
     </div>
@@ -89,7 +92,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    setQueryFilter: query => dispatch(SET_NOTE_QUERY_FILTER(query))
+    setQueryFilter: query => dispatch(SET_NOTE_QUERY_FILTER_REQUEST(query))
   }
 }
 

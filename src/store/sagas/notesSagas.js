@@ -1,11 +1,12 @@
-import { call, fork, put, takeLatest, take } from 'redux-saga/effects'
+import { call, fork, put, takeLatest, take, throttle } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import {
   SET_NOTES,
   SET_APP_MESSAGE,
   SET_SELECTED_NOTE,
   SET_USER_NOTES,
-  SET_IS_FETCHING_DATA
+  SET_IS_FETCHING_DATA,
+  SET_NOTE_QUERY_FILTER
 } from '../actions/sync-actions'
 import {
   CREATE_NOTE_REQUEST,
@@ -14,7 +15,8 @@ import {
   SYNC_NOTES_REQUEST,
   TOGGLE_PICK_NOTE_REQUEST,
   SYNC_USER_NOTES_REQUEST,
-  DELETE_NOTE_REQUEST
+  DELETE_NOTE_REQUEST,
+  SET_NOTE_QUERY_FILTER_REQUEST
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
@@ -200,6 +202,10 @@ function* togglePickNoteRequest(action) {
   )
 }
 
+function* setNoteQueryRequest(action) {
+  yield put(SET_NOTE_QUERY_FILTER(action.payload))
+}
+
 function* syncFirebaseNoteRequest(action) {
   yield put(
     SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
@@ -297,4 +303,5 @@ export default function* notesSaga() {
   yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
   yield takeLatest(SYNC_USER_NOTES_REQUEST.type, syncUserNotesRequest)
   yield takeLatest(TOGGLE_PICK_NOTE_REQUEST.type, togglePickNoteRequest)
+  yield throttle(500, SET_NOTE_QUERY_FILTER_REQUEST.type, setNoteQueryRequest)
 }
