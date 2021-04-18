@@ -1,18 +1,15 @@
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
-import Tooltip from '@material-ui/core/Tooltip'
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Dialogs from '../Dialogs'
 import { getCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
-import { useDeleteNote, usePickNote } from '../../../hooks'
+import { useDeleteNote } from '../../../hooks'
 import { formattedDateTime } from '../../../services/date-service'
 import * as ROUTES from '../../../constants/routes'
+import NoteMeta from '../NoteMeta'
 
 const wrapper = {
   position: 'relative',
@@ -96,24 +93,6 @@ const useStyles = makeStyles(theme => ({
     right: '0',
     top: '-10px',
     zIndex: 10
-  },
-  pickIcon: {
-    '&:hover': {
-      '& svg': {
-        color: theme.palette.grey['50'],
-        cursor: 'pointer'
-      }
-    }
-  },
-  footer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '0 1rem'
-  },
-  pickers: {
-    display: 'flex',
-    alignItems: 'center'
   }
 }))
 
@@ -124,14 +103,11 @@ function Note(props) {
   const history = useHistory()
 
   const { note, currentUser } = props
-  const { id, title, description, category, author, pickers, createdAt } = note
+  const { id, title, description, category, author, createdAt } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
 
-  const { t } = useTranslation('common')
-
   const handleDeleteNote = useDeleteNote(note, setOpenDeleteDialog)
-  const [handlePickNote, isPicked] = usePickNote(note)
 
   const handleNavigateNoteDetails = () => {
     history.push(`${ROUTES.HOME}${ROUTES.NOTES}/${id}`)
@@ -151,12 +127,6 @@ function Note(props) {
     }
     return description
   }, [description])
-
-  const pickersString = useMemo(() => {
-    return pickers.length > 0
-      ? pickers.map(p => p.displayName).join(', ')
-      : t('notes.note.messageWhenEmptyPickers')
-  }, [pickers, t])
 
   const hasData = () =>
     note &&
@@ -220,37 +190,7 @@ function Note(props) {
               </div>
             </div>
           )}
-          <div className={classes.footer}>
-            <div className={classes.author}>
-              <Avatar className={classes.avatar} data-testid="avatar">
-                {author.displayName.charAt(0)}
-              </Avatar>
-              <span>{author.displayName}</span>
-            </div>
-            <div className={classes.pickers}>
-              <Tooltip title={pickersString} arrow>
-                <div
-                  style={{ marginRight: '10px', userSelect: 'none' }}
-                  data-testid="pickers"
-                >
-                  {pickers.length}
-                </div>
-              </Tooltip>
-              <SentimentVerySatisfiedIcon
-                role="button"
-                tabIndex="0"
-                onClick={handlePickNote}
-                onKeyDown={handlePickNote}
-                style={{
-                  outline: 'none',
-                  cursor: 'pointer',
-                  color: isPicked(note)
-                    ? theme.palette.text.secondary
-                    : theme.palette.secondary.main
-                }}
-              />
-            </div>
-          </div>
+          <NoteMeta note={note} />
         </article>
       </Grid>
     )
