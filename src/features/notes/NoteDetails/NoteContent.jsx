@@ -2,11 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { formattedDateTime } from '../../../services/date-service'
 
-const useStyles = makeStyles(withImage => ({
-  contentContainer: {
-    width: withImage ? '50%' : '100%',
-    paddingLeft: withImage ? '2rem' : 0
-  },
+const useStyles = makeStyles({
   title: {
     margin: 0
   },
@@ -16,12 +12,12 @@ const useStyles = makeStyles(withImage => ({
   date: {
     fontSize: '.7em'
   }
-}))
+})
 
 export default function NoteContent(props) {
   const { title, category, description, createdAt, withImage } = props
 
-  const classes = useStyles(withImage)
+  const classes = useStyles()
 
   return (
     <div
