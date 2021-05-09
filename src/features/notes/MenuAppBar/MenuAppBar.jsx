@@ -15,27 +15,13 @@ import {
 } from '../../../store/selectors'
 import NavigationLinks from './NavigationLinks'
 import UserMenu from './UserMenu'
+import iconLinkStyles from './styles'
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
-  iconLink: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textDecoration: 'none',
-    color: '#fff',
-    fontSize: '20px',
-    cursor: 'pointer',
-    marginRight: '2rem',
-    '&:hover': {
-      color: `${theme.palette.grey[200]}`
-    },
-    '& div': {
-      fontSize: '11px'
-    }
-  },
+  iconLink: iconLinkStyles(theme),
   grow: {
     flexGrow: 1
   },

@@ -6,6 +6,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import * as ROUTES from '../../../constants/routes'
+import iconLinkStyles from './styles'
 
 const useStyles = makeStyles(theme => ({
   links: {
@@ -29,22 +30,7 @@ const useStyles = makeStyles(theme => ({
       display: 'none'
     }
   },
-  iconLink: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textDecoration: 'none',
-    color: '#fff',
-    fontSize: '20px',
-    cursor: 'pointer',
-    marginRight: '2rem',
-    '&:hover': {
-      color: `${theme.palette.grey[200]}`
-    },
-    '& div': {
-      fontSize: '11px'
-    }
-  },
+  iconLink: iconLinkStyles(theme),
   activeLink: {
     borderBottom: `5px solid ${theme.palette.secondary.main}`
   }

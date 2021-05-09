@@ -30,21 +30,21 @@ export default function UserMenu({
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  const handleMenu = event => {
+  const handleOpenMenu = event => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleNavigateAccount = () => {
+  const navigateAccount = () => {
     history.push(`${path}${ROUTES.ACCOUNT}`)
     setAnchorEl(null)
   }
 
-  const handleNavigateCreateNote = () => {
+  const navigateCreateNote = () => {
     history.push(`${path}${ROUTES.CREATE_NOTE}`)
     setAnchorEl(null)
   }
 
-  const handleNavigateUserNotes = () => {
+  const navigateUserNotes = () => {
     history.push(`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`)
     setAnchorEl(null)
   }
@@ -67,7 +67,7 @@ export default function UserMenu({
   )
   return (
     <div>
-      <IconButton onClick={handleMenu} color="inherit">
+      <IconButton onClick={handleOpenMenu} color="inherit">
         <Avatar className={classes.avatar}>
           {currentUser.displayName && currentUserFirstLetter}
         </Avatar>
@@ -83,13 +83,13 @@ export default function UserMenu({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleNavigateCreateNote}>
+        <MenuItem onClick={navigateCreateNote}>
           {t('notes.menuAppBar.menu.createNewNote')}
         </MenuItem>
-        <MenuItem onClick={handleNavigateUserNotes}>
+        <MenuItem onClick={navigateUserNotes}>
           {t('notes.menuAppBar.menu.userNotes')}
         </MenuItem>
-        <MenuItem onClick={handleNavigateAccount}>
+        <MenuItem onClick={navigateAccount}>
           {t('notes.menuAppBar.menu.profile')}
         </MenuItem>
         <Divider />
