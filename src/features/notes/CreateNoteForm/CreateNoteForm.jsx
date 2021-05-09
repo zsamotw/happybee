@@ -15,7 +15,7 @@ import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
 import * as ROUTES from '../../../constants/routes'
 import { useCurrentViewTitle } from '../../../hooks'
-import AppDatePicker from '../../../components/app-date-picker'
+import AppDatePicker from '../../../components/AppDatePicker'
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
