@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { DELETE_NOTE_REQUEST } from '../store/actions/async-actions'
-import * as ROUTES from '../constants/routes'
+import routes from '../constants/routes'
 
 export default function useDeleteNote(
   note,
@@ -21,7 +21,7 @@ export default function useDeleteNote(
       'notes.note.messageOnUserNoteAccessError'
     )
     const navigateHome = shouldNavigateHome
-      ? () => history.push(ROUTES.HOME)
+      ? () => history.push(routes.home)
       : null
 
     dispatch(

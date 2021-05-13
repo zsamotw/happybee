@@ -8,7 +8,7 @@ import Alert from '../../../components/Alert'
 import withAuthentication from '../../account/Session'
 import { getAppMessage } from '../../../store/selectors'
 import { SET_APP_MESSAGE } from '../../../store/actions/sync-actions'
-import routes from './routes'
+import rootRoutes from './routes'
 
 function RootComponent(props) {
   const [openSnackBar, setOpenSnackBar] = useState(false)
@@ -34,7 +34,7 @@ function RootComponent(props) {
     <main>
       <Router>
         <Switch>
-          {routes.map(route =>
+          {rootRoutes.map(route =>
             route.isPrivate ? (
               <PrivateRoute
                 key={route.path}

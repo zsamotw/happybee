@@ -8,7 +8,7 @@ import { getCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import { useDeleteNote } from '../../../hooks'
 import { formattedDateTime } from '../../../services/date-service'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import NoteMeta from '../NoteMeta'
 
 const wrapper = {
@@ -110,7 +110,7 @@ function Note(props) {
   const handleDeleteNote = useDeleteNote(note, setOpenDeleteDialog)
 
   const handleNavigateNoteDetails = () => {
-    history.push(`${ROUTES.HOME}${ROUTES.NOTES}/${id}`)
+    history.push(`${routes.home}${routes.notes}/${id}`)
   }
 
   const handleClickOpenDeleteDialog = () => {

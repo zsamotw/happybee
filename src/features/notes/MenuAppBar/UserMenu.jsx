@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -35,17 +35,17 @@ export default function UserMenu({
   }
 
   const navigateAccount = () => {
-    history.push(`${path}${ROUTES.ACCOUNT}`)
+    history.push(`${path}${routes.account}`)
     setAnchorEl(null)
   }
 
   const navigateCreateNote = () => {
-    history.push(`${path}${ROUTES.CREATE_NOTE}`)
+    history.push(`${path}${routes.createNote}`)
     setAnchorEl(null)
   }
 
   const navigateUserNotes = () => {
-    history.push(`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`)
+    history.push(`${path}${routes.user}/${currentUser.uid}${routes.notes}`)
     setAnchorEl(null)
   }
 

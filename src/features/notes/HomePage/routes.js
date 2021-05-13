@@ -1,39 +1,39 @@
 import AccountProfile from '../../account/AccountProfile'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import MainPage from '../MainPage'
 import CreateNoteForm from '../CreateNoteForm'
 import NoteDetails from '../NoteDetails'
 import Notes from '../Notes'
 import UserNotes from '../UserNotes'
 
-const routes = path => [
+const homeRoutes = path => [
   {
     path,
     exact: true,
     component: MainPage
   },
   {
-    path: `${path}${ROUTES.ACCOUNT}`,
+    path: `${path}${routes.account}`,
     exact: false,
     component: AccountProfile
   },
   {
-    path: `${path}${ROUTES.CREATE_NOTE}`,
+    path: `${path}${routes.createNote}`,
     exact: false,
     component: CreateNoteForm
   },
   {
-    path: `${path}${ROUTES.NOTES}`,
+    path: `${path}${routes.notes}`,
     exact: true,
     component: Notes
   },
   {
-    path: `${path}${ROUTES.USER}/:userUid${ROUTES.NOTES}`,
+    path: `${path}${routes.user}/:userUid${routes.notes}`,
     exact: true,
     component: UserNotes
   },
   {
-    path: `${path}${ROUTES.NOTES}/:id`,
+    path: `${path}${routes.notes}/:id`,
     exact: false,
     component: NoteDetails
   },
@@ -44,4 +44,4 @@ const routes = path => [
   }
 ]
 
-export default routes
+export default homeRoutes

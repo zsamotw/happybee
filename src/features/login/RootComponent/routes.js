@@ -1,26 +1,26 @@
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import HomePage from '../../notes/HomePage'
 import LandingPage from '../LandingPage'
 
-const routes = [
+const rootRoutes = [
   {
-    path: ROUTES.LANDING_PAGE,
+    path: routes.landingPage,
     exact: true,
     component: LandingPage,
     isPrivate: false
   },
   {
-    path: ROUTES.HOME,
+    path: routes.home,
     exact: false,
     component: HomePage,
     isPrivate: true
   },
   {
-    path: ROUTES.LANDING_PAGE,
+    path: routes.landingPage,
     exact: false,
     component: LandingPage,
     isPrivate: false
   }
 ]
 
-export default routes
+export default rootRoutes

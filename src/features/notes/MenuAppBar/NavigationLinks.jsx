@@ -5,7 +5,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import iconLinkStyles from './styles'
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +45,7 @@ export default function NavigationLinks({ path, currentUser, theme }) {
       <li>
         <NavLink
           exact
-          to={`${path}${ROUTES.CREATE_NOTE}`}
+          to={`${path}${routes.createNote}`}
           className={classes.iconLink}
           activeClassName={classes.activeLink}
         >
@@ -56,7 +56,7 @@ export default function NavigationLinks({ path, currentUser, theme }) {
       <li>
         <NavLink
           exact
-          to={`${path}${ROUTES.NOTES}`}
+          to={`${path}${routes.notes}`}
           className={classes.iconLink}
           activeClassName={classes.activeLink}
         >
@@ -66,7 +66,7 @@ export default function NavigationLinks({ path, currentUser, theme }) {
       </li>
       <li>
         <NavLink
-          to={`${path}${ROUTES.USER}/${currentUser.uid}${ROUTES.NOTES}`}
+          to={`${path}${routes.user}/${currentUser.uid}${routes.notes}`}
           className={classes.iconLink}
           activeClassName={classes.activeLink}
         >

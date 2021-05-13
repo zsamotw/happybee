@@ -1,8 +1,12 @@
-export const LANDING_PAGE = '/'
-export const SIGN_UP = '/signup'
-export const SIGN_IN = '/signin'
-export const HOME = '/home'
-export const ACCOUNT = '/account'
-export const CREATE_NOTE = '/notes/create-note'
-export const NOTES = '/notes'
-export const USER = '/user'
+const routes = {
+  landingPage: '/',
+  signUp: '/signup',
+  signIn: '/signIn',
+  home: '/home',
+  account: '/account',
+  createNote: '/notes/create-note',
+  notes: '/notes',
+  user: '/user'
+}
+
+export default routes

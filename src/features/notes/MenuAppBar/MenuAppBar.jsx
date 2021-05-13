@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 import SearchBar from '../SearchBar'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
 import {
   getSearchBarConfig,
@@ -62,7 +62,7 @@ function MenuAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Link to={ROUTES.HOME} className={classes.iconLink}>
+          <Link to={routes.home} className={classes.iconLink}>
             {' '}
             <Typography variant="h6" className={classes.title}>
               {t('notes.menuAppBar.appTitle')}

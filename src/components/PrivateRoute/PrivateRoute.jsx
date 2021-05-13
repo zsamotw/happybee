@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as ROUTES from '../../constants/routes'
+import routes from '../../constants/routes'
 import { getCurrentUser } from '../../store/selectors'
 
 const PrivateRoute = ({ component: Component, currentUser, ...rest }) => (
@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Component, currentUser, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: ROUTES.LANDING_PAGE,
+            pathname: routes.landingPage,
             state: { from: props.location }
           }}
         />

@@ -13,7 +13,7 @@ import { CREATE_NOTE_REQUEST } from '../../../store/actions/async-actions'
 import { getIsAsyncRequest } from '../../../store/selectors'
 import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
-import * as ROUTES from '../../../constants/routes'
+import routes from '../../../constants/routes'
 import { useCurrentViewTitle } from '../../../hooks'
 import AppDatePicker from '../../../components/AppDatePicker'
 
@@ -114,7 +114,7 @@ const CreateNoteForm = props => {
       'notes.createNote.messageOnFileUploadError'
     )
     const pickers = []
-    const navigateHome = () => history.push(ROUTES.HOME)
+    const navigateHome = () => history.push(routes.home)
     createNote({
       title,
       description,

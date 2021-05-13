@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Switch, useRouteMatch } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { getCurrentUser } from '../../../store/selectors'
-import routes from './routes'
+import homeRoutes from './routes'
 import PrivateRoute from '../../../components/PrivateRoute'
 import MenuAppBar from '../MenuAppBar'
 
@@ -34,7 +34,7 @@ const HomePage = props => {
       <MenuAppBar currentUser={currentUser} />
       <section className={classes.container}>
         <Switch>
-          {routes(path).map(route => (
+          {homeRoutes(path).map(route => (
             <PrivateRoute
               key={route.path}
               path={route.path}

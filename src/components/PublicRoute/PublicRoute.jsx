@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as ROUTES from '../../constants/routes'
+import routes from '../../constants/routes'
 import { getCurrentUser } from '../../store/selectors'
 
 const PublicRoute = ({ component: Component, currentUser, ...rest }) => {
   const getRedirectPath = location => {
-    const { from } = (location && location.state) || { from: ROUTES.HOME }
+    const { from } = (location && location.state) || { from: routes.home }
     return from
   }
 
