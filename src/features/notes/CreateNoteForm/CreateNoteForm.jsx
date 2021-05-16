@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { connect } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { format } from 'date-fns'
 import { Button, makeStyles } from '@material-ui/core'
@@ -9,12 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
 import AppInput from '../../../components/AppInput'
 import AppSelect from '../../../components/AppSelect'
-import { CREATE_NOTE_REQUEST } from '../../../store/actions/async-actions'
-import { getIsAsyncRequest } from '../../../store/selectors'
-import categories_ from '../../../constants/categories'
 import AppFileUpload from '../../../components/AppFileUpload'
-import routes from '../../../constants/routes'
-import { useCurrentViewTitle } from '../../../hooks'
 import AppDatePicker from '../../../components/AppDatePicker'
 
 const useStyles = makeStyles(theme => ({
@@ -27,27 +21,24 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  errorBar: {
-    color: 'red'
-  },
   formControl: {
     minWidth: 120,
     margin: '1rem 1rem 2rem 0'
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
+  },
+  errorBar: {
+    color: 'red'
   }
 }))
 
-const CreateNoteForm = props => {
-  const { createNote, isSendingData } = props
+export default function CreateNoteForm(props) {
+  const { isSendingData, onCreateNote, error, categories } = props
 
   const classes = useStyles()
 
   const { t } = useTranslation('common')
-
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
 
   const { register, handleSubmit, errors, control, watch } = useForm({
     defaultValues: {
@@ -59,16 +50,6 @@ const CreateNoteForm = props => {
   })
 
   const history = useHistory()
-
-  useCurrentViewTitle(t('notes.createNote.pageTitle'))
-
-  const categories = categories_.map(c => {
-    return { ...c, label: t(`data.categories.${c.slug}`) }
-  })
-
-  useEffect(() => {
-    setIsLoading(isSendingData)
-  }, [isSendingData])
 
   const titleInputProps = {
     id: 'titleName-input',
@@ -105,29 +86,8 @@ const CreateNoteForm = props => {
 
   const handleNavigateBack = () => history.goBack()
 
-  const onSubmit = ({ title, description, categoryId, createdAt, files }) => {
-    const category = categories.find(c => c.id === categoryId)
-    const file = files ? files[0] : null
-    const messageOnSuccess = t('notes.createNote.messageOnCreateNoteSuccess')
-    const messageOnError = t('notes.createNote.messageOnCreateNoteError')
-    const messageOnFileUploadError = t(
-      'notes.createNote.messageOnFileUploadError'
-    )
-    const pickers = []
-    const navigateHome = () => history.push(routes.home)
-    createNote({
-      title,
-      description,
-      category,
-      createdAt: new Date(createdAt),
-      pickers,
-      file,
-      navigateHome,
-      setError,
-      messageOnSuccess,
-      messageOnError,
-      messageOnFileUploadError
-    })
+  const onSubmit = formData => {
+    onCreateNote(formData)
   }
 
   return (
@@ -180,7 +140,7 @@ const CreateNoteForm = props => {
                 color="primary"
                 type="submit"
                 text={t('notes.createNote.buttons.submit')}
-                isLoading={isLoading}
+                isLoading={isSendingData}
               />
               <Button
                 variant="contained"
@@ -199,16 +159,3 @@ const CreateNoteForm = props => {
     </Grid>
   )
 }
-
-function mapStateToProps(state) {
-  const { isSendingData } = getIsAsyncRequest(state)
-  return { isSendingData }
-}
-
-function mapDispatchToState(dispatch) {
-  return {
-    createNote: noteData => dispatch(CREATE_NOTE_REQUEST(noteData))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToState)(CreateNoteForm)

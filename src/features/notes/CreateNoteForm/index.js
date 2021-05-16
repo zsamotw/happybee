@@ -1,3 +1,4 @@
 import CreateNoteForm from './CreateNoteForm'
+import CreateNote from './CreateNote'
 
-export default CreateNoteForm
+export { CreateNoteForm, CreateNote }
