@@ -1,14 +1,6 @@
 import { call, fork, put, takeLatest, take, throttle } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import {
-  SET_NOTES,
-  SET_APP_MESSAGE,
-  SET_SELECTED_NOTE,
-  SET_USER_NOTES,
-  SET_IS_FETCHING_DATA,
-  SET_NOTE_QUERY_FILTER
-} from '../actions/sync-actions'
-import {
   CREATE_NOTE_REQUEST,
   GET_NOTE_REQUEST,
   SYNC_NOTE_REQUEST,
@@ -21,6 +13,8 @@ import {
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
 import isAsyncRequest from '../../constants/asyncRequests'
+import notesStore from '../notes-reducer'
+import appStore from '../app-reducer'
 
 function* uploadFile(file, folder, messageOnFileUploadError) {
   try {
@@ -32,7 +26,7 @@ function* uploadFile(file, folder, messageOnFileUploadError) {
     yield task
   } catch {
     yield put(
-      SET_APP_MESSAGE({
+      appStore.actions.appMessageChange({
         content: messageOnFileUploadError,
         status: 'error'
       })
@@ -47,7 +41,7 @@ function* deleteFile(filePath, messageOnFileDeleteError) {
     yield call(Firebase.deleteFile, fileRef)
   } catch {
     yield put(
-      SET_APP_MESSAGE({
+      appStore.actions.appMessageChange({
         content: messageOnFileDeleteError,
         status: 'error'
       })
@@ -120,7 +114,7 @@ function* deleteFirebaseNote(action) {
     }
   } else {
     yield put(
-      SET_APP_MESSAGE({
+      appStore.actions.appMessageChange({
         content: messageOnUserAccessError,
         status: 'warring'
       })
@@ -132,7 +126,7 @@ function* getFirebaseNote(action) {
   const { id } = action.payload
   const snapshot = yield call(Firebase.getDocument, `notes/${id}`)
   const note = { id: snapshot.id, ...snapshot.data() }
-  yield put(SET_SELECTED_NOTE({ ...note }))
+  yield put(notesStore.actions.selectNoteSuccess({ ...note }))
 }
 
 function* togglePickNote(action) {
@@ -203,12 +197,15 @@ function* togglePickNoteRequest(action) {
 }
 
 function* setNoteQueryRequest(action) {
-  yield put(SET_NOTE_QUERY_FILTER(action.payload))
+  yield put(notesStore.actions.queryFilterChange(action.payload))
 }
 
 function* syncFirebaseNoteRequest(action) {
   yield put(
-    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+    appStore.actions.asyncRequestChange({
+      type: isAsyncRequest.isFetchingData,
+      value: true
+    })
   )
   const noteTransformer = snapshot => {
     return { id: snapshot.id, ...snapshot.data() }
@@ -217,14 +214,19 @@ function* syncFirebaseNoteRequest(action) {
 
   try {
     yield fork(Firebase.syncDocument, `notes/${id}`, {
-      successActionCreator: SET_SELECTED_NOTE,
+      successActionCreator: notesStore.actions.selectNoteSuccess,
       transform: noteTransformer
     })
   } catch {
-    yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+    yield put(
+      appStore.actions.appMessageChange({
+        content: messageOnError,
+        status: 'error'
+      })
+    )
   } finally {
     yield put(
-      SET_IS_FETCHING_DATA({
+      appStore.actions.asyncRequestChange({
         type: isAsyncRequest.isFetchingData,
         value: false
       })
@@ -234,7 +236,10 @@ function* syncFirebaseNoteRequest(action) {
 
 function* syncFirebaseNotesRequest(action) {
   yield put(
-    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+    appStore.actions.asyncRequestChange({
+      type: isAsyncRequest.isFetchingData,
+      value: true
+    })
   )
   const { messageOnError } = action.payload
   const notesTransformer = snapshot => {
@@ -247,14 +252,19 @@ function* syncFirebaseNotesRequest(action) {
 
   try {
     yield fork(Firebase.syncCollectionRef(), 'notes', {
-      successActionCreator: SET_NOTES,
+      successActionCreator: notesStore.actions.notesSuccess,
       transform: notesTransformer
     })
   } catch {
-    yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+    yield put(
+      appStore.actions.appMessageChange({
+        content: messageOnError,
+        status: 'error'
+      })
+    )
   } finally {
     yield put(
-      SET_IS_FETCHING_DATA({
+      appStore.actions.asyncRequestChange({
         type: isAsyncRequest.isFetchingData,
         value: false
       })
@@ -264,7 +274,10 @@ function* syncFirebaseNotesRequest(action) {
 
 function* syncUserNotesRequest(action) {
   yield put(
-    SET_IS_FETCHING_DATA({ type: isAsyncRequest.isFetchingData, value: true })
+    appStore.actions.asyncRequestChange({
+      type: isAsyncRequest.isFetchingData,
+      value: true
+    })
   )
   const { messageOnError, userUid } = action.payload
   const notesTransformer = snapshot => {
@@ -280,14 +293,19 @@ function* syncUserNotesRequest(action) {
 
   try {
     yield fork(Firebase.syncCollectionRef(), 'notes', {
-      successActionCreator: SET_USER_NOTES,
+      successActionCreator: notesStore.actions.userNotesSuccess,
       transform: notesTransformer
     })
   } catch {
-    yield put(SET_APP_MESSAGE({ content: messageOnError, status: 'error' }))
+    yield put(
+      appStore.actions.appMessageChange({
+        content: messageOnError,
+        status: 'error'
+      })
+    )
   } finally {
     yield put(
-      SET_IS_FETCHING_DATA({
+      appStore.actions.asyncRequestChange({
         type: isAsyncRequest.isFetchingData,
         value: false
       })

@@ -1,6 +1,6 @@
 import { Record, List } from 'immutable'
 
-const makeInitialState = Record({
+const makeAppInitialState = Record({
   currentUser: null,
   isAsyncRequest: {
     isFetchingLoginData: false,
@@ -15,13 +15,17 @@ const makeInitialState = Record({
   },
   searchBarConfig: { isVisible: false },
   currentViewTitle: '',
-  appMessage: { content: '', type: '' },
+  appMessage: { content: '', type: '' }
+})
+
+const makeNotesInitialState = Record({
   selectedNote: null,
   notes: List([]),
   userNotes: List([]),
   noteFilters: { query: '' }
 })
 
-const initialState = makeInitialState()
+const initialAppState = makeAppInitialState()
+const initialNotesState = makeNotesInitialState()
 
-export default initialState
+export { initialAppState, initialNotesState }

@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { SET_SEARCHBAR_CONFIG } from '../store/actions/sync-actions'
+import appStore from '../store/app-reducer'
 
 export default function useSearch() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(SET_SEARCHBAR_CONFIG({ isVisible: true }))
+    dispatch(appStore.actions.searchBarConfigChange({ isVisible: true }))
 
     return () => {
-      dispatch(SET_SEARCHBAR_CONFIG({ isVisible: false }))
+      dispatch(appStore.actions.searchBarConfigChange({ isVisible: false }))
     }
   }, [dispatch])
 }

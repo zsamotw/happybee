@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { SET_AUTH_USER } from '../../../store/actions/sync-actions'
 import Firebase from '../../../firebase'
+import appStore from '../../../store/app-reducer'
 
 const withAuthentication = Component => {
   const WithAuthentication = props => {
@@ -28,7 +28,8 @@ const withAuthentication = Component => {
 
   function mapDispatchToState(dispatch) {
     return {
-      setAuthUser: authUser => dispatch(SET_AUTH_USER(authUser))
+      setAuthUser: authUser =>
+        dispatch(appStore.actions.authUserSuccess(authUser))
     }
   }
 

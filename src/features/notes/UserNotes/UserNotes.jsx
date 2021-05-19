@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import { SYNC_USER_NOTES_REQUEST } from '../../../store/actions/async-actions'
-import { getIsAsyncRequest, getUserNotes } from '../../../store/selectors'
+import { selectIsAsyncRequest, selectUserNotes } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
 import { useSearch, useCurrentViewTitle } from '../../../hooks'
-import { SET_USER_NOTES } from '../../../store/actions/sync-actions'
+import notesStore from '../../../store/notes-reducer'
 
 function UserNotes(props) {
   const {
@@ -48,10 +48,12 @@ function UserNotes(props) {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
-    state
-  )
-  const userNotes = getUserNotes(state)
+  const {
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData
+  } = selectIsAsyncRequest(state)
+  const userNotes = selectUserNotes(state)
   return {
     isFetchingData,
     isUpdatingData,
@@ -63,7 +65,7 @@ function mapStateToProps(state) {
 function mapDispatchToState(dispatch) {
   return {
     syncUserNotes: notesData => dispatch(SYNC_USER_NOTES_REQUEST(notesData)),
-    resetUserNotes: () => dispatch(SET_USER_NOTES([]))
+    resetUserNotes: () => dispatch(notesStore.actions.userNotesSuccess([]))
   }
 }
 

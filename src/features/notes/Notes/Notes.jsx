@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import { SYNC_NOTES_REQUEST } from '../../../store/actions/async-actions'
-import { getIsAsyncRequest, getNotes } from '../../../store/selectors'
+import { selectIsAsyncRequest, selectNotes } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
 import { useSearch, useCurrentViewTitle } from '../../../hooks'
@@ -37,10 +37,12 @@ function Notes(props) {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
-    state
-  )
-  const notes = getNotes(state)
+  const {
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData
+  } = selectIsAsyncRequest(state)
+  const notes = selectNotes(state)
   return { isFetchingData, isUpdatingData, isDeletingData, notes }
 }
 

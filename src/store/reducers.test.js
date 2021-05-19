@@ -1,5 +1,5 @@
 import { List } from 'immutable'
-import appReducers from './app-reducers'
+import { appStore } from './notes-reducer'
 import initialState from './initial-state'
 import {
   RESET_STATE,
@@ -16,7 +16,7 @@ import {
 
 describe('Test app reducers', () => {
   test('should handle RESET STATE action', () => {
-    expect(appReducers(initialState, RESET_STATE())).toBe(initialState)
+    expect(appStore.reducer(initialState, RESET_STATE())).toBe(initialState)
   })
 
   test('should handle SET AUTH USER action', () => {

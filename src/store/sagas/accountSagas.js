@@ -1,10 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import {
-  SET_AUTH_USER,
-  SET_IS_FETCHING_DATA,
-  RESET_STATE
-} from '../actions/sync-actions'
-import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
   SIGNUP_REQUEST,
@@ -15,6 +10,8 @@ import {
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
 import isAsyncRequest from '../../constants/asyncRequests'
+import appStore from '../app-reducer'
+import notesStore from '../notes-reducer'
 
 function* signInWithFirebase(action) {
   const { email, password } = action.payload
@@ -24,12 +21,13 @@ function* signInWithFirebase(action) {
     password
   )
   const currentUser = Firebase.transformDbUserToSafeUser(user)
-  yield put(SET_AUTH_USER(currentUser))
+  yield put(appStore.actions.authUserSuccess(currentUser))
 }
 
 function* signOutWithFirebase() {
   yield call(Firebase.signOut)
-  yield put(RESET_STATE())
+  yield put(appStore.actions.resetState())
+  yield put(notesStore.actions.resetState())
 }
 
 function* signUpWithFirebase(action) {
@@ -43,7 +41,7 @@ function* signUpWithFirebase(action) {
     const loggedUser = yield call(Firebase.getCurrentUser)
     yield call(loggedUser.updateProfile.bind(loggedUser), { displayName })
     const currentUser = Firebase.transformDbUserToSafeUser(loggedUser)
-    yield put(SET_AUTH_USER(currentUser))
+    yield put(appStore.actions.authUserSuccess(currentUser))
   }
 }
 
@@ -60,15 +58,15 @@ function* updateFirebaseUserAccount(action) {
       displayName
     )
     const currentUser = Firebase.transformDbUserToSafeUser(loggedUser)
-    yield put(SET_AUTH_USER(currentUser))
+    yield put(appStore.actions.authUserSuccess(currentUser))
   }
 }
 
 function* changeFirebasePassword(action) {
   const { email, passwordOld, passwordNew } = action.payload
   yield put(
-    SET_IS_FETCHING_DATA({
-      type: isAsyncRequest.isFetchingChangePasswordData,
+    appStore.actions.asyncRequestChange({
+      type: isAsyncRequest.isUpdatingPassword,
       value: true
     })
   )
@@ -87,7 +85,7 @@ function* deleteFirebaseUser() {
   if (loggedUser) {
     yield call(loggedUser.delete.bind(loggedUser))
     yield call(Firebase.deleteNotesForUser, loggedUser, 'notes')
-    yield put(SET_AUTH_USER(null))
+    yield put(appStore.actions.authUserSuccess(null))
   }
 }
 

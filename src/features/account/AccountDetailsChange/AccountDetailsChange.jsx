@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from '@material-ui/core'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
-import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
+import {
+  selectCurrentUser,
+  selectIsAsyncRequest
+} from '../../../store/selectors'
 import AppInput from '../../../components/AppInput'
 import { UPDATE_USER_ACCOUNT_DETAILS_REQUEST } from '../../../store/actions/async-actions'
 
@@ -90,8 +93,8 @@ function AccountDetailsChange(props) {
 }
 
 function mapStateToProps(state) {
-  const currentUser = getCurrentUser(state)
-  const { isUpdatingProfile } = getIsAsyncRequest(state)
+  const currentUser = selectCurrentUser(state)
+  const { isUpdatingProfile } = selectIsAsyncRequest(state)
   return { currentUser, isUpdatingProfile }
 }
 

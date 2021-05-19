@@ -6,7 +6,10 @@ import { makeStyles } from '@material-ui/core'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
 import AppInput from '../../../components/AppInput'
 import { CHANGE_USER_PASSWORD_REQUEST } from '../../../store/actions/async-actions'
-import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
+import {
+  selectCurrentUser,
+  selectIsAsyncRequest
+} from '../../../store/selectors'
 
 const useStyles = makeStyles({
   form: {
@@ -135,8 +138,8 @@ const PasswordChangeForm = props => {
 }
 
 function mapStateToProps(state) {
-  const { isUpdatingPassword } = getIsAsyncRequest(state)
-  const { email } = getCurrentUser(state)
+  const { isUpdatingPassword } = selectIsAsyncRequest(state)
+  const { email } = selectCurrentUser(state)
   return { isUpdatingPassword, email }
 }
 

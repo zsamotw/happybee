@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import routes from '../../constants/routes'
-import { getCurrentUser } from '../../store/selectors'
+import { selectCurrentUser } from '../../store/selectors'
 
 const PublicRoute = ({ component: Component, currentUser, ...rest }) => {
   const getRedirectPath = location => {
@@ -25,7 +25,7 @@ const PublicRoute = ({ component: Component, currentUser, ...rest }) => {
 }
 
 function mapStateToProps(state) {
-  const currentUser = getCurrentUser(state)
+  const currentUser = selectCurrentUser(state)
   return { currentUser }
 }
 

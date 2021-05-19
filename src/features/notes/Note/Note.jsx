@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Dialogs from '../Dialogs'
-import { getCurrentUser } from '../../../store/selectors'
+import { selectCurrentUser } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import { useDeleteNote } from '../../../hooks'
 import { formattedDateTime } from '../../../services/date-service'
@@ -198,7 +198,7 @@ function Note(props) {
 }
 
 function mapStateToProps(state) {
-  const currentUser = getCurrentUser(state)
+  const currentUser = selectCurrentUser(state)
   return { currentUser }
 }
 

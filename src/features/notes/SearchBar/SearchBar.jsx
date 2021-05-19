@@ -4,7 +4,7 @@ import { fade, makeStyles, useTheme } from '@material-ui/core'
 import { connect } from 'react-redux'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import { getNoteFilters } from '../../../store/selectors'
+import { selectNoteFilters } from '../../../store/selectors'
 import { SET_NOTE_QUERY_FILTER_REQUEST } from '../../../store/actions/async-actions'
 
 const useStyles = makeStyles((theme, isVisible) => ({
@@ -86,7 +86,7 @@ function SearchBar(props) {
 }
 
 function mapStateToProps(state) {
-  const { query } = getNoteFilters(state)
+  const { query } = selectNoteFilters(state)
   return { query }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, useRouteMatch } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { getCurrentUser } from '../../../store/selectors'
+import { selectCurrentUser } from '../../../store/selectors'
 import homeRoutes from './routes'
 import PrivateRoute from '../../../components/PrivateRoute'
 import MenuAppBar from '../MenuAppBar'
@@ -49,7 +49,7 @@ const HomePage = props => {
 }
 
 function mapStateToProps(state) {
-  const currentUser = getCurrentUser(state)
+  const currentUser = selectCurrentUser(state)
   return { currentUser }
 }
 

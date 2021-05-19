@@ -5,7 +5,7 @@ import { TOGGLE_PICK_NOTE_REQUEST } from '../store/actions/async-actions'
 export default function usePickNote(note) {
   const { t } = useTranslation('common')
   const dispatch = useDispatch()
-  const currentUser = useSelector(state => state.currentUser)
+  const currentUser = useSelector(state => state.app.currentUser)
 
   const isPicked = n => {
     const { pickers } = n

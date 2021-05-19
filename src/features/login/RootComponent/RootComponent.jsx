@@ -6,8 +6,8 @@ import PrivateRoute from '../../../components/PrivateRoute'
 import PublicRoute from '../../../components/PublicRoute'
 import Alert from '../../../components/Alert'
 import withAuthentication from '../../account/Session'
-import { getAppMessage } from '../../../store/selectors'
-import { SET_APP_MESSAGE } from '../../../store/actions/sync-actions'
+import { selectAppMessage } from '../../../store/selectors'
+import appStore from '../../../store/app-reducer'
 import rootRoutes from './routes'
 
 function RootComponent(props) {
@@ -71,13 +71,14 @@ function RootComponent(props) {
 }
 
 const mapStateToProps = state => {
-  const appMessage = getAppMessage(state)
+  const appMessage = selectAppMessage(state)
   return { appMessage }
 }
 
 const mapDispatchToState = dispatch => {
   return {
-    setAppMessage: message => dispatch(SET_APP_MESSAGE(message))
+    setAppMessage: message =>
+      dispatch(appStore.actions.appMessageChange(message))
   }
 }
 

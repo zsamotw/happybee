@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
-import { getCurrentUser, getIsAsyncRequest } from '../../../store/selectors'
+import {
+  selectCurrentUser,
+  selectIsAsyncRequest
+} from '../../../store/selectors'
 import { DELETE_USER_REQUEST } from '../../../store/actions/async-actions'
 import AppInput from '../../../components/AppInput'
 
@@ -84,8 +87,8 @@ const DeleteUserFormBase = props => {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingLoginData } = getIsAsyncRequest(state)
-  const currentUser = getCurrentUser(state)
+  const { isFetchingLoginData } = selectIsAsyncRequest(state)
+  const currentUser = selectCurrentUser(state)
   return { isFetchingLoginData, currentUser }
 }
 

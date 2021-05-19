@@ -10,11 +10,11 @@ import Dialogs from '../Dialogs'
 import NoteMeta from '../NoteMeta'
 import NoteContent from './NoteContent'
 import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
-import { UNSET_SELECTED_NOTE } from '../../../store/actions/sync-actions'
+import notesStore from '../../../store/notes-reducer'
 import {
-  getSelectedNote,
-  getIsAsyncRequest,
-  getCurrentUser
+  selectSelectedNote,
+  selectIsAsyncRequest,
+  selectCurrentUser
 } from '../../../store/selectors'
 import AppDeleteIcon from '../../../components/AppDeleteIcon'
 import AppPreloader from '../../../components/AppPreloader'
@@ -164,18 +164,20 @@ function NoteDetails(props) {
 }
 
 function mapStateToProps(state) {
-  const { isFetchingData, isUpdatingData, isDeletingData } = getIsAsyncRequest(
-    state
-  )
-  const currentUser = getCurrentUser(state)
-  const note = getSelectedNote(state)
+  const {
+    isFetchingData,
+    isUpdatingData,
+    isDeletingData
+  } = selectIsAsyncRequest(state)
+  const currentUser = selectCurrentUser(state)
+  const note = selectSelectedNote(state)
   return { currentUser, note, isFetchingData, isUpdatingData, isDeletingData }
 }
 
 function mapDispatchToState(dispatch) {
   return {
     getNote: noteData => dispatch(SYNC_NOTE_REQUEST(noteData)),
-    unsetSelectedNote: () => dispatch(UNSET_SELECTED_NOTE())
+    unsetSelectedNote: () => dispatch(notesStore.actions.unselectNoteSuccess())
   }
 }
 

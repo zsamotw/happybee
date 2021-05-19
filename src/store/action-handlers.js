@@ -1,11 +1,10 @@
 import { List } from 'immutable'
 
-export const handleSetAuthUser = (state, user) => {
-  const nextState = state.set('currentUser', user)
-  return nextState
+export const onAuthUserSuccess = (state, user) => {
+  return state.set('currentUser', user)
 }
 
-export const handleSetAppMessage = (state, message) => {
+export const onAppMessageChange = (state, message) => {
   if (
     !message ||
     typeof message.content !== 'string' ||
@@ -14,32 +13,28 @@ export const handleSetAppMessage = (state, message) => {
     return state
   }
 
-  const nextState = state.set('appMessage', message)
-  return nextState
+  return state.set('appMessage', message)
 }
 
-export const handleSetIsFetchingData = (state, data) => {
+export const onAsyncRequestChange = (state, data) => {
   const { type, value } = data
   if (typeof type !== 'string' || typeof value !== 'boolean') {
     return state
   }
 
   const fetchingData = { ...state.get('isAsyncRequest'), [type]: value }
-  const nextState = state.set('isAsyncRequest', fetchingData)
-  return nextState
+  return state.set('isAsyncRequest', fetchingData)
 }
 
-export const handleSetSelectedNote = (state, note) => {
-  const nextState = state.set('selectedNote', note)
-  return nextState
+export const onSelectedNoteSuccess = (state, note) => {
+  return state.set('selectedNote', note)
 }
 
-export const handleUnsetSelectedNote = state => {
-  const nextState = state.set('selectedNote', null)
-  return nextState
+export const onUnsetSelectedNoteSuccess = state => {
+  return state.set('selectedNote', null)
 }
 
-export const handleSetNotes = (state, notes) => {
+export const onNotesSuccess = (state, notes) => {
   if (!notes) {
     return state
   }
@@ -47,11 +42,10 @@ export const handleSetNotes = (state, notes) => {
   const nextNotes = List(notes)
     .sortBy(note => new Date(note.createdAt))
     .reverse()
-  const nextState = state.set('notes', nextNotes)
-  return nextState
+  return state.set('notes', nextNotes)
 }
 
-export const handleSetUserNotes = (state, notes) => {
+export const onUserNotesSuccess = (state, notes) => {
   if (!notes) {
     return state
   }
@@ -59,30 +53,26 @@ export const handleSetUserNotes = (state, notes) => {
   const nextNotes = List(notes)
     .sortBy(note => new Date(note.createdAt))
     .reverse()
-  const nextState = state.set('userNotes', nextNotes)
-  return nextState
+  return state.set('userNotes', nextNotes)
 }
 
-export const handleSetNotesQueryFilter = (state, query) => {
+export const onQueryFilterChange = (state, query) => {
   if (query === null || typeof query !== 'string') {
     return state
   }
 
   const nextFilters = { ...state.get('noteFilters'), query }
-  const nextState = state.set('noteFilters', nextFilters)
-  return nextState
+  return state.set('noteFilters', nextFilters)
 }
 
-export const handleSetSearchBarConfig = (state, config) => {
+export const onSearchBarConfigChange = (state, config) => {
   if (!config || typeof config.isVisible !== 'boolean') {
     return state
   }
 
-  const nextState = state.set('searchBarConfig', config)
-  return nextState
+  return state.set('searchBarConfig', config)
 }
 
-export const handleSetCurrentViewTitle = (state, title) => {
-  const nextState = state.set('currentViewTitle', title)
-  return nextState
+export const onCurrentViewTitleChange = (state, title) => {
+  return state.set('currentViewTitle', title)
 }

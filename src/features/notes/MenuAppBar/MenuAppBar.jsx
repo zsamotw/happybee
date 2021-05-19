@@ -10,8 +10,8 @@ import SearchBar from '../SearchBar'
 import routes from '../../../constants/routes'
 import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
 import {
-  getSearchBarConfig,
-  getCurrentViewTitle
+  selectSearchBarConfig,
+  selectCurrentViewTitle
 } from '../../../store/selectors'
 import NavigationLinks from './NavigationLinks'
 import UserMenu from './UserMenu'
@@ -93,8 +93,8 @@ function MenuAppBar(props) {
 }
 
 const mapStateToProps = state => {
-  const { isVisible: isSearchBarVisible } = getSearchBarConfig(state)
-  const title = getCurrentViewTitle(state)
+  const { isVisible: isSearchBarVisible } = selectSearchBarConfig(state)
+  const title = selectCurrentViewTitle(state)
   return { isSearchBarVisible, title }
 }
 

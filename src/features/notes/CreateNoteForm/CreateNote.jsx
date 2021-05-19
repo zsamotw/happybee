@@ -6,7 +6,7 @@ import categories_ from '../../../constants/categories'
 import routes from '../../../constants/routes'
 import { useCurrentViewTitle } from '../../../hooks'
 import { CREATE_NOTE_REQUEST } from '../../../store/actions/async-actions'
-import { getIsAsyncRequest } from '../../../store/selectors'
+import { selectIsAsyncRequest } from '../../../store/selectors'
 import CreateNoteForm from './CreateNoteForm'
 
 function CreateNote(props) {
@@ -60,7 +60,7 @@ function CreateNote(props) {
 }
 
 function mapStateToProps(state) {
-  const { isSendingData } = getIsAsyncRequest(state)
+  const { isSendingData } = selectIsAsyncRequest(state)
   return { isSendingData }
 }
 
