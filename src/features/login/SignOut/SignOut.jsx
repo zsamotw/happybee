@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
+import { logoutRequest } from '../../../store/actions/async-actions'
 
 const SignOutButton = ({ logout }) => {
   const { t } = useTranslation('common')
@@ -15,7 +15,7 @@ const SignOutButton = ({ logout }) => {
 
 const mapDispatchToState = dispatch => {
   return {
-    logout: () => dispatch(LOGOUT_REQUEST())
+    logout: () => dispatch(logoutRequest())
   }
 }
 

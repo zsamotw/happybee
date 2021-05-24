@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
 import { selectIsAsyncRequest } from '../../../store/selectors'
-import { LOGIN_REQUEST } from '../../../store/actions/async-actions'
+import { loginRequest } from '../../../store/actions/async-actions'
 import AppInput from '../../../components/AppInput'
 
 const useStyles = makeStyles({
@@ -101,7 +101,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    login: loginData => dispatch(LOGIN_REQUEST(loginData))
+    login: loginData => dispatch(loginRequest(loginData))
   }
 }
 

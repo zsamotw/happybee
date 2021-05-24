@@ -113,7 +113,7 @@ function Note(props) {
     history.push(`${routes.home}${routes.notes}/${id}`)
   }
 
-  const handleClickOpenDeleteDialog = () => {
+  const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
   }
 
@@ -153,7 +153,7 @@ function Note(props) {
             <h3 className={classes.headLine}>{title}</h3>
             {note.author.uid === currentUser.uid ? (
               <div className={classes.deleteIcon} data-testid="delete-icon">
-                <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+                <AppDeleteIcon onClick={handleOpenDeleteDialog} />
               </div>
             ) : null}
           </div>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import { selectNoteFilters } from '../../../store/selectors'
-import { SET_NOTE_QUERY_FILTER_REQUEST } from '../../../store/actions/async-actions'
+import { setNoteQueryFilterRequest } from '../../../store/actions/async-actions'
 
 const useStyles = makeStyles((theme, isVisible) => ({
   search: {
@@ -92,7 +92,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    setQueryFilter: query => dispatch(SET_NOTE_QUERY_FILTER_REQUEST(query))
+    setQueryFilter: query => dispatch(setNoteQueryFilterRequest(query))
   }
 }
 

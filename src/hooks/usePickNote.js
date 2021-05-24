@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { TOGGLE_PICK_NOTE_REQUEST } from '../store/actions/async-actions'
+import { togglePickNoteRequest } from '../store/actions/async-actions'
 
 export default function usePickNote(note) {
   const { t } = useTranslation('common')
@@ -15,7 +15,7 @@ export default function usePickNote(note) {
   const pickNote = () => {
     const messageOnError = t('notes.note.messageOnPickError')
     dispatch(
-      TOGGLE_PICK_NOTE_REQUEST({
+      togglePickNoteRequest({
         note,
         messageOnError
       })

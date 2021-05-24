@@ -164,9 +164,7 @@ class Firebase {
   }
 
   // Storage API
-  uploadFile = (path, file) => {
-    return this.storage.uploadFile(path, file)
-  }
+  uploadFile = (path, file) => this.storage.uploadFile(path, file)
 
   deleteFile = path => this.storage.deleteFile(path)
 

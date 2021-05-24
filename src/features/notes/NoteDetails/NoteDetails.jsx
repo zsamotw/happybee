@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
 import NoteMeta from '../NoteMeta'
 import NoteContent from './NoteContent'
-import { SYNC_NOTE_REQUEST } from '../../../store/actions/async-actions'
+import { syncNoteRequest } from '../../../store/actions/async-actions'
 import notesStore from '../../../store/notes-reducer'
 import {
   selectSelectedNote,
@@ -176,7 +176,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    getNote: noteData => dispatch(SYNC_NOTE_REQUEST(noteData)),
+    getNote: noteData => dispatch(syncNoteRequest(noteData)),
     unsetSelectedNote: () => dispatch(notesStore.actions.unselectNoteSuccess())
   }
 }

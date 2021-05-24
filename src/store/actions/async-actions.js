@@ -1,72 +1,83 @@
 import { createAction } from '@reduxjs/toolkit'
 
 // account async actions
-export const LOGIN_REQUEST = createAction('LOGIN REQUEST', loginData => ({
-  payload: { ...loginData }
-}))
+export const loginRequest = createAction(
+  'Account/Login request',
+  loginData => ({
+    payload: { ...loginData }
+  })
+)
 
-export const LOGOUT_REQUEST = createAction('LOGOUT REQUEST', logOutData => ({
-  payload: { ...logOutData }
-}))
+export const logoutRequest = createAction(
+  'Account/Logout request',
+  logOutData => ({
+    payload: { ...logOutData }
+  })
+)
 
-export const SIGNUP_REQUEST = createAction('SIGNUP REQUEST', signUpData => ({
-  payload: { ...signUpData }
-}))
+export const signUpRequest = createAction(
+  'Account/Signup request',
+  signUpData => ({
+    payload: { ...signUpData }
+  })
+)
 
-export const UPDATE_USER_ACCOUNT_DETAILS_REQUEST = createAction(
-  'UPDATE_USER_ACCOUNT_DETAILS_REQUEST',
+export const updateUserAccountDetailsRequest = createAction(
+  'Account/Update user account details request',
   userData => ({ payload: { ...userData } })
 )
 
-export const CHANGE_USER_PASSWORD_REQUEST = createAction(
-  'CHANGE_USER_PASSWORD_REQUEST',
+export const changeUserPasswordRequest = createAction(
+  'Account/Change user password request',
   passwordData => ({ payload: { ...passwordData } })
 )
 
-export const DELETE_USER_REQUEST = createAction(
-  'DELETE USER REQUEST',
+export const deleteUserRequest = createAction(
+  'Account/delete user request',
   deleteUserData => ({ payload: { ...deleteUserData } })
 )
 
 // user notes async actions
-export const CREATE_NOTE_REQUEST = createAction(
-  'CREATE NOTE REQUEST',
+export const createNoteRequest = createAction(
+  'Notes/Create note request',
   noteData => ({
     payload: { ...noteData }
   })
 )
 
-export const GET_NOTE_REQUEST = createAction(
-  'GET SELECTED NOTE REQUEST',
+export const getNoteRequest = createAction(
+  'Notes/Get selected note request',
   noteData => ({ payload: { ...noteData } })
 )
 
-export const SYNC_NOTE_REQUEST = createAction(
-  'SYNC NOTE REQUEST',
-  noteData => ({ payload: { ...noteData } })
+export const syncNoteRequest = createAction(
+  'Notes/Sync note request',
+  noteData => ({
+    payload: { ...noteData }
+  })
 )
 
-export const SYNC_NOTES_REQUEST = createAction(
-  'SYNC NOTES REQUEST',
+export const syncNotesRequest = createAction(
+  'Notes/Sync notes request',
   messageOnError => ({ payload: { messageOnError } })
 )
 
-export const DELETE_NOTE_REQUEST = createAction(
-  'DELETE NOTE REQUEST',
+export const deleteNoteRequest = createAction(
+  'Notes/Delete note request',
   deleteNoteData => ({ payload: { ...deleteNoteData } })
 )
 
-export const TOGGLE_PICK_NOTE_REQUEST = createAction(
-  'TOGGLE PICK NOTE REQUEST',
+export const togglePickNoteRequest = createAction(
+  'Notes/Toggle pick note request',
   noteData => ({ payload: { ...noteData } })
 )
 
-export const SYNC_USER_NOTES_REQUEST = createAction(
-  'GET USER NOTES REQUEST',
+export const syncUserNotesRequest = createAction(
+  'Notes/Get user notes request',
   notesData => ({ payload: { ...notesData } })
 )
 
-export const SET_NOTE_QUERY_FILTER_REQUEST = createAction(
-  'SET NOTE QUERY FILTER REQUEST',
+export const setNoteQueryFilterRequest = createAction(
+  'Notes/Set note query filter request',
   query => ({ payload: query })
 )

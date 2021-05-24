@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
 import { selectIsAsyncRequest } from '../../../store/selectors'
-import { SIGNUP_REQUEST } from '../../../store/actions/async-actions'
+import { signUpRequest } from '../../../store/actions/async-actions'
 import AppInput from '../../../components/AppInput'
 
 const useStyles = makeStyles({
@@ -142,7 +142,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    signUp: singUpData => dispatch(SIGNUP_REQUEST(singUpData))
+    signUp: singUpData => dispatch(signUpRequest(singUpData))
   }
 }
 

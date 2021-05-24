@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import {
-  LOGIN_REQUEST,
-  LOGOUT_REQUEST,
-  SIGNUP_REQUEST,
-  UPDATE_USER_ACCOUNT_DETAILS_REQUEST,
-  CHANGE_USER_PASSWORD_REQUEST,
-  DELETE_USER_REQUEST
+  loginRequest,
+  logoutRequest,
+  signUpRequest,
+  updateUserAccountDetailsRequest,
+  changeUserPasswordRequest,
+  deleteUserRequest
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
@@ -89,7 +89,7 @@ function* deleteFirebaseUser() {
   }
 }
 
-function* singInRequest(action) {
+function* onSingIn(action) {
   yield requestWithFetchingData(
     action,
     signInWithFirebase,
@@ -97,7 +97,7 @@ function* singInRequest(action) {
   )
 }
 
-function* logoutRequest(action) {
+function* onLogout(action) {
   yield requestWithFetchingData(
     action,
     signOutWithFirebase,
@@ -105,7 +105,7 @@ function* logoutRequest(action) {
   )
 }
 
-function* signUpRequest(action) {
+function* onSignUp(action) {
   yield requestWithFetchingData(
     action,
     signUpWithFirebase,
@@ -113,7 +113,7 @@ function* signUpRequest(action) {
   )
 }
 
-function* updateUserAccountDetailsRequest(action) {
+function* onUpdateUserAccountDetails(action) {
   yield requestWithFetchingData(
     action,
     updateFirebaseUserAccount,
@@ -121,7 +121,7 @@ function* updateUserAccountDetailsRequest(action) {
   )
 }
 
-function* changePasswordRequest(action) {
+function* onChangePassword(action) {
   yield requestWithFetchingData(
     action,
     changeFirebasePassword,
@@ -129,7 +129,7 @@ function* changePasswordRequest(action) {
   )
 }
 
-function* deleteUserRequest(action) {
+function* onDeleteUser(action) {
   yield requestWithFetchingData(
     action,
     deleteFirebaseUser,
@@ -138,13 +138,13 @@ function* deleteUserRequest(action) {
 }
 
 export default function* accountSaga() {
-  yield takeLatest(LOGIN_REQUEST.type, singInRequest)
-  yield takeLatest(LOGOUT_REQUEST.type, logoutRequest)
-  yield takeLatest(SIGNUP_REQUEST.type, signUpRequest)
+  yield takeLatest(loginRequest.type, onSingIn)
+  yield takeLatest(logoutRequest.type, onLogout)
+  yield takeLatest(signUpRequest.type, onSignUp)
   yield takeLatest(
-    UPDATE_USER_ACCOUNT_DETAILS_REQUEST.type,
-    updateUserAccountDetailsRequest
+    updateUserAccountDetailsRequest.type,
+    onUpdateUserAccountDetails
   )
-  yield takeLatest(CHANGE_USER_PASSWORD_REQUEST, changePasswordRequest)
-  yield takeLatest(DELETE_USER_REQUEST.type, deleteUserRequest)
+  yield takeLatest(changeUserPasswordRequest, onChangePassword)
+  yield takeLatest(deleteUserRequest.type, onDeleteUser)
 }

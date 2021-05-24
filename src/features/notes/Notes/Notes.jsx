@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
-import { SYNC_NOTES_REQUEST } from '../../../store/actions/async-actions'
+import { syncNotesRequest } from '../../../store/actions/async-actions'
 import { selectIsAsyncRequest, selectNotes } from '../../../store/selectors'
 import Note from '../Note'
 import AppPreloader from '../../../components/AppPreloader'
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    syncNotes: messageOnError => dispatch(SYNC_NOTES_REQUEST(messageOnError))
+    syncNotes: messageOnError => dispatch(syncNotesRequest(messageOnError))
   }
 }
 

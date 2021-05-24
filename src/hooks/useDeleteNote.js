@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { DELETE_NOTE_REQUEST } from '../store/actions/async-actions'
+import { deleteNoteRequest } from '../store/actions/async-actions'
 import routes from '../constants/routes'
 
 export default function useDeleteNote(
@@ -25,7 +25,7 @@ export default function useDeleteNote(
       : null
 
     dispatch(
-      DELETE_NOTE_REQUEST({
+      deleteNoteRequest({
         note,
         messageOnSuccess,
         messageOnError,

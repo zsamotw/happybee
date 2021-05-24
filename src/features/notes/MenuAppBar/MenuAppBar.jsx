@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 import SearchBar from '../SearchBar'
 import routes from '../../../constants/routes'
-import { LOGOUT_REQUEST } from '../../../store/actions/async-actions'
+import { logoutRequest } from '../../../store/actions/async-actions'
 import {
   selectSearchBarConfig,
   selectCurrentViewTitle
@@ -100,7 +100,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToState = dispatch => {
   return {
-    logout: logOutData => dispatch(LOGOUT_REQUEST(logOutData))
+    logout: logOutData => dispatch(logoutRequest(logOutData))
   }
 }
 

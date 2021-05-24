@@ -9,7 +9,7 @@ import {
   selectIsAsyncRequest
 } from '../../../store/selectors'
 import AppInput from '../../../components/AppInput'
-import { UPDATE_USER_ACCOUNT_DETAILS_REQUEST } from '../../../store/actions/async-actions'
+import { updateUserAccountDetailsRequest } from '../../../store/actions/async-actions'
 
 const useStyles = makeStyles({
   errorBar: {
@@ -101,7 +101,7 @@ function mapStateToProps(state) {
 function mapDispatchToState(dispatch) {
   return {
     updateUserProfile: userData =>
-      dispatch(UPDATE_USER_ACCOUNT_DETAILS_REQUEST(userData))
+      dispatch(updateUserAccountDetailsRequest(userData))
   }
 }
 

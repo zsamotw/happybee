@@ -1,14 +1,14 @@
 import { call, fork, put, takeLatest, take, throttle } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import {
-  CREATE_NOTE_REQUEST,
-  GET_NOTE_REQUEST,
-  SYNC_NOTE_REQUEST,
-  SYNC_NOTES_REQUEST,
-  TOGGLE_PICK_NOTE_REQUEST,
-  SYNC_USER_NOTES_REQUEST,
-  DELETE_NOTE_REQUEST,
-  SET_NOTE_QUERY_FILTER_REQUEST
+  createNoteRequest,
+  getNoteRequest,
+  syncNoteRequest,
+  syncNotesRequest,
+  togglePickNoteRequest,
+  syncUserNotesRequest,
+  deleteNoteRequest,
+  setNoteQueryFilterRequest
 } from '../actions/async-actions'
 import Firebase from '../../firebase'
 import requestWithFetchingData from './SagasHelper'
@@ -146,7 +146,7 @@ function* togglePickNote(action) {
       { merge: true }
     )
     if (shouldGetNote) {
-      yield put(GET_NOTE_REQUEST({ id }))
+      yield put(getNoteRequest({ id }))
     }
   } else {
     const pickAt = new Date().toString()
@@ -159,12 +159,12 @@ function* togglePickNote(action) {
       { merge: true }
     )
     if (shouldGetNote) {
-      yield put(GET_NOTE_REQUEST({ id }))
+      yield put(getNoteRequest({ id }))
     }
   }
 }
 
-function* createNoteRequest(action) {
+function* onCreateNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     createFirebaseNote,
@@ -172,7 +172,7 @@ function* createNoteRequest(action) {
   )
 }
 
-function* getFirebaseNoteRequest(action) {
+function* onGetNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     getFirebaseNote,
@@ -180,7 +180,7 @@ function* getFirebaseNoteRequest(action) {
   )
 }
 
-function* deleteNoteRequest(action) {
+function* onDeleteNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     deleteFirebaseNote,
@@ -188,7 +188,7 @@ function* deleteNoteRequest(action) {
   )
 }
 
-function* togglePickNoteRequest(action) {
+function* onTogglePickNoteRequest(action) {
   yield requestWithFetchingData(
     action,
     togglePickNote,
@@ -196,11 +196,11 @@ function* togglePickNoteRequest(action) {
   )
 }
 
-function* setNoteQueryRequest(action) {
+function* onSetNoteQueryRequest(action) {
   yield put(notesStore.actions.queryFilterChange(action.payload))
 }
 
-function* syncFirebaseNoteRequest(action) {
+function* syncFirebaseNote(action) {
   yield put(
     appStore.actions.asyncRequestChange({
       type: isAsyncRequest.isFetchingData,
@@ -234,7 +234,7 @@ function* syncFirebaseNoteRequest(action) {
   }
 }
 
-function* syncFirebaseNotesRequest(action) {
+function* syncFirebaseNotes(action) {
   yield put(
     appStore.actions.asyncRequestChange({
       type: isAsyncRequest.isFetchingData,
@@ -272,7 +272,7 @@ function* syncFirebaseNotesRequest(action) {
   }
 }
 
-function* syncUserNotesRequest(action) {
+function* syncUserNotes(action) {
   yield put(
     appStore.actions.asyncRequestChange({
       type: isAsyncRequest.isFetchingData,
@@ -314,12 +314,12 @@ function* syncUserNotesRequest(action) {
 }
 
 export default function* notesSaga() {
-  yield takeLatest(CREATE_NOTE_REQUEST.type, createNoteRequest)
-  yield takeLatest(DELETE_NOTE_REQUEST.type, deleteNoteRequest)
-  yield takeLatest(GET_NOTE_REQUEST.type, getFirebaseNoteRequest)
-  yield takeLatest(SYNC_NOTE_REQUEST.type, syncFirebaseNoteRequest)
-  yield takeLatest(SYNC_NOTES_REQUEST.type, syncFirebaseNotesRequest)
-  yield takeLatest(SYNC_USER_NOTES_REQUEST.type, syncUserNotesRequest)
-  yield takeLatest(TOGGLE_PICK_NOTE_REQUEST.type, togglePickNoteRequest)
-  yield throttle(500, SET_NOTE_QUERY_FILTER_REQUEST.type, setNoteQueryRequest)
+  yield takeLatest(createNoteRequest.type, onCreateNoteRequest)
+  yield takeLatest(deleteNoteRequest.type, onDeleteNoteRequest)
+  yield takeLatest(getNoteRequest.type, onGetNoteRequest)
+  yield takeLatest(syncNoteRequest.type, syncFirebaseNote)
+  yield takeLatest(syncNotesRequest.type, syncFirebaseNotes)
+  yield takeLatest(syncUserNotesRequest.type, syncUserNotes)
+  yield takeLatest(togglePickNoteRequest.type, onTogglePickNoteRequest)
+  yield throttle(500, setNoteQueryFilterRequest.type, onSetNoteQueryRequest)
 }

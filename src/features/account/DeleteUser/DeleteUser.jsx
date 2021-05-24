@@ -8,7 +8,7 @@ import {
   selectCurrentUser,
   selectIsAsyncRequest
 } from '../../../store/selectors'
-import { DELETE_USER_REQUEST } from '../../../store/actions/async-actions'
+import { deleteUserRequest } from '../../../store/actions/async-actions'
 import AppInput from '../../../components/AppInput'
 
 const useStyles = makeStyles({
@@ -94,8 +94,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    deleteUser: deleteUserData => dispatch(DELETE_USER_REQUEST(deleteUserData))
-  }
+    deleteUser: deleteUserData => dispatch(deleteUserRequest(deleteUserData)) }
 }
 
 const DeleteUserForm = connect(

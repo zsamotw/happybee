@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import categories_ from '../../../constants/categories'
 import routes from '../../../constants/routes'
 import { useCurrentViewTitle } from '../../../hooks'
-import { CREATE_NOTE_REQUEST } from '../../../store/actions/async-actions'
+import { createNoteRequest } from '../../../store/actions/async-actions'
 import { selectIsAsyncRequest } from '../../../store/selectors'
 import CreateNoteForm from './CreateNoteForm'
 
@@ -66,7 +66,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToState(dispatch) {
   return {
-    saveNoteRequest: noteData => dispatch(CREATE_NOTE_REQUEST(noteData))
+    saveNoteRequest: noteData => dispatch(createNoteRequest(noteData))
   }
 }
 

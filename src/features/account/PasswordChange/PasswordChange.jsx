@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { makeStyles } from '@material-ui/core'
 import ButtonWithProgress from '../../../components/ButtonWithProgress'
 import AppInput from '../../../components/AppInput'
-import { CHANGE_USER_PASSWORD_REQUEST } from '../../../store/actions/async-actions'
+import { changeUserPasswordRequest } from '../../../store/actions/async-actions'
 import {
   selectCurrentUser,
   selectIsAsyncRequest
@@ -146,7 +146,7 @@ function mapStateToProps(state) {
 function mapDispatchToState(dispatch) {
   return {
     changePassword: passwordData =>
-      dispatch(CHANGE_USER_PASSWORD_REQUEST(passwordData))
+      dispatch(changeUserPasswordRequest(passwordData))
   }
 }
 
