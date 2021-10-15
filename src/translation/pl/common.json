@@ -1,0 +1,250 @@
+{
+  "data": {
+    "locales": "pl-PL",
+    "categories": {
+      "meeting": "Spotkanie",
+      "saw": "Zauważone",
+      "read": "Przeczytane",
+      "outside": "Poza domem",
+      "inside": "W domu"
+    }
+  },
+  "login": {
+    "landingPage": {
+      "appTitle": "HappyBee",
+      "tab": {
+        "signIn": "Zaloguj sie",
+        "signUp": "Załóż konto"
+      }
+    },
+    "signInPage": {
+      "inputs": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Wpisz swój email...",
+          "error": {
+            "required": "Email jest wymagany",
+            "invalidPattern": "Email nie jest poprawny"
+          }
+        },
+        "password": {
+          "label": "Hasło",
+          "placeholder": "Wpisz swoje hasło...",
+          "error": {
+            "required": "Hasło jest wymagane",
+            "invalid": "Hasło musi składać się z minimum 6 znaków"
+          }
+        }
+      },
+      "formError": "Zalogowanie nie powiodło się. Proszę sprawdzić poprawność loginu i hasła.",
+      "button": "Zaloguj się",
+      "messageOnLogInError": "Problem z logowaniem"
+    },
+    "signUpPage": {
+      "inputs": {
+        "displayName": {
+          "label": "Imię",
+          "placeholder": "Wpisz swóje imię...",
+          "error": {
+            "required": "Imię jest wymagane"
+          }
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Wpisz swój email...",
+          "error": {
+            "required": "Email jest wymagany",
+            "invalidPattern": "Email nie jest poprawny"
+          }
+        },
+        "passwordOne": {
+          "label": "Hasło",
+          "placeholder": "Wpisz swóje hasło...",
+          "error": {
+            "required": "Hasło jest wymagane",
+            "invalid": "Hasło musi składać się z minimum 6 znaków"
+          }
+        },
+        "passwordTwo": {
+          "label": "Powtórz hasło",
+          "placeholder": "Wpisz ponownie swoje hasło...",
+          "error": {
+            "required": "Hasło jest wymagane",
+            "invalid": "Hasło musi składać się z minimum 6 znaków",
+            "incorrect": "Niepoprawne hasło"
+          }
+        }
+      },
+      "formError": "Utworzenie konta nie udało się",
+      "button": "Załóż konto",
+      "messageOnSignUpError": "Nie udało się założyć konta"
+    },
+    "signOut": {
+      "title": "Wyloguj"
+    }
+  },
+  "account": {
+    "accountProfile": {
+    },
+    "accountDetailsChange": {
+      "inputs": {
+        "displayName": {
+          "label": "Imię",
+          "placeholder": "Wpisz swoje imię...",
+          "error": {
+            "required": "Imię jest wymagane"
+          }
+        }
+      },
+      "title": "Twój profil",
+      "button": "Zapisz",
+      "messageOnDetailsChangeError": "Nie udało się zmienić detali profilu",
+      "messageOnDetailsChangeSuccess": "Detale profilu zostały zmienione",
+      "formError": "Zmiana detali twojego profilu nie udała się"
+    },
+    "passwordChange": {
+      "inputs": {
+        "error": {
+          "required": "Hasło jest wymagane",
+          "invalid": "Hasło musi składać się z minimum 6 znaków",
+          "incorrect": "Niepoprawne hasło"
+        },
+        "passwordOld": {
+          "label": "Aktualne hasło",
+          "placeholder": "Wpisz swoje aktualne hasło..."
+        },
+        "passwordOne": {
+          "label": "Nowe hasło",
+          "placeholder": "Wpisz swóje nowe hasło..."
+        },
+        "passwordTwo": {
+          "label": "Powtórz hasło",
+          "placeholder": "Potwierdź swóje nowe hasło..."
+        }
+      },
+      "title": "Zmiana hasła",
+      "button": "Zapisz",
+      "messageOnPasswordChangeSuccess": "Hasło zostało zmienione",
+      "messageOnPasswordChangeError": "Hasło nie zostało zmienione",
+      "formError": "Zmiania hasła nie udała się"
+    },
+    "deleteUser": {
+      "inputs": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Wpisz swój email...",
+          "error": {
+            "required": "Email jest wymagany",
+            "invalid": "Niepoprawny email"
+          }
+        }
+      },
+      "title": "Usuń konto",
+      "button": "Usuń",
+      "messageOnUserDeleteSuccess": "Konto użytkownika zostało skasowane",
+      "messageOnUserDeleteError": "Nie udało się skasować konta użytkownika",
+      "formError": "Nie udało się skasować twojego konta. Sprawdź swoje uprawnienia",
+      "submissionError": "Potwierdź decyzję poprawnym emailem"
+    }
+  },
+  "notes": {
+    "createNote": {
+      "pageTitle": "Szczęściem się jest",
+      "title": "Nowa Notka",
+      "description": "Zapisz to, za co dzisiaj jesteś wdzięczny",
+      "inputs": {
+        "title": {
+          "label": "Tytuł",
+          "placeholder": "Wpisz tytuł...",
+          "error": {
+            "required": "Tytuł jest wymagana",
+            "maxLength": "Zbyt długi tytuł"
+          }
+        },
+        "description": {
+          "label": "Opis",
+          "placeholder": "Podaj w kilku zdaniach co, gdzie, kiedy i jak...",
+          "error": {
+            "required": "Opis jest wymagany"
+          }
+        },
+        "category": {
+          "label": "Kategoria",
+          "error": {
+            "required": "Kategoria jest wymagana"
+          }
+        },
+        "createdAt": {
+          "label": "Data"
+        },
+        "fileUpload": {
+          "error": {
+            "required": "Zdjęcie jest wymagane"
+          }
+        },
+        "isPrivate": {
+          "label": "Notka tylko prywatna"
+        }
+      },
+      "buttons": {
+        "submit": "Zapisz",
+        "back": "Powrót"
+      },
+      "messageOnCreateNoteSuccess": "Notka została dodana",
+      "messageOnCreateNoteError": "Nie udało się dodać notki",
+      "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem",
+      "formError": "Nie udało się dodać notki"
+    },
+    "menuAppBar": {
+      "appTitle": "HappyBee",
+      "links": {
+        "newNote": "Dodaj",
+        "notes": "Wszystkie",
+        "userNotes": "Twoje"
+      },
+      "menu": {
+        "createNewNote": "Dodaj wpis",
+        "userNotes": "Twoje wpisy",
+        "profile": "Twój Profil",
+        "logout": "Wyloguj"
+      },
+      "messageOnLogOutError": "Nie można się wylogować"
+    },
+    "note": {
+      "messageOnDeleteSuccess": "Notka została usunięta",
+      "messageOnDeleteError": "Nie udało się skasować notki",
+      "messageOnFileDeleteError": "Nie można skasować pliku ze zdjęciem",
+      "messageOnUserNoteAccessError": "Nie masz uprawnień do skasowania tej notki",
+      "messageOnPickSuccess": "Udało się",
+      "messageOnPickError": "Nie udało się z tą notką",
+      "messageOnUserPickAccessError": "Tę notek masz juz zapisaną",
+      "messageWhenEmptyPickers": "Badź pierwszy"
+    },
+    "dialogs": {
+      "delete": {
+        "title": "Usuń notkę",
+        "description": "Czy na pewno chcesz usunąć notkę?",
+        "cancelButton": "Nie",
+        "deleteButton": "Usuń"
+      }
+    },
+    "noteDetails": {
+      "messageOnError": "Nie udało się załadować notatki"
+    },
+    "notes": {
+      "pageTitle": "O zachodzie słońca ciesz się wschodzącymi gwiazdami",
+      "messageOnError": "Nie udało sie pobrać notatek"
+    },
+    "userNotes": {
+      "pageTitle": "Szczęśliwe życie to nieustanne maleńkie uczty",
+      "title": "Twój atlas",
+      "messageOnError": "Nie udalo sie pobrać notatek"
+    },
+    "searchBar": {
+      "input": {
+        "label": "Czego szukasz?",
+        "placeholder": "Wpisz czego szukasz..."
+      }
+    }
+  }
+}

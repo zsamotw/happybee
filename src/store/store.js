@@ -1,13 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas'
-import appStore from './app-reducer'
-import notesStore from './notes-reducer'
+import mainStore from '../shared/reducer/appReducer'
+import notesStore from '../features/Notes/reducer/notesReducer'
 
 const sagaMiddleware = createSagaMiddleware()
 
 const reducer = combineReducers({
-  app: appStore.reducer,
+  app: mainStore.reducer,
   notes: notesStore.reducer
 })
 
