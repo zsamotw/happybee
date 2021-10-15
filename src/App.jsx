@@ -1,5 +1,5 @@
 import React from 'react'
-import RootComponent from './features/login/RootComponent'
+import RootComponent from './component/RootComponent'
 
 export default function App() {
   return <RootComponent />

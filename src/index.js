@@ -8,8 +8,8 @@ import i18next from 'i18next'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import store from './store/store'
-import { theme } from './constants/theme'
-import commonPl from './translations/pl/common.json'
+import { theme } from './constant/theme'
+import commonPl from './translation/pl/common.json'
 
 i18next.init({
   interpolation: { escapeValue: false },
