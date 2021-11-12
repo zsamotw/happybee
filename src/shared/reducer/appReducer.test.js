@@ -1,5 +1,5 @@
 import { List } from 'immutable'
-import { appStore } from '../../component/Notes/reducer/notesReducer'
+import { appStore } from '../../features/Notes/reducer/notesReducer'
 import initialState from '../../store/initialState'
 import {
   RESET_STATE,

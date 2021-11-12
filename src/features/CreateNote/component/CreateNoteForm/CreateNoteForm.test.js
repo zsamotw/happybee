@@ -3,7 +3,7 @@ import { cleanup, fireEvent, screen } from '@testing-library/react'
 import { render } from '../../../../services/test-service'
 import { CreateNoteForm } from '../../index'
 
-describe('Test Create Note component', () => {
+describe('Test Create Note features', () => {
   afterEach(cleanup)
 
   it('should render all controls', () => {

@@ -3,7 +3,7 @@ import { cleanup } from '@testing-library/react'
 import { render, currentUser } from '../../../../services/test-service'
 import Note from './index'
 
-describe('Note component tests', () => {
+describe('Note features tests', () => {
   const note = {
     id: 'qTcmxVFQT9UvDxFA2SnY',
     imgStoragePath: 'images/2021-1/1613768382426/20200804_wiech_131.png',
@@ -38,7 +38,7 @@ describe('Note component tests', () => {
 
   afterEach(cleanup)
 
-  it('Should render Note component with proper item data', () => {
+  it('Should render Note features with proper item data', () => {
     const { getByText } = render(<Note note={note} />)
     const title = new RegExp(note.title)
     const description = new RegExp(note.description)
@@ -70,7 +70,7 @@ describe('Note component tests', () => {
     expect(pickers.textContent).toBe('1')
   })
 
-  it('Should not render Item component with not proper item data: id as null', () => {
+  it('Should not render Item features with not proper item data: id as null', () => {
     const noteWithIdNull = { ...note, id: null }
     const Wrapper = () => (
       <div>

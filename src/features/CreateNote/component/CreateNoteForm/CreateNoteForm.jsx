@@ -1,8 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { format } from 'date-fns'
-import { Button, makeStyles } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  makeStyles
+} from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import ButtonWithProgress from '../../../../shared/component/ButtonWithProgress'
@@ -45,7 +51,8 @@ export default function CreateNoteForm(props) {
       title: '',
       description: '',
       category: '',
-      createdAt: format(new Date(), 'yyyy-MM-dd')
+      createdAt: format(new Date(), 'yyyy-MM-dd'),
+      isPrivate: false
     }
   })
 
@@ -99,7 +106,7 @@ export default function CreateNoteForm(props) {
           <form onSubmit={handleSubmit(onSubmit)}>
             {HBTextField(titleInputProps)}
             {HBTextField(descriptionInputProps)}
-            <div style={{ width: '50%', marginBottom: '2rem' }}>
+            <Box width="50%" marginBottom="2rem">
               <HBSelect
                 id="categoryId"
                 labelId="category-select-label"
@@ -112,8 +119,8 @@ export default function CreateNoteForm(props) {
                 }}
                 error={errors.categoryId}
               />
-            </div>
-            <div style={{ width: '50%', marginBottom: '2rem' }}>
+            </Box>
+            <Box width="50%" marginBottom="2rem">
               <HBDatePicker
                 id="create-date-control"
                 name="createdAt"
@@ -121,8 +128,8 @@ export default function CreateNoteForm(props) {
                 register={register}
                 fullWidth
               />
-            </div>
-            <div style={{ marginBottom: '2rem' }}>
+            </Box>
+            <Box marginBottom="2rem">
               <HBFileUpload
                 id="files-upload-control"
                 dataTestId="file-upload-button"
@@ -133,7 +140,20 @@ export default function CreateNoteForm(props) {
                 multiple={false}
                 error={errors.files}
               />
-            </div>
+            </Box>
+            <Box marginBottom="2rem">
+              <FormControlLabel
+                control={
+                  <Controller
+                    as={Checkbox}
+                    name="isPrivate"
+                    control={control}
+                    defaultValue={false}
+                  />
+                }
+                label={t('notes.createNote.inputs.isPrivate.label')}
+              />
+            </Box>
             <div>
               <ButtonWithProgress
                 variant="contained"

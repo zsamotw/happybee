@@ -22,7 +22,14 @@ function CreateNote(props) {
     return { ...category, label: t(`data.categories.${category.slug}`) }
   })
 
-  const saveNote = ({ title, description, categoryId, createdAt, files }) => {
+  const saveNote = ({
+    title,
+    description,
+    categoryId,
+    createdAt,
+    files,
+    isPrivate
+  }) => {
     const category = categories.find(c => c.id === categoryId)
     const file = files ? files[0] : null
     const messageOnSuccess = t('notes.createNote.messageOnCreateNoteSuccess')
@@ -39,6 +46,7 @@ function CreateNote(props) {
       createdAt: new Date(createdAt),
       pickers,
       file,
+      isPrivate,
       navigateHome,
       setError,
       messageOnSuccess,

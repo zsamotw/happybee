@@ -3,7 +3,7 @@ import { fireEvent, cleanup } from '@testing-library/react'
 import { render } from '../../../../services/test-service'
 import Dialogs from './Dialogs'
 
-describe('Test Dialog component', () => {
+describe('Test Dialog features', () => {
   afterEach(cleanup)
   it('should handle delete note method when delete button has been clicked', () => {
     const handleDeleteNote = jest.fn()

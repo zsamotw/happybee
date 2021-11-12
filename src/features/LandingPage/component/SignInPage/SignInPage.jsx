@@ -62,7 +62,7 @@ const SignInFormBase = props => {
     variant: 'outlined',
     name: 'password',
     type: 'password',
-    placeholder: t('login.isignInPage.inputs.password.placeholder'),
+    placeholder: t('login.signInPage.inputs.password.placeholder'),
     register: register({
       required: t('login.signInPage.inputs.password.error.required'),
       minLength: {

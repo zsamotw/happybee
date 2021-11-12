@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import Dialogs from '../Dialogs'
 import AppDeleteIcon from '../../../../shared/component/HBDeleteIcon'
 import { formattedDateTime } from '../../../../services/date-service'
@@ -10,6 +11,7 @@ import routes from '../../../../constant/routes'
 import NoteMeta from '../NoteMeta'
 import { useDeleteNote } from '../../hook'
 import { selectCurrentUser } from '../../../../shared/selector/appSelectors'
+import { Box } from '@material-ui/core'
 
 const wrapper = {
   position: 'relative',
@@ -25,7 +27,7 @@ const wrapper = {
 }
 
 const useStyles = makeStyles(theme => ({
-  gridItem: {
+  root: {
     paddingRight: '1rem',
     marginBottom: '1rem',
     '&:hover': {
@@ -34,6 +36,9 @@ const useStyles = makeStyles(theme => ({
       },
       '& $description': {
         transform: 'scale(1.1)'
+      },
+      '& $deleteIcon': {
+        opacity: 1
       }
     }
   },
@@ -47,6 +52,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '600',
     marginBottom: '.1rem',
     paddingRight: '3rem'
+  },
+  category: {
+    marginBottom: '.07rem',
+    display: 'flex',
+    alignItems: 'center'
   },
   description: {
     color: `${theme.palette.grey[800]}`,
@@ -89,6 +99,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   deleteIcon: {
+    opacity: 0,
     position: 'absolute',
     right: '0',
     top: '-10px',
@@ -103,7 +114,15 @@ function Note(props) {
   const history = useHistory()
 
   const { note, currentUser } = props
-  const { id, title, description, category, author, createdAt } = note
+  const {
+    id,
+    title,
+    description,
+    category,
+    author,
+    createdAt,
+    isPrivate
+  } = note
 
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
 
@@ -143,7 +162,7 @@ function Note(props) {
 
   return (
     hasData() && (
-      <Grid className={classes.gridItem} item xs={12} sm={6} lg={4} xl={3}>
+      <Grid className={classes.root} item xs={12} sm={6} lg={4} xl={3}>
         <Dialogs
           isDeleteDialogOpened={openDeleteDialog}
           closeDeleteDialog={handleCloseDeleteDialog}
@@ -158,7 +177,10 @@ function Note(props) {
               </div>
             ) : null}
           </div>
-          <div style={{ marginBottom: '.07rem' }}>{category.label}</div>
+          <div className={classes.category}>
+            <Box mr={1}>{category.label}</Box>
+            {isPrivate && <VisibilityOffIcon color="primary" />}
+          </div>
           {note.imgURL ? (
             <div
               className={classes.imageWrapper}

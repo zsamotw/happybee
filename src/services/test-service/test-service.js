@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import { BrowserRouter } from 'react-router-dom'
-import reducer from '../../component/Notes/reducer/notesReducer'
+import reducer from '../../features/Notes/reducer/notesReducer'
 import rootSaga from '../../store/sagas'
 import { initialState } from './test-initial-state'
 

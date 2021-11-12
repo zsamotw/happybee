@@ -10,9 +10,7 @@ import Dialogs from '../Dialogs'
 import NoteMeta from '../NoteMeta'
 import NoteContent from './NoteContent'
 import notesStore from '../../reducer/notesReducer'
-import {
-  selectSelectedNote,
-} from '../../selector/notesSelectors'
+import { selectSelectedNote } from '../../selector/notesSelectors'
 import AppDeleteIcon from '../../../../shared/component/HBDeleteIcon'
 import HBPreloader from '../../../../shared/component/HBPreloader'
 import { syncNoteRequest } from '../../action/notesActions'
@@ -55,7 +53,8 @@ function NoteDetails({
 }) {
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
 
-  const { title, description, imgURL, category, author, createdAt } = note || {}
+  const { title, description, imgURL, category, author, createdAt, isPrivate } =
+    note || {}
 
   const { t } = useTranslation('common')
   const history = useHistory()
@@ -150,6 +149,7 @@ function NoteDetails({
                       category={category}
                       description={description}
                       createdAt={createdAt}
+                      isPrivate={isPrivate}
                     />
                     <NoteMeta note={note} />
                   </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import RootComponent from './component/RootComponent'
+import RootComponent from './features/RootComponent'
 
 export default function App() {
   return <RootComponent />

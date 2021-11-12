@@ -37,8 +37,7 @@ function* deleteFirebaseNote(action) {
     messageOnUserAccessError
   } = action.payload
   const { id, author: noteAuthor, imgURL, imgStoragePath } = note
-  const currentUser = yield call(Firebase.getCurrentUser)
-  const author = currentUser
+  const author = yield call(Firebase.getCurrentUser)
   if (author.uid === noteAuthor.uid) {
     if (imgURL && imgStoragePath) {
       yield call(deleteFile, imgStoragePath, messageOnFileDeleteError)
@@ -169,10 +168,14 @@ function* syncFirebaseNotes(action) {
     })
   )
   const { messageOnError } = action.payload
+  const currentUser = yield call(Firebase.getCurrentUser)
   const notesTransformer = snapshot => {
     const notes = []
     snapshot.forEach(doc => {
-      notes.push({ id: doc.id, ...doc.data() })
+      const note = doc.data()
+      if (!note.isPrivate || note?.author?.uid === currentUser.uid) {
+        notes.push({ id: doc.id, ...note })
+      }
     })
     return notes
   }

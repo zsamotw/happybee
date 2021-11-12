@@ -181,6 +181,9 @@
           "error": {
             "required": "Zdjęcie jest wymagane"
           }
+        },
+        "isPrivate": {
+          "label": "Notka tylko prywatna"
         }
       },
       "buttons": {
