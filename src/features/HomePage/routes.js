@@ -3,7 +3,7 @@ import routes from '../../constant/routes'
 import MainPage from './component/MainPage'
 import { CreateNote } from '../CreateNote'
 import NoteDetails from '../Notes/component/NoteDetails'
-import Notes from '../Notes/view/AllNotes'
+import Notes from '../Notes/view/Notes'
 import UserNotes from '../Notes/view/UserNotes'
 
 const homeRoutes = path => [

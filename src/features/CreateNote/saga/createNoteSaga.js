@@ -25,7 +25,6 @@ function* uploadFile(file, folder, messageOnFileUploadError) {
 }
 
 function* createFirebaseNote(action) {
- debugger
   const {
     title,
     description,
