@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Grid from '@material-ui/core/Grid'
 import categories_ from '../../constant/categories'
 import routes from '../../constant/routes'
 import { useCurrentViewTitle } from '../../shared/hook'
-import CreateNoteForm from './component/CreateNoteForm/CreateNoteForm'
+import NoteForm from './component/NoteForm/NoteForm'
 import { selectIsAsyncRequest } from '../../shared/selector/appSelectors'
 import { createNoteRequest } from './action/createNoteActions'
 
@@ -56,14 +57,18 @@ function CreateNote(props) {
   }
 
   return (
-    <div>
-      <CreateNoteForm
-        isSendingData={isSendingData}
-        onCreateNote={saveNote}
-        error={error}
-        categories={categories}
-      />
-    </div>
+    <Grid container>
+      <Grid item xs={10} md={8} lg={4}>
+        <h3>{t('notes.createNote.title')}</h3>
+        <h5>{t('notes.createNote.description')}</h5>
+        <NoteForm
+          isSendingData={isSendingData}
+          onSubmitNote={saveNote}
+          error={error}
+          categories={categories}
+        />
+      </Grid>
+    </Grid>
   )
 }
 

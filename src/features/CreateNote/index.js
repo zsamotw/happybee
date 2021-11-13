@@ -1,4 +1,4 @@
-import CreateNoteForm from './component/CreateNoteForm/CreateNoteForm'
+import NoteForm from './component/NoteForm/NoteForm'
 import CreateNote from './CreateNote'
 
-export { CreateNoteForm, CreateNote }
+export { NoteForm, CreateNote }

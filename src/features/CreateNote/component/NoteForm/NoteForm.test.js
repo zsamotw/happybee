@@ -1,14 +1,14 @@
 import React from 'react'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import { render } from '../../../../services/test-service'
-import { CreateNoteForm } from '../../index'
+import { NoteForm } from '../../index'
 
 describe('Test Create Note features', () => {
   afterEach(cleanup)
 
   it('should render all controls', () => {
     const { getByPlaceholderText, getByLabelText, getByTestId } = render(
-      <CreateNoteForm categories={[]} />
+      <NoteForm categories={[]} />
     )
     const titleInput = getByPlaceholderText(
       'notes.createNote.inputs.title.placeholder'
@@ -29,7 +29,7 @@ describe('Test Create Note features', () => {
 
   it('should not handle createNote function when form is not filled', async () => {
     const saveNoteMock = jest.fn()
-    render(<CreateNoteForm onCreateNote={saveNoteMock} categories={[]} />)
+    render(<NoteForm onCreateNote={saveNoteMock} categories={[]} />)
     fireEvent.click(screen.getByText('notes.createNote.buttons.submit'))
     expect(saveNoteMock).not.toHaveBeenCalled()
   })

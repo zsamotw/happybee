@@ -148,10 +148,7 @@
     }
   },
   "notes": {
-    "createNote": {
-      "pageTitle": "Szczęściem się jest",
-      "title": "Nowa Notka",
-      "description": "Zapisz to, za co dzisiaj jesteś wdzięczny",
+    "noteForm": {
       "inputs": {
         "title": {
           "label": "Tytuł",
@@ -190,10 +187,15 @@
         "submit": "Zapisz",
         "back": "Powrót"
       },
+      "formError": "Nie udało się dodać notki"
+    },
+    "createNote": {
+      "pageTitle": "Szczęściem się jest",
+      "title": "Nowa Notka",
+      "description": "Zapisz to, za co dzisiaj jesteś wdzięczny",
       "messageOnCreateNoteSuccess": "Notka została dodana",
       "messageOnCreateNoteError": "Nie udało się dodać notki",
-      "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem",
-      "formError": "Nie udało się dodać notki"
+      "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem"
     },
     "menuAppBar": {
       "appTitle": "HappyBee",
