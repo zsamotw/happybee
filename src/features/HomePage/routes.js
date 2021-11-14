@@ -1,11 +1,11 @@
 import AccountProfile from '../AccountProfile'
 import routes from '../../constant/routes'
 import MainPage from './component/MainPage'
-import { CreateNote } from '../CreateNote'
-import NoteDetails from '../Notes/component/NoteDetails'
+import NoteDetails from '../Notes/view/NoteDetails'
 import Notes from '../Notes/view/Notes'
 import UserNotes from '../Notes/view/UserNotes'
-import UpdateNote from '../CreateNote/component/UpdateNote/UpdateNote'
+import UpdateNote from '../Notes/view/UpdateNote/UpdateNote'
+import CreateNote from '../Notes/view/CreateNote/CreateNote'
 
 const homeRoutes = path => [
   {

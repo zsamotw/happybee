@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
-import categories_ from '../../constant/categories'
-import routes from '../../constant/routes'
-import { useCurrentViewTitle } from '../../shared/hook'
-import NoteForm from './component/NoteForm/NoteForm'
-import { selectIsAsyncRequest } from '../../shared/selector/appSelectors'
-import { createNoteRequest } from './action/createNoteActions'
+import categories_ from '../../../../constant/categories'
+import routes from '../../../../constant/routes'
+import { useCurrentViewTitle } from '../../../../shared/hook'
+import NoteForm from '../../component/NoteForm'
+import { selectIsAsyncRequest } from '../../../../shared/selector/appSelectors'
+import { createNoteRequest } from '../../action/notesActions'
 
 function CreateNote(props) {
   const { isSendingData, saveNoteRequest } = props

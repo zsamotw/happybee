@@ -6,11 +6,11 @@ import { connect } from 'react-redux'
 import { useCurrentViewTitle } from '../../../../shared/hook'
 import categories_ from '../../../../constant/categories'
 import routes from '../../../../constant/routes'
-import NoteForm from '../NoteForm/NoteForm'
+import NoteForm from '../../component/NoteForm'
 import { selectIsAsyncRequest } from '../../../../shared/selector/appSelectors'
-import { updateNoteRequest } from '../../action/createNoteActions'
-import { selectSelectedNote } from '../../../Notes/selector/notesSelectors'
-import { useGetNote } from '../../../Notes/hook'
+import { selectSelectedNote } from '../../selector/notesSelectors'
+import { useGetNote } from '../../hook'
+import { updateNoteRequest } from '../../action/notesActions'
 
 function UpdateNote(props) {
   const { isSendingData, saveNoteRequest, note } = props

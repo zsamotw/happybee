@@ -4,10 +4,7 @@ import Firebase from '../../../firebase'
 import requestWithFetchingData from '../../../store/hepler'
 import isAsyncRequest from '../../../constant/asyncRequests'
 import appStore from '../../../shared/reducer/appReducer'
-import {
-  createNoteRequest,
-  updateNoteRequest
-} from '../action/createNoteActions'
+import { createNoteRequest, updateNoteRequest } from '../action/notesActions'
 
 function* uploadFile(file, folder, messageOnFileUploadError) {
   try {
@@ -71,7 +68,6 @@ function* createFirebaseNote(action) {
 }
 
 function* updateFirebaseNote(action) {
-  console.log('>>> update firabase note', action)
   const {
     id,
     title,
@@ -136,7 +132,7 @@ function* onUpdateNoteRequest(action) {
   )
 }
 
-export default function* createNoteSaga() {
+export default function* creationNoteSaga() {
   yield takeLatest(createNoteRequest.type, onCreateNoteRequest)
   yield takeLatest(updateNoteRequest.type, onUpdateNoteRequest)
 }

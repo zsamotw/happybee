@@ -36,3 +36,17 @@ export const setNoteQueryFilterRequest = createAction(
   'Notes/Set note query filter request',
   query => ({ payload: query })
 )
+
+export const createNoteRequest = createAction(
+  'Notes/Create note request',
+  noteData => ({
+    payload: { ...noteData }
+  })
+)
+
+export const updateNoteRequest = createAction(
+  'Notes/Update note request',
+  noteData => ({
+    payload: { ...noteData }
+  })
+)

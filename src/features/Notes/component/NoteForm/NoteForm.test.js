@@ -1,7 +1,7 @@
 import React from 'react'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import { render } from '../../../../services/test-service'
-import { NoteForm } from '../../index'
+import { NoteForm } from '../../../CreateNote'
 
 describe('Test Create Note features', () => {
   afterEach(cleanup)
