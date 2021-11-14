@@ -6,3 +6,10 @@ export const createNoteRequest = createAction(
     payload: { ...noteData }
   })
 )
+
+export const updateNoteRequest = createAction(
+  'Notes/Update note request',
+  noteData => ({
+    payload: { ...noteData }
+  })
+)

@@ -4,14 +4,14 @@ import Grid from '@material-ui/core/Grid'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import { Box } from '@material-ui/core'
 import Dialogs from '../Dialogs'
-import AppDeleteIcon from '../../../../shared/component/HBDeleteIcon'
+import HBDeleteButton from '../../../../shared/component/HBDeleteButton'
 import { formattedDateTime } from '../../../../services/date-service'
 import routes from '../../../../constant/routes'
 import NoteMeta from '../NoteMeta'
 import { useDeleteNote } from '../../hook'
 import { selectCurrentUser } from '../../../../shared/selector/appSelectors'
-import { Box } from '@material-ui/core'
 
 const wrapper = {
   position: 'relative',
@@ -173,7 +173,7 @@ function Note(props) {
             <h3 className={classes.headLine}>{title}</h3>
             {note.author.uid === currentUser.uid ? (
               <div className={classes.deleteIcon} data-testid="delete-icon">
-                <AppDeleteIcon onClick={handleOpenDeleteDialog} />
+                <HBDeleteButton onClick={handleOpenDeleteDialog} />
               </div>
             ) : null}
           </div>

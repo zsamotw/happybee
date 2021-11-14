@@ -4,7 +4,7 @@ const routes = {
   signIn: '/signIn',
   home: '/home',
   account: '/account',
-  createNote: '/notes/create-note',
+  createNote: '/notes/create',
   notes: '/notes',
   user: '/user'
 }

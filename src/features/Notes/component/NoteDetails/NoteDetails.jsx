@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import React from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -9,16 +9,16 @@ import Paper from '@material-ui/core/Paper'
 import Dialogs from '../Dialogs'
 import NoteMeta from '../NoteMeta'
 import NoteContent from './NoteContent'
-import notesStore from '../../reducer/notesReducer'
 import { selectSelectedNote } from '../../selector/notesSelectors'
-import AppDeleteIcon from '../../../../shared/component/HBDeleteIcon'
 import HBPreloader from '../../../../shared/component/HBPreloader'
-import { syncNoteRequest } from '../../action/notesActions'
-import { useDeleteNote } from '../../hook'
+import { useDeleteNote, useGetNote } from '../../hook'
 import {
   selectCurrentUser,
   selectIsAsyncRequest
 } from '../../../../shared/selector/appSelectors'
+import HBEditButton from '../../../../shared/component/HBEditButton'
+import HBDeleteButton from '../../../../shared/component/HBDeleteButton'
+import routes from '../../../../constant/routes'
 
 const useStyles = makeStyles({
   root: {
@@ -43,12 +43,10 @@ const useStyles = makeStyles({
 })
 
 function NoteDetails({
-  getNote,
   note,
   isFetchingData,
   isUpdatingData,
   isDeletingData,
-  unsetSelectedNote,
   currentUser
 }) {
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false)
@@ -61,16 +59,9 @@ function NoteDetails({
   const theme = useTheme()
   const classes = useStyles(theme)
   const { id } = useParams()
+  const messageOnError = t('notes.noteDetails.messageOnError')
 
-  useEffect(() => {
-    const messageOnError = t('notes.noteDetails.messageOnError')
-    const noteData = { id, messageOnError }
-    getNote(noteData)
-
-    return () => {
-      unsetSelectedNote()
-    }
-  }, [id, getNote, t, unsetSelectedNote])
+  useGetNote(messageOnError)
 
   const shouldNavigateHome = true
   const handleDeleteNote = useDeleteNote(
@@ -80,6 +71,8 @@ function NoteDetails({
   )
 
   const handleNavigateBack = () => history.goBack()
+  const handleNavigateEdit = () =>
+    history.push(`${routes.home}${routes.notes}/${id}/edit`)
 
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true)
@@ -120,7 +113,10 @@ function NoteDetails({
                   <CloseIcon />
                 </IconButton>
                 {note.author.uid === currentUser.uid && (
-                  <AppDeleteIcon onClick={handleClickOpenDeleteDialog} />
+                  <div>
+                    <HBEditButton onClick={handleNavigateEdit} />
+                    <HBDeleteButton onClick={handleClickOpenDeleteDialog} />
+                  </div>
                 )}
               </div>
               <div className={classes.content}>
@@ -139,6 +135,7 @@ function NoteDetails({
                       category={category}
                       description={description}
                       createdAt={createdAt}
+                      isPrivate={isPrivate}
                       withImage
                     />
                   </>
@@ -174,11 +171,4 @@ function mapStateToProps(state) {
   return { currentUser, note, isFetchingData, isUpdatingData, isDeletingData }
 }
 
-function mapDispatchToState(dispatch) {
-  return {
-    getNote: noteData => dispatch(syncNoteRequest(noteData)),
-    unsetSelectedNote: () => dispatch(notesStore.actions.unselectNoteSuccess())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToState)(NoteDetails)
+export default connect(mapStateToProps, null)(NoteDetails)

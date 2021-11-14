@@ -197,6 +197,14 @@
       "messageOnCreateNoteError": "Nie udało się dodać notki",
       "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem"
     },
+    "updateNote": {
+      "pageTitle": "Szczęściem się jest",
+      "title": "Edycja Notki",
+      "description": "Edytuj notkę",
+      "messageOnCreateNoteSuccess": "Notka została zaktualizowana",
+      "messageOnCreateNoteError": "Nie udało się zaktualizować notki",
+      "messageOnFileUploadError": "Nie można załadować pliku ze zdjęciem"
+    },
     "menuAppBar": {
       "appTitle": "HappyBee",
       "links": {

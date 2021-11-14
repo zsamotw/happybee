@@ -4,7 +4,10 @@ import Firebase from '../../../firebase'
 import requestWithFetchingData from '../../../store/hepler'
 import isAsyncRequest from '../../../constant/asyncRequests'
 import appStore from '../../../shared/reducer/appReducer'
-import { createNoteRequest } from '../action/createNoteActions'
+import {
+  createNoteRequest,
+  updateNoteRequest
+} from '../action/createNoteActions'
 
 function* uploadFile(file, folder, messageOnFileUploadError) {
   try {
@@ -67,6 +70,56 @@ function* createFirebaseNote(action) {
   navigateHome()
 }
 
+function* updateFirebaseNote(action) {
+  console.log('>>> update firabase note', action)
+  const {
+    id,
+    title,
+    description,
+    category,
+    createdAt,
+    pickers,
+    file,
+    isPrivate,
+    navigateHome,
+    messageOnFileUploadError
+  } = action.payload
+  const currentUser = yield call(Firebase.getCurrentUser)
+  const author = Firebase.transformDbUserToSafeUser(currentUser)
+  const folder = `images/${createdAt.getFullYear()}-${createdAt.getMonth()}/${createdAt.getTime()}`
+  const note = {
+    title,
+    description,
+    category,
+    author,
+    pickers,
+    createdAt: createdAt.toString(),
+    isPrivate
+  }
+  if (file) {
+    yield call(uploadFile, file, folder, messageOnFileUploadError)
+
+    const imgStoragePath = `${folder}/${file.name}`
+    const fileRef = Firebase.storageRef().child(imgStoragePath)
+    const imgURL = yield call(Firebase.getDownloadURL, fileRef)
+
+    yield call(
+      Firebase.setDocument,
+      `notes/${id}`,
+      {
+        ...note,
+        imgStoragePath,
+        imgURL
+      },
+      { merge: true }
+    )
+  } else {
+    yield call(Firebase.setDocument, `notes/${id}`, note, { merge: true })
+  }
+
+  navigateHome()
+}
+
 function* onCreateNoteRequest(action) {
   yield requestWithFetchingData(
     action,
@@ -75,6 +128,15 @@ function* onCreateNoteRequest(action) {
   )
 }
 
+function* onUpdateNoteRequest(action) {
+  yield requestWithFetchingData(
+    action,
+    updateFirebaseNote,
+    isAsyncRequest.isSendingData
+  )
+}
+
 export default function* createNoteSaga() {
   yield takeLatest(createNoteRequest.type, onCreateNoteRequest)
+  yield takeLatest(updateNoteRequest.type, onUpdateNoteRequest)
 }

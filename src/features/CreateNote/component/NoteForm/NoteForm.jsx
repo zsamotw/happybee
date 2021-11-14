@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Controller, useForm } from 'react-hook-form'
 import { format } from 'date-fns'
-import { Box, Button, Checkbox, FormControlLabel, makeStyles } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  makeStyles
+} from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import ButtonWithProgress from '../../../../shared/component/ButtonWithProgress'
 import HBTextField from '../../../../shared/component/HBTextField'
@@ -32,24 +38,43 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function NoteForm(props) {
-  const { isSendingData, onSubmitNote, error, categories } = props
-
+export default function NoteForm({
+  isSendingData,
+  onSubmitNote,
+  error,
+  categories,
+  initialValues,
+  editMode
+}) {
   const classes = useStyles()
 
   const { t } = useTranslation('common')
+  const history = useHistory()
 
-  const { register, handleSubmit, errors, control, watch } = useForm({
-    defaultValues: {
-      title: '',
-      description: '',
-      category: '',
-      createdAt: format(new Date(), 'yyyy-MM-dd'),
-      isPrivate: false
-    }
+  const defaultValues = {
+    title: '',
+    description: '',
+    categoryId: '',
+    createdAt: format(new Date(), 'yyyy-MM-dd'),
+    isPrivate: false
+  }
+
+  const { register, handleSubmit, errors, control, watch, setValue } = useForm({
+    defaultValues
   })
 
-  const history = useHistory()
+  useEffect(() => {
+    if (editMode && initialValues) {
+      setValue('title', initialValues.title, true)
+      setValue('description', initialValues.description, true)
+      setValue('categoryId', initialValues.category.id)
+      setValue(
+        'createdAt',
+        format(new Date(initialValues.createdAt), 'yyyy-MM-dd')
+      )
+      setValue('isPrivate', initialValues.isPrivate)
+    }
+  }, [initialValues, editMode, setValue])
 
   const titleInputProps = {
     id: 'titleName-input',

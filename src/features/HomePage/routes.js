@@ -5,6 +5,7 @@ import { CreateNote } from '../CreateNote'
 import NoteDetails from '../Notes/component/NoteDetails'
 import Notes from '../Notes/view/Notes'
 import UserNotes from '../Notes/view/UserNotes'
+import UpdateNote from '../CreateNote/component/UpdateNote/UpdateNote'
 
 const homeRoutes = path => [
   {
@@ -31,6 +32,11 @@ const homeRoutes = path => [
     path: `${path}${routes.user}/:userUid${routes.notes}`,
     exact: true,
     component: UserNotes
+  },
+  {
+    path: `${path}${routes.notes}/:id/edit`,
+    exact: false,
+    component: UpdateNote
   },
   {
     path: `${path}${routes.notes}/:id`,

@@ -29,7 +29,7 @@ describe('Test Create Note features', () => {
 
   it('should not handle createNote function when form is not filled', async () => {
     const saveNoteMock = jest.fn()
-    render(<NoteForm onCreateNote={saveNoteMock} categories={[]} />)
+    render(<NoteForm onCreaTeNote={saveNoteMock} categories={[]} />)
     fireEvent.click(screen.getByText('notes.createNote.buttons.submit'))
     expect(saveNoteMock).not.toHaveBeenCalled()
   })

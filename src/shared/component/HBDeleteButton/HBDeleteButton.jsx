@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function HBDeleteIcon({ onClick }) {
+export default function HBDeleteButton({ onClick }) {
   const theme = useTheme()
   const classes = useStyles(theme)
 
